@@ -1,0 +1,478 @@
+<div class="view_staff_popup" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog-centered">
+
+    <div class="modal-content large-popup">
+      <div class="popup-header">
+        <h2>Add Exception</h2>
+      </div>
+      <div class="popup-content cst-scroll-bar">
+
+        <div class="search-filter-block mb-3 px-0">
+          <div class="row" *ngIf="isShowErrorMessage">
+            <div class="col-md-12">
+              <div class="alert alert-danger">
+                Please fill the required information
+              </div>
+            </div>
+          </div>
+          <!-- branch Name -->
+          <div class="row align-items-end">
+            <div class="col-lg-4 col-md-5 mb-md-0 mb-2">
+              <div class="field-label mt-0">Branch Name</div>
+              <div class="select-label">
+                <mat-select class="form-control" placeholder="Select Branch" name="BranchSearch" #selectedBranch
+                  [(ngModel)]="selectedBranchTypeList" multiple>
+                  <mat-select-trigger *ngIf="selectedBranchTypeList.length - 1 == branchList.length">
+                    All
+                  </mat-select-trigger>
+                  <mat-select-trigger *ngIf="selectedBranchTypeList && selectedBranchTypeList.length > 0">
+                    {{selectedBranchTypeList && selectedBranchTypeList.length > 0 &&
+                                        selectedBranchTypeList[0].BranchName ?
+                                        selectedBranchTypeList[0].BranchName :
+                                        selectedBranchTypeList && selectedBranchTypeList.length >= 2 &&
+                                        selectedBranchTypeList[0].BranchName == undefined ?
+                                        selectedBranchTypeList[1].BranchName : ''}}
+                    <span *ngIf="selectedBranchTypeList && selectedBranchTypeList.length >= 2"
+                      class="example-additional-selection">
+                      (+{{selectedBranchTypeList[0].BranchName == undefined ?
+                                            selectedBranchTypeList.length
+                                            - 2 :
+                                            selectedBranchTypeList.length - 1 }}
+                      {{selectedBranchTypeList[0].BranchName == undefined &&
+                                            selectedBranchTypeList.length
+                                            === 3 ? 'other' :
+                                            selectedBranchTypeList.length === 2 ? 'other' : 'others'}})
+                    </span>
+                  </mat-select-trigger>
+                  <span *ngIf="branchList && branchList.length > 1">
+                    <mat-option #allSelectedBranchTypeList (click)="onSelectAllBranchType()" [value]="0">
+                      All</mat-option>
+                  </span>
+                  <mat-option *ngFor="let option of branchList" [value]="option" (click)="onToggleBranchTypeSelect()">
+                    {{option.BranchName}} </mat-option>
+                </mat-select>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-5 mb-md-0 mb-2">
+              <div class="field-label mt-0">
+                {{itemTypeName}} Name
+              </div>
+              <div class="select-label">
+                <mat-select class="form-control" placeholder="Select {{itemTypeName}}" name="mainSearch" #selectItem
+                  [(ngModel)]="selectedItemTypeList" tabindex="10" multiple>
+                  <mat-select-trigger *ngIf="selectedItemTypeList.length - 1 == allExceptionItemTypeList.length">
+                    All
+                  </mat-select-trigger>
+                  <mat-select-trigger *ngIf="selectedItemTypeList && selectedItemTypeList.length > 0">
+                    {{selectedItemTypeList && selectedItemTypeList.length > 0 &&
+                                        selectedItemTypeList[0].ItemName ?
+                                        selectedItemTypeList[0].ItemName :
+                                        selectedItemTypeList && selectedItemTypeList.length >= 2 &&
+                                        selectedItemTypeList[0].ItemName == undefined ?
+                                        selectedItemTypeList[1].ItemName : ''}}
+                    <span *ngIf="selectedItemTypeList && selectedItemTypeList.length >= 2"
+                      class="example-additional-selection">
+                      (+{{selectedItemTypeList[0].ItemName == undefined ?
+                                            selectedItemTypeList.length
+                                            - 2 :
+                                            selectedItemTypeList.length - 1 }}
+                      {{selectedItemTypeList[0].ItemName == undefined &&
+                                            selectedItemTypeList.length
+                                            === 3 ? 'other' :
+                                            selectedItemTypeList.length === 2 ? 'other' : 'others'}})
+                    </span>
+                  </mat-select-trigger>
+                  <span *ngIf="allExceptionItemTypeList && allExceptionItemTypeList.length > 1">
+                    <mat-option #allSelectedItemTypeList (click)="onSelectAllItemType()" [value]="0">
+                      All</mat-option>
+                  </span>
+                  <mat-option *ngFor="let option of allExceptionItemTypeList" [value]="option"
+                    (click)="onToggleItemTypeSelect()">
+                    {{option.ItemName}} </mat-option>
+                </mat-select>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-2">
+              <button type="button" class="filter-button blue-button" (click)="onAddExceptionListInGrid()"> Add</button>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="search-filter-block px-0">
+          <div class="row align-items-end">
+            <div class="col-lg-4 col-md-5 mb-md-0 mb-2">
+              <div class="field-label mt-0">
+                Branch Name
+              </div>
+              <div class="select-label">
+                <mat-select class="form-control" placeholder="Select Branch" name="mainSearch"
+                  [(ngModel)]="selectedSearchBranchList" multiple>
+                  <mat-select-trigger *ngIf="selectedSearchBranchList.length - 1 == allSearchBranchList.length">
+                    All
+                  </mat-select-trigger>
+                  <mat-select-trigger *ngIf="selectedSearchBranchList && selectedSearchBranchList.length > 0">
+                    {{selectedSearchBranchList && selectedSearchBranchList.length > 0 &&
+                                        selectedSearchBranchList[0].BranchName ?
+                                        selectedSearchBranchList[0].BranchName :
+                                        selectedSearchBranchList && selectedSearchBranchList.length >= 2 &&
+                                        selectedSearchBranchList[0].BranchName == undefined ?
+                                        selectedSearchBranchList[1].BranchName : ''}}
+                    <span *ngIf="selectedSearchBranchList && selectedSearchBranchList.length >= 2"
+                      class="example-additional-selection">
+                      (+{{selectedSearchBranchList[0].BranchName == undefined ?
+                                            selectedSearchBranchList.length
+                                            - 2 :
+                                            selectedSearchBranchList.length - 1 }}
+                      {{selectedSearchBranchList[0].BranchName == undefined &&
+                                            selectedSearchBranchList.length
+                                            === 3 ? 'other' :
+                                            selectedSearchBranchList.length === 2 ? 'other' : 'others'}})
+                    </span>
+                  </mat-select-trigger>
+                  <span *ngIf="allSearchBranchList && allSearchBranchList.length > 1">
+                    <mat-option #allSelectedSearchBranchList (click)="onSelectSearchBranch()" [value]="0">
+                      All</mat-option>
+                  </span>
+                  <mat-option *ngFor="let option of allSearchBranchList" [value]="option"
+                    (click)="onToggleSearchBranch()">
+                    {{option.BranchName}} </mat-option>
+                </mat-select>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-5 mb-md-0 mb-2">
+              <div class="field-label mt-0">
+                {{itemTypeName}} Name
+              </div>
+              <div>
+                <input [value]="itemName" type="text" class="form-control" placeholder="Search {{itemTypeName}}"
+                  matInput [formControl]="searchItem" [matAutocomplete]="auto" maxlength="30">
+                <span *ngIf="selectedSearchItem" (click)="onClearSelectedItem()" class="clear_client"></span>
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayItemName"
+                  (optionSelected)='getSearchedItem($event.option.value)'>
+                  <mat-option *ngFor="let option of copySearchItemTypeList" [value]="option">
+                    <span class="client_name">{{ option.ItemName }}</span>
+                  </mat-option>
+                </mat-autocomplete>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-2 mb-md-0 mb-2">
+              <button type="button" class="filter-button blue-button" (click)="onSearchClick(searchItem.value)">
+                Search</button>
+            </div>
+            <div class="col-lg-3 offset-lg-0 offset-md-6 col-md-6 mt-lg-0 mt-md-3 pl-0 text-right">
+              <button class="text-button" [disabled]="!isDeleteExemptedbtnDisabled" (click)="onExcemptClick()">Exempt
+                All</button> <span class="verticle-seprator">|</span>
+              <button class="text-button" [disabled]="!isDeleteExemptedbtnDisabled" (click)="onDeleteAllClick()">Delete
+                All</button>
+            </div>
+          </div>
+
+          <div class="search-filter-block pb-0">
+            <div class="overflow-auto">
+              <div class="grid-scroll-lg cst-scroll-bar">
+                <div class="row align-items-center grid-header">
+
+                  <div class="col-2 col-md-2">
+                    <span class="checkbox checkbox-success d-flex">
+                      <input [(ngModel)]="isSelectAllItemTypes" [disabled]='gridTableList.length == 0'
+                        (ngModelChange)="onAllItemTypeSelectionChange($event)" name="itemNameGrid" id="itemNameGrid"
+                        type="checkbox">
+                      <label for="itemNameGrid" class="font-weight-medium">
+                        &nbsp;{{itemTypeName}}</label>
+                    </span>
+                  </div>
+                  <div class="col col-md-9 row align-items-center p-0 reward-points-block">
+                    <div class="col p-0 mr-0">
+                      <h5>Branch</h5>
+                    </div>
+                    <div class="col p-0">
+                      <h5>Amount Spent</h5>
+                    </div>
+                    <div class="field-equal-sign text-center invisible">=</div>
+                    <div class="col p-0">
+                      <h5>Member Earned Value</h5>
+                    </div>
+                    <div class="col p-0">
+                      <h5 *ngIf="data.itemTypeID != enum_PurchasesType.Membership">Client Earned Value</h5>
+                    </div>
+                    <div class="col p-0">
+                      <h5 *ngIf="data.itemTypeID != enum_PurchasesType.Membership">Lead Earned Value</h5>
+                    </div>
+                    <div class="col p-0">
+                      <h5 *ngIf="data.itemTypeID != enum_PurchasesType.Membership">Free Benefits Points</h5>
+                    </div>
+                  </div>
+                  <div class="col-1 col-md-1 text-center">
+                    <h5>Actions</h5>
+                  </div>
+                </div>
+
+                <div *ngIf="selectedSearchBranchList.length > 0">
+                  <div *ngFor="let branch of selectedSearchBranchList">
+                    <ng-container *ngFor="let option of gridTableList ;let i = index">
+                      <div class="row align-items-center grid-content no-hover py-2"
+                        [hidden]="branch.BranchID != option.BranchID">
+                        <div class="col-2 col-md-2">
+                          <span class="checkbox checkbox-success d-flex">
+                            <input type="checkbox" name="{{'Chk_item' + option.ItemID+i}}"
+                              id="{{'Chk_item' + option.ItemID + i}}" [(ngModel)]="option.IsSelected"
+                              [(checked)]="option.IsSelected" (ngModelChange)="onItemTypeSelectionChange()" />
+                            <label class="mb-0"
+                              for="{{'Chk_item' + option.ItemID+ i}}">{{option.ItemName}}</label>
+                          </span>
+                        </div>
+
+                        <div class="col col-md-9 row align-items-center p-0 reward-points-block">
+                          <div class="col p-0 mr-0">
+                            <h5>{{option.BranchName}}</h5>
+                          </div>
+                          <div class="col p-0" [ngClass]="{
+                                                    'has-danger': amountSpent.invalid
+                                                                  && (amountSpent.dirty || amountSpent.touched)
+                                                                  || ((!amountSpent.value) || amountSpent.value == null)
+                                                                  && showError,
+                                                    'has-success': (option.MemberEarnedPoints != null)
+                                                                    && amountSpent.valid && (amountSpent.dirty || amountSpent.touched)
+                                                    }">
+                            <div class="input-group reward-input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text no-width">{{currencyFormat}}</span>
+                              </div>
+                              <input (ngModelChange)="onValidationCheck()" class="form-control" minlength="0"
+                                maxlength="6" type="text" [(ngModel)]="option.AmountSpent" name="amountSpent"
+                                #amountSpent="ngModel" required numberControl twoDigitDecimaNumber>
+                            </div>
+                          </div>
+                          <div class="field-equal-sign text-center">=</div>
+                          <div class="col p-0">
+                            <div [ngClass]="{
+                                                        'has-danger': memberEarnedPoints.invalid
+                                                                      && (memberEarnedPoints.dirty || memberEarnedPoints.touched)
+                                                                      || ((!memberEarnedPoints.value) || memberEarnedPoints.value == null)
+                                                                      && showError,
+                                                        'has-success': (option.MemberEarnedPoints != null)
+                                                                       && memberEarnedPoints.valid && (memberEarnedPoints.dirty || memberEarnedPoints.touched)
+                                                        }">
+
+                              <input minlength="0" maxlength="6" class="form-control"
+                                onkeydown="if(event.key==='.'){event.preventDefault();}"
+                                oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+                                (ngModelChange)="onValidationCheck()" type="text" name="memberEarnedPoints"
+                                #memberEarnedPoints="ngModel" [(ngModel)]="option.MemberEarnedPoints" required
+                                numberControl>
+                            </div>
+                          </div>
+                          <div class="col p-0">
+                            <div *ngIf="data.itemTypeID != enum_PurchasesType.Membership" [ngClass]="{
+                                                        'has-danger': clientEarnedPoints.invalid
+                                                                      && (clientEarnedPoints.dirty || clientEarnedPoints.touched)
+                                                                      || ((!clientEarnedPoints.value) || clientEarnedPoints.value == null)
+                                                                      && showError,
+                                                        'has-success': (option.MemberEarnedPoints != null)
+                                                                       && clientEarnedPoints.valid && (clientEarnedPoints.dirty || clientEarnedPoints.touched)
+                                                        }">
+                              <input minlength="0" maxlength="6" class="form-control"
+                                onkeydown="if(event.key==='.'){event.preventDefault();}"
+                                oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+                                (ngModelChange)="onValidationCheck()" type="text" name="clientEarnedPoints"
+                                #clientEarnedPoints="ngModel" [(ngModel)]="option.ClientEarnedPoints" required
+                                numberControl [disabled]="data.itemTypeID == enum_PurchasesType.Membership">
+                            </div>
+                          </div>
+                          <div class="col p-0">
+                            <div *ngIf="data.itemTypeID != enum_PurchasesType.Membership" [ngClass]="{
+                                                        'has-danger': leadEarnedPoints.invalid
+                                                                      && (leadEarnedPoints.dirty || leadEarnedPoints.touched)
+                                                                      || ((!leadEarnedPoints.value) || leadEarnedPoints.value == null)
+                                                                      && showError,
+                                                        'has-success': (option.MemberEarnedPoints != null)
+                                                                       && leadEarnedPoints.valid && (leadEarnedPoints.dirty || leadEarnedPoints.touched)
+                                                        }">
+                              <input minlength="0" maxlength="6" class="form-control"
+                                (ngModelChange)="onValidationCheck()"
+                                onkeydown="if(event.key==='.'){event.preventDefault();}"
+                                oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');" type="text"
+                                name="leadEarnedPoints" #leadEarnedPoints="ngModel"
+                                [(ngModel)]="option.LeadEarnedPoints" required numberControl
+                                [disabled]="data.itemTypeID == enum_PurchasesType.Membership">
+                            </div>
+                          </div>
+                          <div class="col p-0">
+                            <div *ngIf="data.itemTypeID != enum_PurchasesType.Membership" [ngClass]="{
+                                                        'has-danger': benefittedEarnedPoints.invalid
+                                                                      && (benefittedEarnedPoints.dirty || benefittedEarnedPoints.touched)
+                                                                      || ((!benefittedEarnedPoints.value) || benefittedEarnedPoints.value == null)
+                                                                      && showError,
+                                                        'has-success': (option.MemberEarnedPoints != null)
+                                                                       && benefittedEarnedPoints.valid && (benefittedEarnedPoints.dirty || benefittedEarnedPoints.touched)
+                                                        }">
+                              <input minlength="0" maxlength="6" class="form-control"
+                                (ngModelChange)="onValidationCheck()" type="text" name="benefittedEarnedPoints"
+                                #benefittedEarnedPoints="ngModel" [(ngModel)]="option.BenefittedEarnedPoints"
+                                onkeydown="if(event.key==='.'){event.preventDefault();}"
+                                oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');" min="0"
+                                required numberControl [disabled]="data.itemTypeID == enum_PurchasesType.Membership">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-1 col-md-1 text-center grid-actions-btn">
+                          <h5>
+                            <span class="red">
+                              <a matTooltip="Delete" matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                                href="javascript:void(0)" (click)="onDeleteItem(i)">
+                                <i class="fal fa-trash-alt"></i>
+                              </a>
+                            </span>
+                          </h5>
+                        </div>
+                      </div>
+
+                    </ng-container>
+                  </div>
+                </div>
+
+                <div *ngIf="selectedSearchBranchList.length == 0">
+
+                  <div class="row align-items-center grid-content no-hover py-2"
+                    *ngFor="let option of gridTableList ;let i = index">
+
+                    <div class="col-2 col-md-2">
+                      <span class="checkbox checkbox-success d-flex">
+                        <input type="checkbox" name="{{'Chk_item' + option.ItemID + i}}"
+                          id="{{'Chk_item' + option.ItemID + i}}" [(ngModel)]="option.IsSelected"
+                          [(checked)]="option.IsSelected" (ngModelChange)="onItemTypeSelectionChange()" />
+                        <label class="mb-0"
+                          for="{{'Chk_item' + option.ItemID + i}}">{{option.ItemName}}</label>
+                      </span>
+                    </div>
+
+                    <div class="col col-md-9 row align-items-center p-0 reward-points-block">
+                      <div class="col p-0 mr-0">
+                        <h5>{{option.BranchName}}</h5>
+                      </div>
+                      <div class="col p-0" [ngClass]="{
+                                            'has-danger': amountSpent.invalid
+                                                          && (amountSpent.dirty || amountSpent.touched)
+                                                          || ((!amountSpent.value) || amountSpent.value == null)
+                                                          && showError,
+                                            'has-success': (option.MemberEarnedPoints != null)
+                                                            && amountSpent.valid && (amountSpent.dirty || amountSpent.touched)
+                                            }">
+                        <div class="input-group reward-input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text no-width">{{currencyFormat}}</span>
+                          </div>
+                          <input (ngModelChange)="onValidationCheck()" class="form-control" minlength="0" maxlength="6"
+                            type="text" [(ngModel)]="option.AmountSpent" name="amountSpent" #amountSpent="ngModel"
+                            required numberControl twoDigitDecimaNumber>
+                        </div>
+                      </div>
+                      <div class="field-equal-sign text-center">=</div>
+                      <div class="col p-0">
+                        <div [ngClass]="{
+                                                'has-danger': memberEarnedPoints.invalid
+                                                              && (memberEarnedPoints.dirty || memberEarnedPoints.touched)
+                                                              || ((!memberEarnedPoints.value) || memberEarnedPoints.value == null)
+                                                              && showError,
+                                                'has-success': (option.MemberEarnedPoints != null)
+                                                               && memberEarnedPoints.valid && (memberEarnedPoints.dirty || memberEarnedPoints.touched)
+                                                }">
+
+                          <input minlength="0" maxlength="6" class="form-control"
+                            onkeydown="if(event.key==='.'){event.preventDefault();}"
+                            oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+                            (ngModelChange)="onValidationCheck()" type="text" name="memberEarnedPoints"
+                            #memberEarnedPoints="ngModel" [(ngModel)]="option.MemberEarnedPoints" required
+                            numberControl>
+                        </div>
+                      </div>
+                      <div class="col p-0">
+                        <div *ngIf="data.itemTypeID != enum_PurchasesType.Membership" [ngClass]="{
+                                                'has-danger': clientEarnedPoints.invalid
+                                                              && (clientEarnedPoints.dirty || clientEarnedPoints.touched)
+                                                              || ((!clientEarnedPoints.value) || clientEarnedPoints.value == null)
+                                                              && showError,
+                                                'has-success': (option.MemberEarnedPoints != null)
+                                                               && clientEarnedPoints.valid && (clientEarnedPoints.dirty || clientEarnedPoints.touched)
+                                                }">
+                          <input minlength="0" maxlength="6" class="form-control"
+                            onkeydown="if(event.key==='.'){event.preventDefault();}"
+                            oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+                            (ngModelChange)="onValidationCheck()" type="text" name="clientEarnedPoints"
+                            #clientEarnedPoints="ngModel" [(ngModel)]="option.ClientEarnedPoints" required numberControl
+                            [disabled]="data.itemTypeID == enum_PurchasesType.Membership">
+                        </div>
+                      </div>
+                      <div class="col p-0">
+                        <div *ngIf="data.itemTypeID != enum_PurchasesType.Membership" [ngClass]="{
+                                                'has-danger': leadEarnedPoints.invalid
+                                                              && (leadEarnedPoints.dirty || leadEarnedPoints.touched)
+                                                              || ((!leadEarnedPoints.value) || leadEarnedPoints.value == null)
+                                                              && showError,
+                                                'has-success': (option.MemberEarnedPoints != null)
+                                                               && leadEarnedPoints.valid && (leadEarnedPoints.dirty || leadEarnedPoints.touched)
+                                                }">
+                          <input minlength="0" maxlength="6" class="form-control" (ngModelChange)="onValidationCheck()"
+                            onkeydown="if(event.key==='.'){event.preventDefault();}"
+                            oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');" type="text"
+                            name="leadEarnedPoints" #leadEarnedPoints="ngModel" [(ngModel)]="option.LeadEarnedPoints"
+                            required numberControl [disabled]="data.itemTypeID == enum_PurchasesType.Membership">
+                        </div>
+                      </div>
+                      <div class="col p-0">
+                        <div *ngIf="data.itemTypeID != enum_PurchasesType.Membership" [ngClass]="{
+                                                'has-danger': benefittedEarnedPoints.invalid
+                                                              && (benefittedEarnedPoints.dirty || benefittedEarnedPoints.touched)
+                                                              || ((!benefittedEarnedPoints.value) || benefittedEarnedPoints.value == null)
+                                                              && showError,
+                                                'has-success': (option.MemberEarnedPoints != null)
+                                                               && benefittedEarnedPoints.valid && (benefittedEarnedPoints.dirty || benefittedEarnedPoints.touched)
+                                                }">
+                          <input minlength="0" maxlength="6" class="form-control" (ngModelChange)="onValidationCheck()"
+                            type="text" name="benefittedEarnedPoints" #benefittedEarnedPoints="ngModel"
+                            [(ngModel)]="option.BenefittedEarnedPoints"
+                            onkeydown="if(event.key==='.'){event.preventDefault();}"
+                            oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');" min="0" required
+                            numberControl [disabled]="data.itemTypeID == enum_PurchasesType.Membership">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-1 col-md-1 text-center grid-actions-btn">
+                      <h5>
+                        <span class="red">
+                          <a matTooltip="Delete" matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                            href="javascript:void(0)" (click)="onDeleteItem(i)">
+                            <i class="fal fa-trash-alt"></i>
+                          </a>
+                        </span>
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="gridTableList.length == 0">
+            <div class="col-md-12 text-center">
+              <div class="no-record-found">
+                {{messages.Generic_Messages.No_Record_Found}}
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="row popup-footer">
+        <div class="col-md-12">
+          <div class="float-sm-right scroll-space sm-button-full">
+            <button type="button" class="wellyx-button light-button" (click)="closeDialog()">Close</button>
+            <button type="submit" class="wellyx-button action-button" [disabled]="isShowErrorMessage "
+              (click)="onSave()">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

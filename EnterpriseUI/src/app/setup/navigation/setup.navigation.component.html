@@ -1,0 +1,19 @@
+<div class="row">
+    <div class="col-md-12 top_nav">
+        <ul>
+            <li *ngIf="allowedNavigationPages.RewardProgram">
+                <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['reward-program']" role="tab">Reward Program</a>
+            </li>
+            <li *ngIf="allowedNavigationPages.Taxes">
+                <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['taxes']" role="tab">Taxes</a>
+            </li>
+            <li *ngIf="allowedNavigationPages.Roles">
+                <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['roles']" role="tab">Roles </a>
+            </li>
+        </ul>
+        <div class="clear-fix"></div>
+    </div>
+    <div class="col-md-12">
+        <router-outlet></router-outlet>
+    </div>
+</div>

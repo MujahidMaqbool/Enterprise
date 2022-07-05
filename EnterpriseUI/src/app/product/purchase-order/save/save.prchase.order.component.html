@@ -1,0 +1,176 @@
+<form #SavePOData="ngForm" novalidate (ngSubmit)="savePurchaseOrder()">
+<div class="row">
+    <div class="col-md-12 p-0">
+        <div class="float-sm-right sm-button-half">
+            <button type="button" class="wellyx-button light-button mb-3" role="navigation"
+                [routerLink]="['/product/purchase-order']">
+                Back to Search
+            </button>
+            <button class="wellyx-button action-button mb-0" type="submit" (click)="savePurchaseOrder()" [disabled]="disableSaveBtn">Save</button>
+        </div>
+    </div>
+</div>
+
+<div class="search-filter-block mb-3 px-0 pt-0" [class.invalid-inputs]="submitted">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="section-title">
+                <h3>Purchase Order Information</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="row align-items-end md-col-half sm-col-full">
+        <div class="col">
+            <h5 class="field-label">Branch</h5>
+            <div class="select-label" [ngClass]="{
+                'has-danger': (branchID.errors?.required || branchID?.value == 'null') && (branchID.dirty || branchID.touched || submitted),
+                'has-success': branchID.valid && (branchID.dirty || branchID.touched)
+                   }">
+                <select class="form-control" name="Branch" #branchID="ngModel" [(ngModel)]="purchaseOrderViewModel.BranchID"
+                    (change)="onBranchSelection(purchaseOrderViewModel.BranchID)" [disabled]="isEdit" required>
+                    <option value="null">Select Branch</option>       
+                    <option *ngFor="let branch of branchList" [ngValue]="branch.BranchID">
+                        {{branch.BranchName}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="col">
+            <h5 class="field-label">Supplier</h5>
+            <div class="select-label" [ngClass]="{
+                'has-danger':(supplierID.touched || submitted) && (supplierID.errors?.required || supplierID?.value == '0')
+                   }">
+                <select class="form-control" name="supplierID" #supplierID="ngModel" [(ngModel)]="purchaseOrderViewModel.SupplierID" required>
+                    <option [ngValue]="0">Select Supplier</option>
+                    <option *ngFor="let supplier of suppliersLsit" [ngValue]="supplier.SupplierID">
+                        {{supplier.SupplierName}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="col">
+            <h5 class="field-label">Purchase Order Name <span class="info-text">(Optional)</span></h5>
+            <input type="text" class="form-control" name="PurchaseOrderName" [(ngModel)]="purchaseOrderViewModel.PurchaseOrderName" maxlength="50" />
+        </div>
+        <div class="col" >
+            <h5 class="field-label">Purchase Order Date</h5>
+            <date-picker [value]="purchaseOrderViewModel.PurchaseOrderDate" [showClear]="false" (onDateChange)="onDateChange($event)">
+            </date-picker>
+        </div>
+        <div class="col">
+            <h5 class="field-label">Expected Delivery Date <span class="info-text">(Optional)</span></h5>
+            <input type="text" name="ExpectedDeliveryDate" class="form-control date-picker cst-bg-color"
+                [(ngModel)]="purchaseOrderViewModel.ExpectedDeliveryDate" matInput [matDatepicker]="dateExpected" [min]="purchaseOrderViewModel.PurchaseOrderDate"
+                placeholder="Select Delivery Date" readonly (click)="onOpenCalendar(dateExpected)" (ngModelChange)="onExpectedDateChange($event)" />
+              <mat-datepicker #dateExpected></mat-datepicker>
+              <mat-datepicker-toggle class="date-picker-toggle" matSuffix [for]="dateExpected"></mat-datepicker-toggle>
+        </div>
+    </div>
+    <div class="row description-content">
+        <div class="col-md-12">
+            <h5 class="field-label">Notes <span class="info-text"> (Remaining Characters: {{1500 - purchaseOrderViewModel?.Notes?.length}})</span></h5>
+            <textarea rows="4" class="form-control textarea-resize-none" name="Notes" maxlength="1500" [(ngModel)]="purchaseOrderViewModel.Notes"></textarea>
+        </div>
+    </div>
+</div>
+
+<div class="search-filter-block mb-3 px-0 pt-0">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="section-title">
+                <h3>Products Information <span class="float-right"><a href="javascript:void(0)" class="plus-item"
+                            (click)="addNewProduct()"><i class="fa-regular fa-circle-plus"></i>
+                            Add New Product</a></span></h3>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="overflow-auto" *ngIf="purchaseOrderViewModel.PurchaseOrderDetails.length > 0">
+        <div class="grid-scroll-lg cst-scroll-bar">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h5 class="field-label">Product </h5>
+                </div>
+                <div class="col">
+                    <h5 class="field-label">Current Stock</h5>
+
+                </div>
+                <div class="col">
+                    <h5 class="field-label">Reorder Threshold</h5>
+                </div>
+                <div class="col">
+                    <h5 class="field-label">Supplier Code</h5>
+                </div>
+                <div class="col">
+                    <h5 class="field-label">Order Quantity</h5>
+                </div>
+                <div class="col">
+                    <h5 class="field-label">Supplier Price</h5>
+                </div>
+                <div class="col">
+                    <h5 class="field-label">Order Total</h5>
+                </div>
+                <div class="" style="width: 74px;">
+
+                </div>
+
+            </div>            
+          
+            <div class="row align-items-center pb-2" [class.invalid-inputs]="submitted" *ngFor="let po of purchaseOrderViewModel.PurchaseOrderDetails; let i = index">
+                <div class="col">
+                    <input type="text" class="form-control" [ngModel]="po.ProductName" id="{{'productName_'+po.ProductVariantID}}" name="{{'productName_'+po.ProductVariantID}}" [disabled]="true"
+                        required />
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" [(ngModel)]="po.CurrentStock" id="{{'currentStock_'+po.ProductVariantID}}" name="{{'currentStock_'+po.ProductVariantID}}" [disabled]="true" />
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" [(ngModel)]="po.ReorderThreshold" id="{{'reorderThreshold_'+po.ProductVariantID}}" name="{{'reorderThreshold_'+po.ProductVariantID}}" [disabled]="true" />
+            
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" [(ngModel)]="po.SupplierCode" id="{{'supplierCode_'+po.ProductVariantID}}" name="{{'supplierCode_'+po.ProductVariantID}}" [disabled]="true" />
+            
+                </div>
+                <div class="col" [ngClass]="{ 'has-danger': po.OrderQuantity == 0 || po.OrderQuantity == null || po.OrderQuantity == undefined }">
+                    <input type="text" class="form-control" min="1" maxlength="10" (keydown)="preventCharactersForNumber($event)"
+                        [(ngModel)]="po.OrderQuantity" (ngModelChange)="onSupplierPrice_Quantity_Update(i, $event)"
+                        id="{{'orderQuantity_'+po.ProductVariantID}}" name="{{'orderQuantity_'+po.ProductVariantID}}" required />
+                </div>
+                <div class="col">
+                    <div class="input-group input-mb"
+                        [ngClass]="{ 'has-danger': po.SupplierPrice == null || po.SupplierPrice == undefined }">
+                        <span class="input-group-text">{{currencySymbol}}</span>
+                        <input type="text" min="0" maxlength="10" [(ngModel)]="po.SupplierPrice"
+                            (ngModelChange)="onSupplierPrice_Quantity_Update(i, $event)" numberControl TwoDigitDecimaNumber
+                            id="{{'supplierPrice_'+po.ProductVariantID}}" name="{{'supplierPrice_'+po.ProductVariantID}}"
+                            class="form-control">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group input-mb"><span class="input-group-text">{{currencySymbol}}</span>
+                        <input type="number" [(ngModel)]="po.TotalPrice" id="{{'totalPrice_'+po.ProductVariantID}}" name="{{'totalPrice_'+po.ProductVariantID}}"  
+                        [disabled]="true" class="form-control" /> 
+                    </div>
+                </div>
+                <div class="variant-items pt-0"><a (click)="deleteProductVariant(i)" href="javascript:void(0);" role="button"><i
+                            class="fa-regular fa-trash-can input-mb"></i></a></div>
+            </div>
+    
+    </div>
+</div>
+</div>
+
+<div class="search-filter-block mb-3 px-0 pt-2">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="section-title border-zero mb-0">
+                <h3 class="blue-color">TOTAL : {{totalItems}} Items <span class="float-right">{{totalPrice | currency: currencySymbol}} </span></h3>
+
+            </div>
+        </div>
+    </div>
+</div>
+</form>

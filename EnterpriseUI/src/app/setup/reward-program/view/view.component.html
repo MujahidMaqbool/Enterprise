@@ -1,0 +1,464 @@
+<div tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog-centered">
+    <div class="modal-content medium-popup width-full-lg">
+      <div class="popup-header">
+        <h2>Reward Program Details</h2>
+      </div>
+      <div class="popup-content cst-scroll-bar">
+        <div class="section-block mb-3 info-content">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="section-title">
+                <h3>Reward Program Information</h3>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+              <h6>Reward Program Name</h6>
+              <p>{{rewardProgram.RewardProgramName}}</p>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+              <h6>Status</h6>
+              <p>{{rewardProgram.IsActive == true ? 'Active' : 'Inactive'}}</p>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+              <h6>Customer Enrollment</h6>
+              <p>{{rewardProgram.RewardProgramEnrollmentTypeName}}</p>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+              <h6>Points Expiry</h6>
+              <p>{{rewardProgram.PointsExpiryDurationValue == "-" ? 'N/A' :
+                                rewardProgram.PointsExpiryDurationValue}}</p>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+              <h6>Minimum Points Required to Redeem</h6>
+              <p>{{rewardProgram.MinimumPointsRequiredtoRedeem}}</p>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+              <h6>Reward Redeem Limit - Member</h6>
+              <p>{{rewardProgram.MemberRedeemLimit}}%</p>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+              <h6>Reward Redeem Limit - Client</h6>
+              <p>{{rewardProgram.ClientRedeemLimit}}%</p>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+              <h6>Reward Redeem Limit - Lead</h6>
+              <p>{{rewardProgram.LeadRedeemLimit}}%</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-block mb-3 info-content">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="section-title">
+                <h3>Points Redemption Ratio</h3>
+              </div>
+            </div>
+          </div>
+          <div class="row align-items-center">
+            <div class="col-md-3 col-sm-5 mb-2 pr-md-0">
+              <h6>Redemption Value</h6>
+              <input type="text" class="form-control"
+                [ngModel]="rewardProgram.RedemptionValue | currency: currencyFormat" disabled>
+            </div>
+            <div class="field-equal-sign text-center xs-center">=</div>
+            <div class="col-md-3 col-sm-5 mb-2 pl-md-0">
+              <h6>Reward Points</h6>
+              <input type="text" class="form-control" [ngModel]="rewardProgram.RedemptionPoints" disabled>
+            </div>
+          </div>
+        </div>
+
+        <div class="search-filter-block mb-3 py-0 info-content">
+          <div class="row">
+            <div class="col-md-12 p-0">
+              <div class="section-title border-none mb-0">
+                <h3>Reward Purchases</h3>
+              </div>
+            </div>
+          </div>
+
+          <div class="overflow-auto">
+            <div class="grid-scroll-md cst-scroll-bar">
+              <div class="row align-items-center grid-header">
+                <div class="col-3 col-md-3">
+                  <h5>Purchases</h5>
+                </div>
+                <div class="col-9 col-md-9 row align-items-center p-0 reward-points-block">
+                  <div class="col p-0">
+                    <h5>Amount Spent </h5>
+                  </div>
+                  <div class="field-equal-sign text-center"></div>
+                  <div class="col p-0">
+                    <h5>Member Earned Points
+                    </h5>
+                  </div>
+                  <div class="col p-0">
+                    <h5>Client Earned Points</h5>
+                  </div>
+                  <div class="col p-0">
+                    <h5>Lead Earned Points</h5>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="rewardProgram.RewardProgramEarningRuleVM.length > 0">
+                <div *ngFor="let data of rewardProgram.RewardProgramEarningRuleVM">
+
+                  <div class="row align-items-center reward-grid-content info-content"
+                    *ngIf="data.ItemTypeID == enum_PurchasesType.Class">
+                    <div class="col-3 col-md-3">
+                      <h6> Classes <span *ngIf="classCount.length > 0" class="info-text">Exceptions
+                          ({{classCount.length}} Classe(s))</span></h6>
+                    </div>
+                    <div class="col-9 col-md-9 row align-items-center p-0 reward-points-block">
+                      <div class="col p-0 mr-0">
+                        <input type="text" class="form-control" [ngModel]="data.AmountSpent | currency: currencyFormat"
+                          disabled>
+                      </div>
+                      <div class="field-equal-sign text-center">=</div>
+                      <div class="col p-0">
+                        <input type="text" class="form-control" [(ngModel)]="data.MemberEarnedPoints" disabled>
+                      </div>
+                      <div class="col p-0">
+                        <input type="text" class="form-control" [(ngModel)]="data.ClientEarnedPoints" disabled>
+                      </div>
+                      <div class="col p-0">
+                        <input type="text" class="form-control" [(ngModel)]="data.LeadEarnedPoints" disabled>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row align-items-center reward-grid-content info-content"
+                    *ngIf="data.ItemTypeID == enum_PurchasesType.Service">
+                    <div class="col-3 col-md-3">
+                      <h6> Services <span *ngIf="serviceCount.length > 0" class="info-text">Exceptions
+                          ({{serviceCount.length}}
+                          Service(s))</span></h6>
+                    </div>
+                    <div class="col-9 col-md-9 row align-items-center p-0 reward-points-block">
+                      <div class="col p-0 mr-0">
+                        <input type="text" class="form-control" [ngModel]="data.AmountSpent | currency: currencyFormat"
+                          disabled>
+                      </div>
+                      <div class="field-equal-sign text-center">=</div>
+                      <div class="col p-0">
+                        <input type="text" class="form-control" [(ngModel)]="data.MemberEarnedPoints" disabled>
+                      </div>
+                      <div class="col p-0">
+                        <input type="text" class="form-control" [(ngModel)]="data.ClientEarnedPoints" disabled>
+                      </div>
+                      <div class="col p-0">
+                        <input type="text" class="form-control" [(ngModel)]="data.LeadEarnedPoints" disabled>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row align-items-center reward-grid-content info-content"
+                    *ngIf="data.ItemTypeID == enum_PurchasesType.Product">
+                    <div class="col-3 col-md-3">
+                      <h6> Products <span *ngIf="productCount.length > 0" class="info-text">Exceptions
+                          ({{productCount.length}}
+                          Product(s))</span></h6>
+                    </div>
+                    <div class="col-9 col-md-9 row align-items-center p-0 reward-points-block">
+                      <div class="col p-0 mr-0">
+                        <input type="text" class="form-control" [ngModel]="data.AmountSpent | currency: currencyFormat"
+                          disabled>
+                      </div>
+                      <div class="field-equal-sign text-center">=</div>
+                      <div class="col p-0">
+                        <input type="text" class="form-control" [ngModel]="data.MemberEarnedPoints" disabled>
+                      </div>
+                      <div class="col p-0">
+                        <input type="text" class="form-control" [(ngModel)]="data.ClientEarnedPoints" disabled>
+                      </div>
+                      <div class="col p-0">
+                        <input type="text" class="form-control" [(ngModel)]="data.LeadEarnedPoints" disabled>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row align-items-center reward-grid-content info-content"
+                    *ngIf="data.ItemTypeID == enum_PurchasesType.Membership">
+                    <div class="col-3 col-md-3">
+                      <h6> Memberships <span *ngIf="membershipCount.length > 0" class="info-text">Exceptions
+                          ({{membershipCount.length}}
+                          Membership(s))</span></h6>
+
+                    </div>
+                    <div class="col-9 col-md-9 row align-items-center p-0 reward-points-block">
+                      <div class="col p-0 mr-0">
+                        <input type="text" class="form-control" [ngModel]="data.AmountSpent | currency: currencyFormat"
+                          disabled>
+                      </div>
+                      <div class="field-equal-sign text-center">=</div>
+                      <div class="col p-0">
+                        <input type="text" class="form-control" [(ngModel)]="data.MemberEarnedPoints" disabled>
+                      </div>
+                      <div class="col p-0">
+                        <input type="text" class="form-control" [(ngModel)]="data.ClientEarnedPoints" disabled>
+                      </div>
+                      <div class="col p-0">
+                        <input type="text" class="form-control" [(ngModel)]="data.LeadEarnedPoints" disabled>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="rewardProgram.RewardProgramEarningRuleVM.length == 0">
+            <div class="col-md-12 text-center">
+              <div class="no-record-found">No Records Found</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="search-filter-block mb-3 py-0 info-content">
+          <div class="row">
+            <div class="col-md-12 p-0">
+              <div class="section-title border-none mb-0">
+                <h3>Reward Activities</h3>
+              </div>
+            </div>
+          </div>
+
+          <div class="overflow-auto">
+            <div class="grid-scroll-md cst-scroll-bar">
+              <div class="row align-items-center grid-header">
+                <div class="col-3 col-md-5">
+                  <h5>Activities</h5>
+                </div>
+                <div class="col-9 col-md-7 row align-items-center p-0 reward-points-block">
+                  <div class="col p-0">
+                    <h5>Member Earned Points</h5>
+                  </div>
+                  <div class="col p-0">
+                    <h5>Client Earned Points</h5>
+                  </div>
+                  <div class="col p-0">
+                    <h5>Lead Earned Points</h5>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="rewardProgram.RewardProgramActivitiesEarningRuleVM.length > 0">
+                <div *ngFor="let data of rewardProgram.RewardProgramActivitiesEarningRuleVM">
+                  <div class="row align-items-center reward-grid-content info-content"
+                    *ngIf="data.RewardProgramActivityTypeID == enum_ActivitesEarningTypes.CustomerBirthday">
+                    <div class="col-3 col-md-5">
+                      <h6> Customer Birthday</h6>
+                    </div>
+                    <div class="col-9 col-md-7 row align-items-center p-0 reward-points-block">
+                      <div class="col p-0">
+                        <h5><input type="text" class="form-control" [(ngModel)]="data.MemberEarnedPoints" disabled></h5>
+                      </div>
+                      <div class="col p-0">
+                        <h5><input type="text" class="form-control" [(ngModel)]="data.ClientEarnedPoints" disabled></h5>
+                      </div>
+                      <div class="col p-0">
+                        <h5><input type="text" class="form-control" [(ngModel)]="data.LeadEarnedPoints" disabled></h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row align-items-center reward-grid-content info-content"
+                    *ngIf="data.RewardProgramActivityTypeID == enum_ActivitesEarningTypes.RewardProgramOptIn">
+                    <div class="col-3 col-md-5">
+                      <h6>Reward Program Opt-In</h6>
+                    </div>
+                    <div class="col-9 col-md-7 row align-items-center p-0 reward-points-block">
+                      <div class="col p-0">
+                        <h5><input type="text" class="form-control" [(ngModel)]="data.MemberEarnedPoints" disabled></h5>
+                      </div>
+                      <div class="col p-0">
+                        <h5><input type="text" class="form-control" [(ngModel)]="data.ClientEarnedPoints" disabled></h5>
+                      </div>
+                      <div class="col p-0">
+                        <h5><input type="text" class="form-control" [(ngModel)]="data.LeadEarnedPoints" disabled></h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row align-items-center reward-grid-content info-content"
+                    *ngIf="data.RewardProgramActivityTypeID == enum_ActivitesEarningTypes.WidgetAndAppBookings">
+                    <div class="col-3 col-md-5">
+                      <h6>Widget and App Booking</h6>
+                    </div>
+                    <div class="col-9 col-md-7 row align-items-center p-0 reward-points-block">
+                      <div class="col p-0">
+                        <h5><input type="text" class="form-control" [(ngModel)]="data.MemberEarnedPoints" disabled></h5>
+                      </div>
+                      <div class="col p-0">
+                        <h5><input type="text" class="form-control" [(ngModel)]="data.ClientEarnedPoints" disabled></h5>
+                      </div>
+                      <div class="col p-0">
+                        <h5><input type="text" class="form-control" [(ngModel)]="data.LeadEarnedPoints" disabled></h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row align-items-center reward-grid-content info-content"
+                    *ngIf="data.RewardProgramActivityTypeID == enum_ActivitesEarningTypes.Referrals">
+                    <div class="col-3 col-md-5">
+                      <h6> Referrals </h6>
+                    </div>
+                    <div class="col-9 col-md-7 row align-items-center p-0 reward-points-block">
+                      <div class="col p-0">
+                        <h5><input type="text" class="form-control" [(ngModel)]="data.MemberEarnedPoints" disabled></h5>
+                      </div>
+                      <div class="col p-0">
+                        <h5><input type="text" class="form-control" [(ngModel)]="data.ClientEarnedPoints" disabled></h5>
+                      </div>
+                      <div class="col p-0">
+                        <h5><input type="text" class="form-control" [(ngModel)]="data.LeadEarnedPoints" disabled></h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row align-items-center reward-grid-content info-content"
+                    *ngIf="data.RewardProgramActivityTypeID == enum_ActivitesEarningTypes.NewCustomer">
+                    <div class="col-3 col-md-5">
+                      <h6> New Customer </h6>
+                    </div>
+                    <div class="col-9 col-md-7 row align-items-center p-0 reward-points-block">
+                      <div class="col p-0">
+                        <h5><input type="text" class="form-control" [(ngModel)]="data.MemberEarnedPoints" disabled></h5>
+                      </div>
+                      <div class="col p-0">
+                        <h5><input type="text" class="form-control" [(ngModel)]="data.ClientEarnedPoints" disabled></h5>
+                      </div>
+                      <div class="col p-0">
+                        <h5><input type="text" class="form-control" [(ngModel)]="data.LeadEarnedPoints" disabled></h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row align-items-center reward-grid-content info-content"
+                    *ngIf="data.RewardProgramActivityTypeID == enum_ActivitesEarningTypes.MemberCheckIn">
+                    <div class="col-3 col-md-5">
+                      <h6> Member Check-In </h6>
+                    </div>
+                    <div class="col-9 col-md-7 row align-items-center p-0 reward-points-block">
+                      <div class="col p-0">
+                        <h5><input type="text" class="form-control" [(ngModel)]="data.MemberEarnedPoints" disabled></h5>
+                      </div>
+                      <div class="col p-0">
+                      </div>
+                      <div class="col p-0">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row align-items-center reward-grid-content info-content"
+                    *ngIf="data.RewardProgramActivityTypeID == enum_ActivitesEarningTypes.ClassPresent">
+                    <div class="col-3 col-md-5">
+                      <h6>Attendance </h6>
+                    </div>
+                    <div class="col-9 col-md-7 row align-items-center p-0 reward-points-block">
+                      <div class="col p-0">
+                        <h5><input type="text" class="form-control" [(ngModel)]="data.MemberEarnedPoints" disabled></h5>
+                      </div>
+                      <div class="col p-0">
+                        <h5><input type="text" class="form-control" [(ngModel)]="data.ClientEarnedPoints" disabled></h5>
+                      </div>
+                      <div class="col p-0">
+                        <h5><input type="text" class="form-control" [(ngModel)]="data.LeadEarnedPoints" disabled></h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row align-items-center reward-grid-content info-content"
+                    *ngIf="data.RewardProgramActivityTypeID == enum_ActivitesEarningTypes.ServiceCompleted">
+                    <div class="col-3 col-md-5">
+                      <h6>Service - Completed </h6>
+                    </div>
+                    <div class="col-9 col-md-7 row align-items-center p-0 reward-points-block">
+                      <div class="col p-0">
+                        <h5><input type="text" class="form-control" [(ngModel)]="data.MemberEarnedPoints" disabled></h5>
+                      </div>
+                      <div class="col p-0">
+                        <h5><input type="text" class="form-control" [(ngModel)]="data.ClientEarnedPoints" disabled></h5>
+                      </div>
+                      <div class="col p-0">
+                        <h5><input type="text" class="form-control" [(ngModel)]="data.LeadEarnedPoints" disabled></h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row align-items-center reward-grid-content info-content"
+                    *ngIf="data.RewardProgramActivityTypeID == enum_ActivitesEarningTypes.Forms">
+                    <div class="col-3 col-md-5">
+                      <h6> Forms <span *ngIf="formsCount > 0" class="info-text">Exceptions
+                          ({{formsCount}}
+                          Form(s))</span></h6>
+                    </div>
+                    <div class="col-9 col-md-7 row align-items-center p-0 reward-points-block">
+                      <div class="col p-0">
+                        <h5><input type="text" class="form-control" [(ngModel)]="data.MemberEarnedPoints" disabled></h5>
+                      </div>
+                      <div class="col p-0">
+                        <h5><input type="text" class="form-control" [(ngModel)]="data.ClientEarnedPoints" disabled></h5>
+                      </div>
+                      <div class="col p-0">
+                        <h5><input type="text" class="form-control" [(ngModel)]="data.LeadEarnedPoints" disabled></h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="rewardProgram.RewardProgramActivitiesEarningRuleVM.length == 0">
+            <div class="col-md-12 text-center">
+              <div class="no-record-found">No Records Found</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="search-filter-block px-0 py-0">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="section-title border-none mb-0">
+                <h3>Branches</h3>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="overflow-auto">
+                <div class="grid-scroll-xs cst-scroll-bar">
+                  <div class="row align-items-center grid-header">
+                    <div class="col col-md-9">
+                      <h5>Branch Name</h5>
+                    </div>
+                    <div class="col">
+                      <h5>City</h5>
+                    </div>
+                  </div>
+                  <div class="row align-items-center grid-content"
+                    *ngFor="let data of rewardProgram.RewardProgramBranchVM">
+                    <div class="col col-md-9">
+                      <h5>{{data.BranchName}} </h5>
+                    </div>
+                    <div class="col">
+                      <h5>{{data.BranchCityName}}</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="row popup-footer">
+        <div class="col-md-12">
+          <div class="float-right scroll-space">
+            <button type="button" class="wellyx-button light-button" (click)="closeDialog()">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

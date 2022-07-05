@@ -1,0 +1,43 @@
+<div tabindex="-1" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog-centered">
+    <div class="modal-content xsmall-popup">
+      <div class="popup-header">
+        <h2>{{receiveData.Title}}</h2>
+      </div>
+
+      <div class="popup-content cst-scroll-bar">
+
+        <div class="section-block py-3">
+          <div class="d-flex align-items-center alert-description">
+            <div class="alert-icon warning-icon mx-sm-3">
+              <i class="" [ngClass]="{
+                        'fa fa-exclamation-triangle':!isChangeIcon,
+                        'fal fa-luggage-cart':isChangeIcon
+                    }" aria-hidden="true"></i>
+            </div>
+            <div class="description-content pr-sm-3">
+              <h2 *ngIf="receiveData.Heading">{{receiveData.Heading}}</h2>
+              <p>{{receiveData.Message}}</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="row popup-footer">
+        <div class="col-md-12 col-sm-12">
+          <div class="float-sm-right sm-button-full" *ngIf="!showConfirmCancelButton">
+            <button class="wellyx-button light-button" (click)="onNo()" *ngIf="!showButton">No</button>
+            <button class="wellyx-button light-button" (click)="onNo()" *ngIf="showButton">Close</button>
+            <button class="wellyx-button action-button" (click)="onYes()" *ngIf="!showButton">Yes</button>
+          </div>
+
+          <div class="float-sm-right sm-button-full" *ngIf="showConfirmCancelButton">
+            <button class="wellyx-button light-button" (click)="onNo()">Cancel</button>
+            <button class="wellyx-button action-button" (click)="onYes()">Confirm</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

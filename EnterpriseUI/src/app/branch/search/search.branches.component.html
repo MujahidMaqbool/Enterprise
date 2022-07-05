@@ -1,0 +1,119 @@
+<div class="search-filter-block mb-3 px-0">
+  <div id="search_accordion">
+    <div class="panel-heading collapsed row" data-toggle="collapse" data-parent="#search_accordion"
+      data-target="#client_search">
+      <div class="col-md-12">
+        <h3 class="panel-title accordion-toggle"> Search Filter</h3>
+      </div>
+    </div>
+    <div id="client_search" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div class="row align-items-end">
+          <div class="col-md-12">
+            <div class="line-seprator"></div>
+          </div>
+
+          <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+            <h5 class="field-label">Branch</h5>
+            <div class="select-label">
+              <select class="form-control" [(ngModel)]="branchSearchModel.BranchID">
+                <option [value]=null>All</option>
+                <option *ngFor="let searchbranch of branchSearchList" [ngValue]="searchbranch.BranchID">
+                  {{searchbranch.BranchName}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 offset-xl-6 offset-lg-4 offset-md-4 mt-3 p-0">
+            <div class="row button-space">
+              <div class="col-md-6 col-sm-6">
+                <button type="button" class="filter-button light-button" (click)="resetBranchSearchFilter()">
+                  Reset</button>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <button type="button" class="filter-button blue-button" (click)="searchAllBranches()">
+                  Search</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="search-filter-block mb-3">
+  <div class="overflow-auto">
+    <div class="grid-scroll-lg cst-scroll-bar">
+      <div class="row align-items-center grid-header">
+        <div class="col-md-2 col">
+          <h5>Branch Name</h5>
+        </div>
+        <div class="col-md-2 col">
+          <h5>City</h5>
+        </div>
+        <div class="col-md-2 col">
+          <h5>Phone</h5>
+        </div>
+        <div class="col-md-2 col">
+          <h5>Email</h5>
+        </div>
+        <div class="col-md-2 col">
+          <h5>Created Date</h5>
+        </div>
+        <div class="col-md-2 col text-center p-0">
+          <h5>Actions</h5>
+        </div>
+      </div>
+      <ng-container *ngIf="isDataExists">
+        <div class="row align-items-center grid-content" *ngFor="let  branch of branchList">
+          <div class="col-md-2 col">
+            <h5 *ngIf="!branch.IsBranchPermission">{{branch.BranchName}}</h5>
+            <h5 *ngIf="branch.IsBranchPermission">
+              <a class="blue-color" (click)="onEditbranch(branch.BranchID,branch.CompanyID,false)">
+                <u>{{branch.BranchName}}</u>
+              </a>
+            </h5>
+          </div>
+          <div class="col-md-2 col">
+            <h5>{{branch.CityName}}</h5>
+          </div>
+          <div class="col-md-2 col">
+            <h5>{{branch.Phone1}}</h5>
+          </div>
+          <div class="col-md-2 col">
+            <h5>{{branch.Email}}</h5>
+          </div>
+          <div class="col-md-2 col">
+            <h5>{{branch.CreatedDate | customdate }}</h5>
+          </div>
+          <div class="col-md-2 col text-center p-0 grid-actions-btn">
+            <h5>
+              <span class="blue" *ngIf="isViewAllow">
+                <a matTooltip="View" matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                  (click)="onViewBranchDetail(branch.BranchID)" href="javascript:void(0)">
+                  <i class="fal fa-book-open"></i>
+                </a>
+              </span>
+              <span class="blue" *ngIf="isEditAllow && branch.IsBranchPermission">
+                <a matTooltip="Redirect" matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                  (click)="onEditbranch(branch.BranchID,branch.CompanyID,true)" href="javascript:void(0)">
+                  <i class="fal fa-external-link-square"></i>
+                </a>
+              </span>
+            </h5>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <ng-container *ngIf="!isDataExists">
+    <div class="row grid-content no-hover">
+      <div class="col-md-12 text-center">
+        <div class="no-record-found">{{messages.Generic_Messages.No_Record_Found}}</div>
+      </div>
+    </div>
+  </ng-container>
+
+  <app-pagination #appPagination (paginationEvent)="reciviedPagination($event)"></app-pagination>
+</div>

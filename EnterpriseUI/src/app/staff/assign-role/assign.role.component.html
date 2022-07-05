@@ -1,0 +1,51 @@
+<div tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog-centered">
+    <div class="modal-content small-popup">
+      <div class="popup-header">
+        <h2>Assign Enterprise Role</h2>
+      </div>
+      <div class="popup-content cst-scroll-bar">
+        <div class="section-block info-content mb-3 py-3">
+          <div class="row align-items-center">
+            <div class="col col-md-9">
+              <h6>Login Access</h6>
+              <p>Toggle on if the staff is allowed to access wellyx</p>
+            </div>
+            <div class="col-4 col-md-3 text-right">
+              <mat-slide-toggle class="wellyx-checked" name="IsActive"
+                [(ngModel)]="StaffAssignEnterPriseRole.AllowLogin" name="StaffAssignEnterPriseRole.allowLogIng">
+              </mat-slide-toggle>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="section-block py-3">
+          <div class="row align-items-end">
+            <div class="col-md-8 col-sm-8">
+              <h5 class="field-label">Select Enterprise Role</h5>
+              <div class="select-label">
+                <select class="form-control" name="roleID" [(ngModel)]="StaffAssignEnterPriseRole.RoleID">
+                  <option value="0">Select Role</option>
+                  <option *ngFor="let role of staffRoleList" [value]="role.RoleID">{{role.RoleName}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-4 pl-sm-0 mt-2">
+              <button type="button" class="filter-button blue-button" [disabled]="StaffAssignEnterPriseRole.RoleID == 0"
+                (click)="onViewRole()">View Role</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row popup-footer">
+        <div class="col-md-12">
+          <div class="float-sm-right sm-button-full">
+            <button type="button" class="wellyx-button light-button" (click)="closeDialog()">Close</button>
+            <button class="wellyx-button action-button" (click)="onSave()">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

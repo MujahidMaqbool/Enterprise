@@ -1,0 +1,103 @@
+<div class="login-page">
+    <div class="container-fluid">
+        <div class="row align-items-center justify-content-center login-content-container">
+            <div class="col-xl-5 col-lg-6 col-md-12">
+                <div class="login-content" *ngIf='isShowLoginPage' >
+                    <!--Logo Section-->
+                    <div class="text-center mb-3">
+                        <img src="assets/images/wellyx-enterprise-logo.svg" height="30px" class="img-fluid" alt="logo" />
+                    </div>
+                        <!--Form Section-->
+                        <form #loginForm="ngForm" (ngSubmit)="onNext()" novalidate>
+                            <ng-container *ngIf="isStaffLogin">
+                                <div class="position-icon-right white-input-field pb-3" [ngClass]="{
+                                       'has-danger': email.invalid && (email.touched || email.dirty || invalidEmail),
+                                       'has-success': email.valid && (email.touched || email.dirty)
+                                       }">
+                                    <input type="text" class="form-control mb-0" placeholder="Email" name="txtEmail"
+                                        [(ngModel)]="loginModel.Email" (ngModelChange)="hasError = false;" #email="ngModel"
+                                        pattern="^([a-zA-Z0-9_\-\.]+)@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,10})$"
+                                        required maxlength="50"  (keyup)="onEmailTrim()"/>
+                                    <i class="fal fa-user"></i>
+                                    <span class="text-danger" *ngIf="email?.errors?.required && (email.touched || email.dirty || invalidEmail)">
+                                        {{messages.Validation.Email_Required}}
+                                    </span>
+                                    <span class="text-danger" *ngIf="email?.errors?.pattern">{{messages.Validation.Email_Invalid}}</span>
+                                    <span class="text-danger" *ngIf="hasError && email.valid">{{errorMessage}}</span>
+                                </div>
+                                <button type="submit" class="wellyx-login-button">Next</button>
+                            </ng-container>
+
+                            <div *ngIf="isChooseAccount">
+                                <h6 class="primary-white my-3">{{loginTitle}}</h6>
+                                <div class="company-list-wrapper cst-scroll-bar">
+                                <div class="company-list d-flex align-items-center justify-content-between" role="button" *ngFor="let company of staffCompanyList" (click)="onChooseAccount(company)">
+                                    <div class="company-list-logo">
+                                        <img src="{{company.LogoPath}}" class="img-fluid" alt="Company" />
+                                    </div>
+                                    <div class="company-list-name">
+                                        {{company.CompanyName}}
+                                    </div>
+                                    <div class="text-center px-sm-3">
+                                        <i class="fal fa-chevron-right"></i>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="text-right pt-3">
+                                    <a role="menu" class="grey-info-text size-md" (click)="onBack()">
+                                        <i class="fal fa-user-circle pr-1"></i>
+                                        Use another account
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div *ngIf="isWelcomeStaff">
+                                <div class="company-name rounded-pill d-flex align-items-center justify-content-between" role="button" (click)="onBack()">
+                                    <span class="pr-2">{{companyName}}</span>
+                                    <i class="fal fa-angle-down"></i>
+                                </div>
+                                <div class="position-icon-right white-input-field pb-3" [ngClass]="{
+                                       'has-danger': password.invalid && (password.touched || password.dirty || invalidPassword),
+                                       'has-success': password.valid && (password.touched || password.dirty)
+                                       }">
+                                    <input type="text" style="display: none" name="username" id="username" [ngModel]="loginModel.Email"
+                                        maxlength="30" />
+                                    <input type="password" class="form-control mb-0" placeholder="Password" name="txtPassword"
+                                        id="txtPassword" [(ngModel)]="loginModel.Password" (ngModelChange)="hasError = false;"
+                                        #password="ngModel" [minlength]="8" [maxlength]="20" required />
+                                    <i class="fal fa-lock"></i>
+                                    <span class="text-danger" *ngIf="password?.errors?.required && (password.touched || password.dirty || invalidPassword)">
+                                        {{messages.Validation.Password_Required}}
+                                    </span>
+                                    <span class="text-danger" *ngIf="password?.errors?.minlength && (password.touched || password.dirty || invalidPassword)">
+                                        {{messages.Validation.Password_MinLength}}
+                                    </span>
+                                    <span class="text-danger" *ngIf="hasError && password.valid">{{errorMessage}}</span>
+                                </div>
+                                <button type="submit" class="wellyx-login-button">Login</button>
+                                <div class="text-center my-3"><a role="button" class="grey-info-text" (click)="onForgotPassword()">Forgot Password?</a></div>
+                            </div>
+                        </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-footer">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                    <ul>
+                        <li><a href="https://www.facebook.com/wellyxtech" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="https://twitter.com/Wellyxtech" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="https://www.instagram.com/wellyxtech/" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="https://www.youtube.com/channel/UCENBAYPvR2R7mREeUOHM2Xg" target="_blank"><i class="fab fa-youtube"></i></a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 text-right power-by">
+                    <p>Powered by <a href="https://www.wellyx.com" class="font-weight-medium">Wellyx</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,7 @@
+{
+  "ENVName": "sandbox",
+  "coreUrl": "http://localhost:4300/account/redirect/",
+  "apiUrl": "https://sandboxapi.wellyx.com/api/Enterprise/",
+  "imageUrl": "https://sandboxapi.wellyx.com/UploadDownload/Images/cp{ImagePath}/",
+  "fileUrl": "https://sandboxapi.wellyx.com/UploadDownload/Documents/cp{ImagePath}/"
+}

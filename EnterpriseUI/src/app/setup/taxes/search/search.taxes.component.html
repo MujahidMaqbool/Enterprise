@@ -1,0 +1,181 @@
+<div class="row mb-3">
+  <div class="col-md-12 p-0">
+    <div class="float-right" *ngIf="allowedPermission.TaxeSave">
+      <button class="wellyx-button action-button mb-0" (click)="onAddClick()" tabindex="0">
+        Add Tax
+      </button>
+    </div>
+  </div>
+</div>
+<div class="search-filter-block mb-3 px-0">
+  <div id="search_accordion">
+    <div class="panel-heading collapsed row" data-toggle="collapse" data-parent="#search_accordion"
+      data-target="#product_search">
+      <div class="col-md-12">
+        <h3 class="panel-title accordion-toggle">Search Filter</h3>
+      </div>
+    </div>
+    <div id="product_search" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div class="row align-items-end">
+          <div class="col-md-12">
+            <div class="line-seprator"></div>
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h5 class="field-label">Tax</h5>
+            <input type="text" class="form-control" name="taxName" [(ngModel)]="SearchTaxParams.TaxName" maxlength="50">
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h5 class="field-label">Type</h5>
+            <div class="select-label">
+              <select class="form-control" name="TaxTypeID" [(ngModel)]="SearchTaxParams.TaxTypeID">
+                <option [ngValue]="null">All</option>
+                <option *ngFor="let type of TypeList" [ngValue]="type.TypeID">{{type.TypeName}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h5 class="field-label">Branch</h5>
+            <div class="select-label">
+              <select class="form-control" name="branchID" [(ngModel)]="SearchTaxParams.BranchID">
+                <option [ngValue]="null">All</option>
+                <option *ngFor="let branch of branchList" [ngValue]="branch.BranchID">{{branch.BranchName}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h5 class="field-label">Status</h5>
+            <div class="select-label">
+              <select class="form-control" name="TaxStatusID" [(ngModel)]="SearchTaxParams.TaxStatusID">
+                <option [ngValue]="null">All</option>
+                <option *ngFor="let status of StatusList" [ngValue]="status.StatusID">{{status.StatusName}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="offset-lg-9 col-lg-3 col-md-8 mt-3 p-0">
+            <div class="row">
+              <div class="col-md-6 col-sm-6">
+                <button class="filter-button light-button" type="button" (click)="resetSearchFilter()">
+                  Reset</button>
+              </div>
+
+              <div class="col-md-6 col-sm-6">
+                <button class="filter-button blue-button" type="button" (click)="searchTaxList()">
+                  Search</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="search-filter-block mb-3">
+  <div class="overflow-auto">
+    <div class="grid-scroll-lg cst-scroll-barr master-row">
+      <div class="row align-items-center grid-header">
+        <div class="col">
+          <h5>
+            <a class="primary-color" href="javascript:void(0)" (click)="changeSorting(1)">
+              Tax
+              <i class="far fa-sort-alt"></i>
+            </a>
+          </h5>
+        </div>
+        <div class="col">
+          <h5>
+            <a class="primary-color" href="javascript:void(0)" (click)="changeSorting(2)">
+              Type
+              <i class="far fa-sort-alt"></i>
+            </a>
+          </h5>
+        </div>
+        <div class="col">
+          <h5>Branch</h5>
+        </div>
+        <div class="col">
+          <h5>Status</h5>
+        </div>
+        <div class="col text-center">
+          <h5>Actions</h5>
+        </div>
+      </div>
+
+      <ng-container *ngFor="let tax of taxList; let i= index">
+        <div class="row align-items-center grid-content parent-grid-content">
+          <div class="col">
+            <div class="cursor-pointer cst-collapse collapsed" data-toggle="collapse" attr.data-target="#collapseExample{{i}}"
+                aria-expanded="false" attr.aria-label="collapseExample{{i}}">
+            <h5>{{tax.TaxName}}</h5>
+            </div>
+          </div>
+          <div class="col">
+            <h5>{{tax.TaxTypeName}}</h5>
+          </div>
+          <div class="col">
+            <h5></h5>
+          </div>
+          <div class="col">
+            <h5></h5>
+          </div>
+          <div class="col text-center grid-actions-btn">
+            <h5>
+              <span class="blue">
+                <a matTooltip="View" matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                  href="javascript:void(0)" (click)="viewTaxDetail(tax.TaxID)">
+                  <i class="fal fa-book-open"></i>
+                </a>
+              </span>
+              <span class="blue" *ngIf="allowedPermission.TaxeSave && tax.AppSourceTypeID === 7">
+                <a matTooltip="Edit" matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                  (click)="openDialogForSaveTax(tax.TaxID)">
+                  <i class="fa-light fa-pen-to-square"></i>
+                </a>
+              </span>
+              <span class="blue" *ngIf="allowedPermission.TaxeSave && tax.AppSourceTypeID === 1">
+                <a matTooltip="Redirect" matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                (click)="onRouteUrl(tax)">
+                  <i class="fal fa-external-link-square"></i>
+                </a>
+              </span>
+              <span class="red" *ngIf="allowedPermission.TaxDelete && tax.AppSourceTypeID === 7">
+                <a matTooltip="Delete" matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                  (click)="deleteTax(tax.TaxID)">
+                  <i class="fa-light fa-trash-can"></i>
+                </a>
+              </span>
+            </h5>
+          </div>
+        </div>
+
+        <div class="row align-items-center grid-content collapse" *ngFor="let branch of tax.BranchList" id="collapseExample{{i}}">
+          <div class="col">
+            <h5></h5>
+          </div>
+          <div class="col">
+            <h5></h5>
+          </div>
+          <div class="col">
+            <h5>{{branch.BranchName}}</h5>
+          </div>
+          <div class="col">
+            <h5>{{branch.IsActive ? 'Active' : 'Inactive'}}</h5>
+          </div>
+          <div class="col">
+            <h5></h5>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="row grid-content no-hover" *ngIf="!isDataExists">
+    <div class="col-md-12 text-center">
+      <div class="no-record-found">{{messages.Generic_Messages.No_Record_Found}}</div>
+    </div>
+  </div>
+
+  <app-pagination #appPagination (paginationEvent)="reciviedPagination($event)"></app-pagination>
+</div>

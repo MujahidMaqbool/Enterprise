@@ -1,0 +1,100 @@
+<div tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+   
+    <div class="modal-dialog-centered">
+        <div class="modal-content xmedium-popup">
+            <div class="popup-header">
+                <h2>Product Attribute</h2>
+            </div>
+           
+            <div class="popup-content cst-scroll-bar">
+                <mat-horizontal-stepper #stepper>
+                    <ng-template matStepperIcon="edit">
+                        <mat-icon>edit</mat-icon>
+                    </ng-template>
+
+                    <mat-step #stepper>
+                        <ng-template matStepLabel>Attribute Information</ng-template>   
+                        <div class="row" *ngIf="submitted && (isShowRequired || attributeName.invalid)">
+                            <div class="col-md-12 p-0">
+                                <div class="alert alert-danger">
+                                    {{messages.Validation.Info_Required}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="submitted && showDuplicateValueError">
+                            <div class="col-md-12 p-0">
+                                <div class="alert alert-danger">
+                                    Variant value should be unique
+                                </div>
+                            </div>
+                        </div>
+                            <div class="section-block info-content mb-3">
+                                <div class="row">
+                                    <div class="col-md-12 mt-2 mb-2" [ngClass]="{
+                                        'has-danger': attributeName.invalid && (attributeName.dirty || attributeName.touched || inValidProductAttributeName),
+                                        'has-success': attributeName.valid && (attributeName.dirty || attributeName.touched )
+                                           }">
+                                        <h5 class="field-label">Name</h5>
+                                        <input type="text" class="form-control" id="attributeName" name="attributeName" [(ngModel)]="attribute.AttributeName" #attributeName="ngModel" maxlength="50" tabindex="1"
+                                        required autoFocusDirective />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="section-block info-content pb-3 " [class.invalid-inputs]="submitted">
+                                <div class="variant-title">
+                                    <h5>Variant Value <a (click)="addNew()" href="javascript:void(0);" class="float-right"><i
+                                                class="fa-light fa-circle-plus"></i> Add New Variant</a></h5>
+                                </div>
+                                <!-- <dx-list [dataSource]="attribute.AttributeValueVM" [allowItemDeleting]="true">
+                                    <dxo-item-dragging group="tasks" [data]="attribute.AttributeValueVM" [allowReordering]="true"
+                                        [onDragStart]="onDragStart" [onAdd]="onAdd" [onRemove]="onRemove" [onReorder]="onReorder">
+                                        <div *dxTemplate="let item of 'item'" class="variant-items">
+                                            <div class="cursor-move"><i class="fa-solid fa-grip-dots-vertical"></i></div>
+                                            <div>
+                                                <input type="text" class="form-control" [(ngModel)]="item.AttributeValue" #i="ngModel" maxlength="50"
+                                                    required (blur)="onBlur(i)" [disabled]="item.isAssociated" />
+                                            </div>
+                                            <div *ngIf="attribute.AttributeValueVM.length > 1 && !item.isAssociated"><a (click)="delete(i)"
+                                                    href="javascript:void(0);" role="button"><i class="fa-regular fa-trash-can"></i></a></div>
+                                        </div>
+                                    </dxo-item-dragging>
+                                </dx-list> -->
+                                <!------**********-https://github.com/SortableJS/ngx-sortablejs *********------>
+                                 <div #scrollContainer class="example-list mt-20 of-height-250  cst-scroll-bar" [sortablejs]="attribute.AttributeValueVM">
+                                    <div class="variant-items" *ngFor="let variant of attribute.AttributeValueVM; let i = index">
+                                        <div class="cursor-move"><i class="fa-solid fa-grip-dots-vertical"></i></div>
+                                        <div>
+                                            <input type="text" autoFocusDirective class="form-control" [(ngModel)]="variant.AttributeValue" #i="ngModel" maxlength="50" required (blur)="onBlur(i)" [disabled]="variant.isAssociated" tabindex="{{i == 0 ? 2 : i+2}}" /> 
+                                        </div>
+                                        <div *ngIf="attribute.AttributeValueVM.length > 1 && !variant.isAssociated"><a (click)="delete(i)" href="javascript:void(0);" role="button"><i class="fa-regular fa-trash-can"></i></a></div>
+                                    </div>
+                                </div>
+            
+                            </div>
+
+                    </mat-step>
+
+                    <mat-step #stepper>
+                        <ng-template matStepLabel>Branches & Permissions</ng-template>
+                        <branch-selection #branchSelectionRef [branchList]="attribute.AttributeBranchVM" [HasBranchPermission]="attribute.HasBranchPermission" [typeName]="'attribute'" ></branch-selection>
+
+                    </mat-step>
+                </mat-horizontal-stepper>
+            </div>
+            <div class="row popup-footer">
+                <div class="col-md-12">
+                    <div class="float-sm-right float-xs-right" [ngClass]="{
+                        'sm-button-full': showContinue,
+                        'sm-button-three': showSave}">
+                        <button type="button" class="wellyx-button light-button"
+                            (click)="onCloseDialog()">Cancel</button>
+                        <button type="button" class="wellyx-button light-button" (click)="onPrevious()" *ngIf="showPrevious">Previous</button>
+                        <button class="wellyx-button action-button" (click)="onNext()" *ngIf="showContinue">Next</button>
+                        <button type="submit" class="wellyx-button action-button" [disabled]="disableSaveBtn" (click)="onSave()" *ngIf="showSave">Save</button>
+                    </div>
+                </div>
+            </div>
+       
+        </div>
+    </div>
+</div>

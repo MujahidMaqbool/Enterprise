@@ -1,0 +1,231 @@
+<div class="row mb-3">
+  <div class="col-md-12 p-0" *ngIf="allowedPages.Save_Brand">
+    <div class="float-right"><button class="wellyx-button action-button mb-0" tabindex="0"
+        (click)="onSaveBrand(null)">Add Brand</button>
+    </div>
+  </div>
+</div>
+
+<div class="search-filter-block mb-3 px-0">
+  <div id="search_accordion">
+    <div class="panel-heading collapsed row" data-toggle="collapse" data-parent="#search_accordion"
+      data-target="#product_search">
+      <div class="col-md-12">
+        <h3 class="panel-title accordion-toggle">Search Filter</h3>
+      </div>
+    </div>
+    <div id="product_search" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div class="row align-items-end">
+          <div class="col-md-12">
+            <div class="line-seprator"></div>
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h5 class="field-label">Product Brand</h5>
+            <input type="text" class="form-control" name="CustomerName" maxlength="50"
+              [(ngModel)]="brandSearchParameter.BrandName">
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h5 class="field-label">Type</h5>
+            <div class="select-label">
+              <select class="form-control" name="IsActive" [(ngModel)]="brandSearchParameter.BrandTypeID">
+                <option [ngValue]=null>
+                  All
+                </option>
+                <option *ngFor="let typeObj of typeList" [ngValue]="typeObj.TypeID">
+                  {{typeObj.TypeName}}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h5 class="field-label">Category</h5>
+            <div class="select-label">
+              <select class="form-control" name="IsActive" [(ngModel)]="brandSearchParameter.BrandCategoryID">
+                <option [ngValue]=null>
+                  All
+                </option>
+                <option *ngFor="let category of productCategoryList" [ngValue]="category.ProductCategoryID">
+                  {{category.CategoryTypeName}}
+                </option>
+              </select>
+            </div>
+          </div>
+
+
+
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h5 class="field-label">Branch</h5>
+            <div class="select-label">
+              <select class="form-control" [(ngModel)]="brandSearchParameter.BranchID">
+                <option [ngValue]=null>All</option>
+                <option *ngFor="let branch of branchList" [ngValue]="branch.BranchID">
+                  {{branch.BranchName}}
+                </option>
+              </select>
+            </div>
+          </div>
+
+
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h5 class="field-label">Status</h5>
+            <div class="select-label">
+              <select class="form-control" name="IsActive" [(ngModel)]="brandSearchParameter.BrandStatusID">
+                <option [ngValue]=null>
+                  All
+                </option>
+                <option *ngFor="let status of statusList" [ngValue]="status.StatusID">
+                  {{status.StatusName}}
+                </option>
+              </select>
+            </div>
+          </div>
+
+
+          <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 offset-xl-6 offset-lg-5 offset-md-0 mt-3 p-0">
+            <div class="row button-space">
+              <div class="col-md-6 col-sm-6">
+                <button class="filter-button light-button" type="button" (click)="resetSearchFilter()">
+                  Reset</button>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <button class="filter-button blue-button" type="button" (click)="searchBrandList()">
+                  Search</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="search-filter-block mb-3">
+  <div class="overflow-auto">
+    <div class="grid-scroll-lg cst-scroll-bar master-row">
+      <div class="row align-items-center grid-header">
+        <div class="col">
+          <h5>
+            <a class="primary-color" href="javascript:void(0)" (click)="changeSorting(1)">
+              Product Brand
+              <i class="far fa-sort-alt"></i>
+            </a>
+          </h5>
+        </div>
+        <div class="col">
+          <h5>
+            <a class="primary-color" href="javascript:void(0)" (click)="changeSorting(2)">
+              Type
+              <i class="far fa-sort-alt"></i>
+            </a>
+          </h5>
+        </div>
+        <div class="col">
+          <h5>Category</h5>
+        </div>
+        <div class="col">
+          <h5>Branch</h5>
+        </div>
+        <div class="col text-center">
+          <h5>Status</h5>
+        </div>
+        <div class="col text-center">
+          <h5>Actions</h5>
+        </div>
+      </div>
+
+      <ng-container *ngFor="let brand Of brandList;  let i = index">
+        <div class="row align-items-center grid-content parent-grid-content">
+          <div class="col">
+            <div class="cursor-pointer cst-collapse collapsed" data-toggle="collapse" attr.data-target="#collapseExample{{i}}"
+              aria-expanded="false" attr.aria-label="collapseExample{{i}}">
+              <h5>{{brand.BrandName}}</h5>
+            </div>
+          </div>
+          <div class="col">
+            <h5>{{brand.BrandTypeName}}</h5>
+          </div>
+          <div class="col">
+            <h5>
+              {{brand.ProductCategoryCount > 1? brand.ProductCategoryCount + " " + "Categories" : brand.ProductCategoryCount + " " + "Category" }}
+            </h5>
+          </div>
+          <div class="col">
+            <h5></h5>
+          </div>
+          <div class="col">
+            <h5></h5>
+          </div>
+          <div class="col text-center grid-actions-btn">
+            <h5>
+              <span class="blue">
+                <a matTooltip="View" matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                  href="javascript:void(0)" (click)="viewBrandDetail(brand.BrandID)">
+                  <i class="fal fa-book-open"></i>
+                </a>
+              </span>
+              <span class="blue" *ngIf="brand.AppSourceTypeID == appSourceType.EnterPrise">
+                <a matTooltip="Edit" *ngIf="allowedPages.Save_Brand" matTooltipPosition="above"
+                  matTooltipClass="custom-tooltip" href="javascript:void(0)" (click)="onSaveBrand(brand.BrandID)">
+                  <i class="fal fa-edit"></i>
+                </a>
+              </span>
+              <span class="blue" *ngIf="allowedPages.Delete_Brand && brand.AppSourceTypeID == appSourceType.EnterPrise">
+                <a matTooltip="Delete" matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                  (click)="onDeleteBrand(brand.BrandID)">
+                  <i class="fa-light fa-trash-can"></i>
+                </a>
+              </span>
+              <span class="blue" *ngIf="brand.AppSourceTypeID == appSourceType.OnSite">
+                <a matTooltip="Redirect" matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                  (click)="onRedirectBranchBrand(brand)">
+                  <i class="fal fa-external-link-square"></i>
+                </a>
+              </span>
+            </h5>
+          </div>
+        </div>
+
+        <div class="row align-items-center grid-content collapse" *ngFor="let brandBranchList of brand.BranchList"
+          id="collapseExample{{i}}">
+          <div class="col">
+            <h5></h5>
+          </div>
+          <div class="col">
+            <h5></h5>
+          </div>
+          <div class="col">
+            <h5></h5>
+          </div>
+          <div class="col">
+            <h5>{{brandBranchList.BranchName}}</h5>
+          </div>
+          <div class="col text-center">
+            <h5>{{brandBranchList.IsActive ? 'Active' :'Inactive'}}</h5>
+          </div>
+          <div class="col text-center grid-actions-btn">
+            <!-- <h5 *ngIf="isBranchPermission(staffChild.BranchID) && isEditAllow">
+                <span class="blue">
+                  <a matTooltip="Edit" (click)="onRoutRrl(staffChild.StaffID ,staffChild.BranchID)"
+                    matTooltipPosition="above" matTooltipClass="custom-tooltip">
+                    <i class="fal fa-edit"></i>
+                  </a>
+                </span>
+              </h5> -->
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="row grid-content no-hover" *ngIf="!isDataExists">
+    <div class="col-md-12 text-center">
+      <div class="no-record-found">{{messages.Generic_Messages.No_Record_Found}}</div>
+    </div>
+  </div>
+
+  <app-pagination #appPagination (paginationEvent)="reciviedPagination($event)"></app-pagination>
+</div>

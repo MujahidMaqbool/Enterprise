@@ -1,0 +1,172 @@
+<div tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog-centered">
+    <div class="modal-content xmedium-popup">
+      <div class="popup-header">
+        <h2>Product Brand</h2>
+      </div>
+      <div class="popup-content cst-scroll-bar">
+
+        <mat-horizontal-stepper #stepper>
+          <ng-template matStepperIcon="edit">
+            <mat-icon>edit</mat-icon>
+          </ng-template>
+
+          <mat-step #stepper>
+            <div class="row">
+              <div class="col-md-12 p-0">
+                <div class="alert alert-danger" *ngIf="showError">
+                  {{messages.Validation.Info_Required}}
+                </div>
+              </div>
+            </div>
+
+            <ng-template matStepLabel>Brand Information</ng-template>
+            <form #SaveBrandData="ngForm" novalidate>
+              <div class="section-block info-content">
+                <div class="row">
+                  <div class="col-md-6 mt-2">
+                    <h5 class="field-label">Name</h5>
+                    <div [ngClass]="{
+                                      'has-danger': brandName.invalid && (brandName.dirty || brandName.touched || inValidBrandName),
+                                      'has-success': brandName.valid && (brandName.dirty || brandName.touched )
+                                         }">
+                      <input autoFocusDirective type="text" #brandName="ngModel" required [(ngModel)]="brandSaveModel.BrandName" maxlength="50"
+                        name="brandName" id="brandName" class="form-control" tabindex="1" (ngModelChange)="showValidation($event)" (blur)="trimName()" />
+                    </div>
+                  </div>
+                  <div class="col-md-6 mt-2">
+                    <h5 class="field-label">Product Category</h5>
+                    <div class="select-label" [ngClass]="{
+                      'has-danger':  inValidProductCategory,
+                      'has-success': ProductCategory.valid && (ProductCategory.dirty || ProductCategory.touched)
+                         }">
+                      <mat-select class="form-control multi_select_tax" placeholder="Select Product Category" name="ProductCategory" id="ProductCategory"
+                        [(ngModel)]="selectedProductCategoryList" tabindex="2" #ProductCategory multiple required>
+                        <mat-select-trigger *ngIf="selectedProductCategoryList && selectedProductCategoryList.length > 0">
+                          {{selectedProductCategoryList && selectedProductCategoryList.length > 0 && selectedProductCategoryList[0].CategoryTypeName ?
+                        selectedProductCategoryList[0].CategoryTypeName :
+                        selectedProductCategoryList && selectedProductCategoryList.length >= 2 && selectedProductCategoryList[0].CategoryTypeName == undefined ?
+                        selectedProductCategoryList[1].CategoryTypeName : ''}}
+                          <span *ngIf="selectedProductCategoryList && selectedProductCategoryList.length >= 2"
+                            class="example-additional-selection">
+                            (+{{selectedProductCategoryList[0].CategoryTypeName == undefined ? selectedProductCategoryList.length - 2 :
+                          selectedProductCategoryList.length - 1 }}
+                            {{selectedProductCategoryList[0].CategoryTypeName == undefined && selectedProductCategoryList.length === 3 ? 'other' :
+                          selectedProductCategoryList.length === 2 ? 'other' : 'others'}})
+                          </span>
+                        </mat-select-trigger>
+                        <span *ngIf="productCategoryList && productCategoryList.length > 1">
+                          <mat-option #allSelectedProductCategory (click)="toggleAllCatSelection()" [value]="0">All</mat-option>
+                        </span>
+                        <mat-option *ngFor="let categoryItem of productCategoryList" [value]="categoryItem"
+                          (click)="togglePerCat(categoryItem)">
+                          {{categoryItem.CategoryTypeName}} </mat-option>
+                      </mat-select>
+                    </div>
+                  </div>
+                  <div class="col-md-12 mb-3">
+                    <h5 class="field-label">Description <span class="info-text">(Remaining Characters:
+                        {{250 - brandSaveModel?.Description?.length}})</span></h5>
+                    <textarea rows="6" [(ngModel)]="brandSaveModel.Description" name="description" maxlength="250" tabindex="3"
+                      class="form-control textarea-resize-none"></textarea>
+                  </div>
+                </div>
+              </div>
+            </form>
+
+          </mat-step>
+
+          <mat-step #stepper>
+
+              <ng-template matStepLabel>Branches & Permissions</ng-template>
+              <branch-selection #branchSelectionRef [branchList]="branchList"
+              [HasBranchPermission]="brandSaveModel.HasBranchPermission" [typeName]="'brand'"></branch-selection>
+
+            <!-- <div class="row" *ngIf="showBranchValidation">
+              <div class="col-md-12 p-0">
+                <div class="alert alert-danger">
+                  At least one branch should be selected.
+                </div>
+              </div>
+            </div>
+
+            <form #BranchesData="ngForm" novalidate>
+              <div class="section-block mb-3">
+                <div class="toggle-bar d-flex justify-content-between align-items-center">
+                  <div>
+                    <h5>Branch Permissions</h5>
+                    <p>Toggle on to allow branches to delete this category or mark it as
+                      active/inactive.</p>
+                  </div>
+                  <div>
+                    <mat-slide-toggle class="wellyx-checked" name="IsActive"
+                      [(ngModel)]="brandSaveModel.HasBranchPermission">
+                    </mat-slide-toggle>
+                  </div>
+                </div>
+
+              </div>
+              <div class="section-block info-content">
+
+                <div class="row ">
+                  <div class="col-md-12 mt-3 mb-3">
+                    <div class="overflow-auto">
+                      <div class="grid-scroll-xs cst-scroll-bar">
+                        <div class="row align-items-center grid-header">
+                          <div class="col">
+                            <h5>Branch</h5>
+                          </div>
+                          <div class="col text-center">
+                            <h5>Active</h5>
+                          </div>
+                          <div class="col text-center">
+                            <h5>Action</h5>
+                          </div>
+                        </div>
+
+                        <div class="row align-items-center grid-content"
+                          *ngFor="let branch of branchList; let i = index">
+                          <div class="col">
+                            <h5>{{branch.BranchName}}</h5>
+                          </div>
+                          <div class="col">
+                            <div class="checkbox checkbox-success d-flex justify-content-center">
+                              <input id="{{'branchActive' + branch.BranchID}}"
+                                name="{{'branchActive' + branch.BranchID}}" [(ngModel)]="branch.IsActive"
+                                [(checked)]="branch.IsActive" [disabled]="!branch.IsIncluded" type="checkbox">
+                              <label for="{{'branchActive' + branch.BranchID}}"></label>
+                            </div>
+                          </div>
+                          <div class="col text-center">
+                            <mat-slide-toggle id="{{'branchAction' + branch.BranchID}}"
+                              (change)="brandToggleChange($event, branch)" [(ngModel)]="branch.IsIncluded"
+                              name="{{'branchAction' + branch.BranchID}}">
+                              <h5>{{branch.IsIncluded ? 'Added' : 'Not Added'}}</h5>
+                            </mat-slide-toggle>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form> -->
+
+          </mat-step>
+        </mat-horizontal-stepper>
+      </div>
+      <div class="row popup-footer">
+        <div class="col-md-12">
+          <div class="float-sm-right float-xs-right" [ngClass]="{
+            'sm-button-full': showContinue,
+            'sm-button-three': showSave}">
+            <button tabindex="4" type="button" class="wellyx-button light-button" (click)="onCloseDialog()">Cancel</button>
+            <button tabindex="5" class="wellyx-button light-button" (click)="onPrevious()" *ngIf="showPrevious">Previous</button>
+            <button tabindex="6" class="wellyx-button action-button" (click)="onNext()" *ngIf="showContinue">Next</button>
+            <button tabindex="7" class="wellyx-button action-button" [disabled]="isDisabledSaveButton" (click)="onSave()" *ngIf="showSave">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

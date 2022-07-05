@@ -1,0 +1,827 @@
+<div class="row mb-3">
+  <div class="col-md-12 p-0" *ngIf="allowedPages.Save_Product">
+    <div class="float-right"><button class="wellyx-button action-button mb-0" tabindex="0" [routerLink]="['../products/details/0']">Add Product</button>
+    </div>
+  </div>
+</div>
+
+<div class="search-filter-block mb-3 px-0">
+  <div id="search_accordion">
+    <div class="panel-heading collapsed row" data-toggle="collapse" data-parent="#search_accordion"
+      data-target="#product_search">
+      <div class="col-md-12">
+        <h3 class="panel-title accordion-toggle">Search Filter</h3>
+      </div>
+    </div>
+    <div id="product_search" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div class="row align-items-end">
+          <div class="col-md-12">
+            <div class="line-seprator"></div>
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h5 class="field-label">Product</h5>
+            <input type="text" class="form-control" name="productName" id="productName" maxlength="50" [(ngModel)]="productSearchParameter.ProductName">
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h5 class="field-label">Classification</h5>
+            <div class="select-label">
+              <select class="form-control" name="productClassification" id="productClassification" [(ngModel)]="productSearchParameter.ProductClassificationID">
+                <option [ngValue]= null>
+                  All
+                </option>
+                <option *ngFor="let product of productClassifications" [ngValue]="product.ProductClassificationID">
+                  {{product.ProductClassificationName}}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h5 class="field-label">Type</h5>
+            <div class="select-label">
+              <select class="form-control" name="productType" id="productType" [(ngModel)]="productSearchParameter.AppSourceTypeID">
+                <option [ngValue]= null>
+                  All
+                </option>
+                <option *ngFor="let product of productTypes" [ngValue]="product.ProductTypeID">
+                  {{product.ProductTypeName}}
+                </option>
+              </select>
+            </div>
+          </div>
+
+
+
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h5 class="field-label">Branch</h5>
+            <div class="select-label">
+              <mat-select class="form-control" name="Branch" placeholder="Select Branch"
+                [(ngModel)]="selectedBranchesList" tabindex="10" multiple #branchSelect>
+                <mat-select-trigger *ngIf="selectedBranchesList.length - 1 == branchList?.length">
+                  All
+                </mat-select-trigger>
+                <mat-select-trigger
+                  *ngIf="selectedBranchesList && selectedBranchesList.length > 0 && selectedBranchesList.length - 1 != branchList?.length">
+                  {{selectedBranchesList && selectedBranchesList.length > 0 &&
+                                        selectedBranchesList[0].BranchName ?
+                                        selectedBranchesList[0].BranchName :
+                                        selectedBranchesList && selectedBranchesList.length >= 2 &&
+                                        selectedBranchesList[0].BranchName == undefined ?
+                                        selectedBranchesList[1].BranchName : ''}}
+                  <span *ngIf="selectedBranchesList && selectedBranchesList.length >= 2"
+                    class="example-additional-selection">
+                    (+{{selectedBranchesList[0].BranchName == undefined ?
+                                            selectedBranchesList.length - 2 :
+                                            selectedBranchesList.length - 1 }}
+                    {{selectedBranchesList[0].BranchName == undefined &&
+                                            selectedBranchesList.length === 3 ? 'other' :
+                                            selectedBranchesList.length === 2 ? 'other' : 'others'}})
+                  </span>
+                </mat-select-trigger>
+                <span *ngIf="branchList && branchList.length > 1">
+                  <mat-option #allSelectedBranch
+                    (click)="toggleAllSelection(Product_SearchFundamental_DropDowns.ProductBranches)" [value]="0">All
+                  </mat-option>
+                </span>
+                <mat-option *ngFor="let branch of branchList" [value]="branch"
+                  (click)="tosslePerOneItem(Product_SearchFundamental_DropDowns.ProductBranches)">
+                  {{branch.BranchName}}</mat-option>
+              </mat-select>
+            </div>
+          </div>
+
+
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h5 class="field-label">Status</h5>
+            <div class="select-label">
+              <select class="form-control" name="productStatus" id="productStatus" [(ngModel)]="productSearchParameter.IsActive">
+                <option [ngValue]= null>
+                  All
+                </option>
+                <option *ngFor="let status of statusList" [ngValue]="status.StatusID">
+                  {{status.StatusName}}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <ng-container *ngIf="isAdvanceSearch">
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h5 class="field-label">Category</h5>
+            <div class="select-label">
+            <mat-select class="form-control" name="selectCategory" id="selectCategory" placeholder="Select Category"
+            [(ngModel)]="selectedProductCategoryList" multiple #selectProductCategory>
+            <mat-select-trigger *ngIf="selectedProductCategoryList.length - 1 == productCategories?.length">
+              All
+            </mat-select-trigger>
+            <mat-select-trigger
+              *ngIf="selectedProductCategoryList && selectedProductCategoryList.length > 0 && selectedProductCategoryList.length - 1 != productCategories?.length">
+              {{selectedProductCategoryList && selectedProductCategoryList.length > 0 &&
+                selectedProductCategoryList[0].ProductCategoryName ?
+                selectedProductCategoryList[0].ProductCategoryName :
+                selectedProductCategoryList && selectedProductCategoryList.length >= 2 &&
+                selectedProductCategoryList[0].ProductCategoryName == undefined ?
+                selectedProductCategoryList[1].ProductCategoryName : ''}}
+              <span *ngIf="selectedProductCategoryList && selectedProductCategoryList.length >= 2"
+                class="example-additional-selection">
+                (+{{selectedProductCategoryList[0].ProductCategoryName == undefined ?
+                  selectedProductCategoryList.length - 2 :
+                  selectedProductCategoryList.length - 1 }}
+                {{selectedProductCategoryList[0].ProductCategoryName == undefined &&
+                  selectedProductCategoryList.length === 3 ? 'other' :
+                  selectedProductCategoryList.length === 2 ? 'other' : 'others'}})
+              </span>
+            </mat-select-trigger>
+            <span *ngIf="productCategories && productCategories.length > 1">
+              <mat-option #allProductCategorySelected
+                (click)="toggleAllSelection(Product_SearchFundamental_DropDowns.ProductCategory)" [value]="0">All
+              </mat-option>
+            </span>
+            <mat-option *ngFor="let categoryList of productCategories" [value]="categoryList"
+              (click)="tosslePerOneItem(Product_SearchFundamental_DropDowns.ProductCategory)">
+              {{categoryList.ProductCategoryName}}</mat-option>
+          </mat-select>
+          </div>
+
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h5 class="field-label">Brand</h5>
+            <div class="select-label">
+            <mat-select class="form-control" name="selectBrand" id="selectBrand" placeholder="Select Brand"
+            [(ngModel)]="selectedProductBrandList" multiple #selectProductBrand>
+            <mat-select-trigger *ngIf="selectedProductBrandList.length - 1 == brands?.length">
+              All
+            </mat-select-trigger>
+            <mat-select-trigger
+              *ngIf="selectedProductBrandList && selectedProductBrandList.length > 0 && selectedProductBrandList.length - 1 != brands?.length">
+              {{selectedProductBrandList && selectedProductBrandList.length > 0 &&
+                selectedProductBrandList[0].BrandName ?
+                selectedProductBrandList[0].BrandName :
+                selectedProductBrandList && selectedProductBrandList.length >= 2 &&
+                selectedProductBrandList[0].BrandName == undefined ?
+                selectedProductBrandList[1].BrandName : ''}}
+              <span *ngIf="selectedProductBrandList && selectedProductBrandList.length >= 2"
+                class="example-additional-selection">
+                (+{{selectedProductBrandList[0].BrandName == undefined ?
+                  selectedProductBrandList.length - 2 :
+                  selectedProductBrandList.length - 1 }}
+                {{selectedProductBrandList[0].BrandName == undefined &&
+                  selectedProductBrandList.length === 3 ? 'other' :
+                  selectedProductBrandList.length === 2 ? 'other' : 'others'}})
+              </span>
+            </mat-select-trigger>
+            <span *ngIf="brands && brands.length > 1">
+              <mat-option #allProductBrandSelected
+                (click)="toggleAllSelection(Product_SearchFundamental_DropDowns.ProductBrand)" [value]="0">All
+              </mat-option>
+            </span>
+            <mat-option *ngFor="let productBrands of brands" [value]="productBrands"
+              (click)="tosslePerOneItem(Product_SearchFundamental_DropDowns.ProductBrand)">
+              {{productBrands.BrandName}}</mat-option>
+          </mat-select>
+          </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h5 class="field-label">Show Online</h5>
+            <div class="select-label">
+              <select class="form-control" name="showOnline" id="showOnline" [(ngModel)]="productSearchParameter.IsOnline">
+                <option [ngValue]= null>
+                  All
+                </option>
+                <option [ngValue]="1">
+                  Yes
+                </option>
+                <option [ngValue]="0">
+                  No
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h5 class="field-label">Track Inventory</h5>
+            <div class="select-label">
+              <select class="form-control" name="trackInventory" id="trackInventory" [(ngModel)]="productSearchParameter.HasTrackInventory">
+                <option [ngValue]= null>
+                  All
+                </option>
+                <option [ngValue]="1">
+                  Yes
+                </option>
+                <option [ngValue]="0">
+                  No
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h5 class="field-label">Supplier</h5>
+            <div class="select-label">
+            <mat-select class="form-control" name="Branch" placeholder="Select Supplier"
+            [(ngModel)]="selectedProductSupplierList" multiple #selectProductSupplier>
+            <mat-select-trigger *ngIf="selectedProductSupplierList.length - 1 == suppliers?.length">
+              All
+            </mat-select-trigger>
+            <mat-select-trigger
+              *ngIf="selectedProductSupplierList && selectedProductSupplierList.length > 0 && selectedProductSupplierList.length - 1 != suppliers?.length">
+              {{selectedProductSupplierList && selectedProductSupplierList.length > 0 &&
+                selectedProductSupplierList[0].SupplierName ?
+                selectedProductSupplierList[0].SupplierName :
+                selectedProductSupplierList && selectedProductSupplierList.length >= 2 &&
+                selectedProductSupplierList[0].SupplierName == undefined ?
+                selectedProductSupplierList[1].SupplierName : ''}}
+              <span *ngIf="selectedProductSupplierList && selectedProductSupplierList.length >= 2"
+                class="example-additional-selection">
+                (+{{selectedProductSupplierList[0].SupplierName == undefined ?
+                  selectedProductSupplierList.length - 2 :
+                  selectedProductSupplierList.length - 1 }}
+                {{selectedProductSupplierList[0].SupplierName == undefined &&
+                  selectedProductSupplierList.length === 3 ? 'other' :
+                  selectedProductSupplierList.length === 2 ? 'other' : 'others'}})
+              </span>
+            </mat-select-trigger>
+            <span *ngIf="suppliers && suppliers.length > 1">
+              <mat-option #allProductSupplierSelected
+                (click)="toggleAllSelection(Product_SearchFundamental_DropDowns.ProductSupplier)" [value]="0">All
+              </mat-option>
+            </span>
+            <mat-option *ngFor="let productSuppliers of suppliers" [value]="productSuppliers"
+              (click)="tosslePerOneItem(Product_SearchFundamental_DropDowns.ProductSupplier)">
+              {{productSuppliers.SupplierName}}</mat-option>
+          </mat-select>
+          </div>
+          </div>
+          <div class="col-lg-6 col-md-8 col-sm-12 p-0" >
+            <dateto-datefrom (sendDateTo)="reciviedDate($event)" [dateToPlaceHolder]="dateToPlaceHolder" [dateFromPlaceHolder]="dateFromPlaceHolder" [dateToLabel]="dateToLabel" [dateFromLabel]="dateFromLabel" #productDateSearch>
+            </dateto-datefrom>
+          </div>
+        </ng-container>
+
+          <div class="offset-md-4 col-xl-5 col-lg-6 col-md-8 mt-3 p-0"
+          [ngClass]="{'offset-xl-7 offset-lg-6' : isAdvanceSearch, 'offset-xl-4 offset-lg-3' : !isAdvanceSearch}">
+
+            <div class="row button-space">
+              <div class="col-md-4 col-sm-4">
+                <button class="filter-button light-button" type="button" (click)="resetSearchFilter()">
+                  Reset</button>
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <div class="input-group advance-search" (click)="toggleAdvanceSearch()">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text" *ngIf="!isAdvanceSearch"><i class="fal fa-chevron-down"></i></div>
+                    <div class="input-group-text" *ngIf="isAdvanceSearch"><i class="fal fa-times"></i></div>
+                  </div>
+                  <input type="text" class="form-control cst-bg-color text-center" readonly value="Advanced Search"
+                    *ngIf="!isAdvanceSearch" >
+                  <input type="text" class="form-control cst-bg-color text-center" readonly value="Close Advanced Search"
+                    *ngIf="isAdvanceSearch">
+                </div>
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <button class="filter-button blue-button" type="button" (click)="onClickSearchProduct()">
+                  Search</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="search-filter-block mb-3">
+  <div class="row">
+    <div class="col-md-12 p-0">
+      <div class="section-title section-title d-flex justify-content-between">
+        <h3>Products</h3>
+        <div>
+          <a class="icon-button text-blue-button" matTooltip="Personalize Grid" matTooltipClass="custom-tooltip"
+            matTooltipPosition="above" (click)="togglePersonalGrid(true)">
+            <i class="far fa-sliders-v" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fav-view-grid py-2" *ngIf="showDropDownGrid">
+    <div (clickOutside)="togglePersonalGrid(false)">
+      <div class="fav-view-head d-flex justify-content-between mb-2 px-2">
+        <h6>Grid</h6>
+        <div>
+          <button class="icon-button mr-2 mb-2 referesh-btn" [disabled]="!canResetEnable"
+            (click)="onResetFavouriteView()" matTooltip="Reset to Default View" matTooltipClass="custom-tooltip"
+            matTooltipPosition="above"><i class="fal fa-sync"></i></button>
+          <button class="icon-button mb-2" *ngIf="canResetEnable" matTooltip="Favorite View"
+            matTooltipClass="custom-tooltip" matTooltipPosition="above"><i class="fas fa-stars"></i></button>
+        </div>
+      </div>
+      <div class="fav-view-body px-2">
+        <div class="pr-1 mb-2 cst-scroll-bar fav-grid-scroll">
+          <div id="Product_accordian1" class="accordian-space">
+            <div class="panel-heading collapsed" data-toggle="collapse" data-parent="#Product_accordian1"
+              data-target="#productInfo_accordian">
+              <h3 class="accordian-title">Product Information</h3>
+            </div>
+            <div id="productInfo_accordian" class="panel-collapse collapse show">
+              <div class="accordian-body-content">
+                <ng-container *ngFor="let favouriteView of favouriteViewColumnNameList; let i =index">
+                  <div class="form-group accordian-item" *ngIf="favouriteView.ColumnName == 'product'">
+                    <input type="checkbox" autocomplete="off" name="fav_Check{{i}}" id="fav_Check{{i}}"
+                      [disabled]="favouriteView.isDefault" [(ngModel)]="favouriteView.selected">
+                    <div class="cst-icon-label">
+                      <label for="fav_Check{{i}}" class="checked-bg"
+                        [ngClass]="{'checked-bg': favouriteView.selected, 'uncheck-bg': !favouriteView.selected, 'cursor-not-allowed': favouriteView.isDefault}">
+                        <span class="fa fa-check"></span>
+                        <span class="fa fa-times"></span>
+                      </label>
+                      <label for="ddd{{i}}">
+                        {{favouriteView.FavouriteViewColumnName}}
+                      </label>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div id="product_accordian2" class="accordian-space">
+            <div class="panel-heading collapsed" data-toggle="collapse" data-parent="#product_accordian2"
+              data-target="#branches_accordian">
+              <h3 class="accordian-title">Branches & Permissions</h3>
+            </div>
+            <div id="branches_accordian" class="panel-collapse collapse">
+              <div class="accordian-body-content">
+                <ng-container *ngFor="let favouriteView of favouriteViewColumnNameList; let i =index">
+                  <div class="form-group accordian-item"
+                  *ngIf="favouriteView.ColumnName == 'branches'">
+                    <input type="checkbox" autocomplete="off" name="fav_Check_membership{{i}}"
+                      id="fav_Check_membership{{i}}" [(ngModel)]="favouriteView.selected">
+                    <div class="cst-icon-label">
+                      <label for="fav_Check_membership{{i}}" class="checked-bg"
+                      [ngClass]="{'checked-bg': favouriteView.selected, 'uncheck-bg': !favouriteView.selected, 'cursor-not-allowed': favouriteView.isDefault}">
+                        <span class="fa fa-check"></span>
+                        <span class="fa fa-times"></span>
+                      </label>
+                      <label for="ddd_membership{{i}}">
+                        {{favouriteView.FavouriteViewColumnName}}
+                      </label>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div id="product_accordian3" class="accordian-space">
+            <div class="panel-heading collapsed" data-toggle="collapse" data-parent="#product_accordian3"
+              data-target="#pricing_accordian">
+              <h3 class="accordian-title">Pricing</h3>
+            </div>
+            <div id="pricing_accordian" class="panel-collapse collapse">
+              <div class="accordian-body-content">
+                <ng-container *ngFor="let favouriteView of favouriteViewColumnNameList; let i =index">
+                  <div class="form-group accordian-item"
+                  *ngIf="favouriteView.ColumnName == 'pricing'">
+                    <input type="checkbox" autocomplete="off" name="fav_Check_inquiry{{i}}" id="fav_Check_inquiry{{i}}"
+                      [(ngModel)]="favouriteView.selected">
+                    <div class="cst-icon-label">
+                      <label for="fav_Check_inquiry{{i}}" class="checked-bg"
+                      [ngClass]="{'checked-bg': favouriteView.selected, 'uncheck-bg': !favouriteView.selected, 'cursor-not-allowed': favouriteView.isDefault}">
+                        <span class="fa fa-check"></span>
+                        <span class="fa fa-times"></span>
+                      </label>
+                      <label for="ddd_inquiry{{i}}">
+                        {{favouriteView.FavouriteViewColumnName}}
+                      </label>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div id="inventory_accordian4">
+            <div class="panel-heading collapsed" data-toggle="collapse" data-parent="#inventory_accordian4"
+              data-target="#inventory_accordian">
+              <h3 class="accordian-title">Inventory</h3>
+            </div>
+            <div id="inventory_accordian" class="panel-collapse collapse">
+              <div class="accordian-body-content">
+                <ng-container *ngFor="let favouriteView of favouriteViewColumnNameList; let i =index">
+                  <div class="form-group accordian-item"
+                  *ngIf="favouriteView.ColumnName == 'inventory'">
+                    <input type="checkbox" autocomplete="off" name="fav_Check_inquiry{{i}}" id="fav_Check_inquiry{{i}}"
+                      [(ngModel)]="favouriteView.selected">
+                    <div class="cst-icon-label">
+                      <label for="fav_Check_inquiry{{i}}" class="checked-bg"
+                      [ngClass]="{'checked-bg': favouriteView.selected, 'uncheck-bg': !favouriteView.selected, 'cursor-not-allowed': favouriteView.isDefault}">
+                        <span class="fa fa-check"></span>
+                        <span class="fa fa-times"></span>
+                      </label>
+                      <label for="ddd_inquiry{{i}}">
+                        {{favouriteView.FavouriteViewColumnName}}
+                      </label>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex align-items-center combine-button">
+          <button class="filter-button light-button mb-0" (click)="onSaveAndApplyFavView(true)">Apply & Save</button>
+          <button class="filter-button action-button mb-0" (click)="onApply(true)">Apply</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="overflow-auto">
+    <div class="grid-scroll-lg cst-scroll-bar master-row" [ngClass]="{
+      'grid-scrolls': dummyFavouriteViewColumnNameList.length > 10,
+      'grid-scroll-long': dummyFavouriteViewColumnNameList.length > 16}">
+      <div class="row align-items-center grid-header">
+        <ng-container *ngFor="let view of dummyFavouriteViewColumnNameList; let i = index;">
+          <div class="col {{i}}">
+            <h5>
+              {{view.FavouriteViewColumnName}}</h5>
+          </div>
+        </ng-container>
+        <div class="col text-center">
+          <h5>Actions</h5>
+        </div>
+      </div>
+      <ng-container *ngFor="let products of productList; let i = index">
+        <div class="row align-items-center grid-content parent-grid-content">
+          <div class="col " *ngIf="hideAndShowFavouriteViewColumn.isProductColumn">
+            <div [ngClass]="{
+              'cursor-pointer cst-collapse': products.ProductVariants.length > 0,
+              'pl-0': !(products.ProductVariants.length > 0)}"
+              data-toggle="collapse" attr.data-target="#productCollapse{{i}}" aria-expanded="false" attr.aria-label="productCollapse{{i}}">
+              <h5>{{products.ProductName}}</h5>
+            </div>
+          </div>
+          <div class="col 2" *ngIf="hideAndShowFavouriteViewColumn.isClassificationColumn">
+            <h5>{{products.ProductClassificationName}}</h5>
+          </div>
+          <div class="col 3" *ngIf="hideAndShowFavouriteViewColumn.isTypeColumn">
+            <h5>{{products.Type}}</h5>
+          </div>
+          <div class="col 4" *ngIf="hideAndShowFavouriteViewColumn.isBranchColumn">
+            <h5></h5>
+          </div>
+          <div class="col 5" *ngIf="hideAndShowFavouriteViewColumn.isCategoryColumn">
+            <h5>{{products.ProductCategoryName}}</h5>
+          </div>
+          <div class="col 6" *ngIf="hideAndShowFavouriteViewColumn.isBrandColumn">
+            <h5>{{products.BrandName}}</h5>
+          </div>
+          <div class="col 7" *ngIf="hideAndShowFavouriteViewColumn.isRetailPriceColumn">
+            <h5></h5>
+          </div>
+
+          <div class="col 8" *ngIf="hideAndShowFavouriteViewColumn.isCurrentStockColumn">
+            <h5>{{products.TotalCurrentStock}}</h5>
+          </div>
+
+          <!-- Start Dynamic Loop Handling -->
+          <div class="col 9" *ngIf="hideAndShowFavouriteViewColumn.isPurchaseRestrictionColumn">
+            <h5>{{products.RestrictedCustomerTypeNames}}</h5>
+          </div>
+          <div class="col 10" *ngIf="hideAndShowFavouriteViewColumn.isShowOnlineColumn">
+            <h5></h5>
+          </div>
+          <div class="col 11" *ngIf="hideAndShowFavouriteViewColumn.isHidePriceOnlineColumn">
+            <h5></h5>
+          </div>
+          <div class="col 12" *ngIf="hideAndShowFavouriteViewColumn.isFeaturedColumn">
+            <h5></h5>
+          </div>
+
+          <div class="col 14" *ngIf="hideAndShowFavouriteViewColumn.isTrackInventoryColumn">
+            <h5></h5>
+          </div>
+          <div class="col 15" *ngIf="hideAndShowFavouriteViewColumn.isShippingColumn">
+            <h5></h5>
+          </div>
+          <div class="col 16" *ngIf="hideAndShowFavouriteViewColumn.isBarCodeColumn">
+            <h5></h5>
+          </div>
+          <div class="col 17" *ngIf="hideAndShowFavouriteViewColumn.isSKUColumn">
+            <h5></h5>
+          </div>
+          <div class="col 18" *ngIf="hideAndShowFavouriteViewColumn.isSupplierColumn">
+            <h5></h5>
+          </div>
+          <div class="col 19" *ngIf="hideAndShowFavouriteViewColumn.isSupplerCodeColumn">
+            <h5></h5>
+          </div>
+          <div class="col 20" *ngIf="hideAndShowFavouriteViewColumn.isSupplierPriceColumn">
+            <h5></h5>
+          </div>
+          <div class="col 21" *ngIf="hideAndShowFavouriteViewColumn.isPriceColumn">
+            <h5></h5>
+          </div>
+          <div class="col 22" *ngIf="hideAndShowFavouriteViewColumn.isTaxColumn">
+            <h5></h5>
+          </div>
+          <div class="col 23" *ngIf="hideAndShowFavouriteViewColumn.isReorderQuantityColumn">
+            <h5></h5>
+          </div>
+          <div class="col 24" *ngIf="hideAndShowFavouriteViewColumn.isThresholdPointColumn">
+            <h5></h5>
+          </div>
+          <div class="col 25" *ngIf="hideAndShowFavouriteViewColumn.isStockValueColumn">
+            <h5>{{products.TotalStockValue | currency: currencyFormat}}</h5>
+          </div>
+          <div class="col 26" *ngIf="hideAndShowFavouriteViewColumn.isRetailValueColumn">
+            <h5>{{products.TotalRetailValue | currency: currencyFormat}}</h5>
+          </div>
+          <!-- End Dynamic Loop Handling -->
+
+          <div class="col 27" *ngIf="hideAndShowFavouriteViewColumn.isVarientStatusColumn">
+          </div>
+          <div class="col 27" *ngIf="hideAndShowFavouriteViewColumn.isProductStatusColumn">
+          </div>
+          <div class="col text-center grid-actions-btn">
+            <h5>
+              <span class="blue">
+                <a matTooltip="View" matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                   href="javascript:void(0)" (click)="openProductDetailDialog(products.ProductID)">
+                  <i class="fal fa-book-open"></i>
+                </a>
+              </span>
+              <!-- <span class="blue" *ngIf="allowedPages.Save_Product && products.AppSourceTypeID == enum_AppSourceType.EnterPrise">
+                <a matTooltip="Edit" matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                   href="javascript:void(0)" (click)="onEditProduct(products.ProductID, products.AppSourceTypeID, products.ProductVariants[0].ProductVariantBranches[0].BranchID)">
+                  <i class="fal fa-edit"></i>
+                </a>
+              </span> -->
+              <span class="blue" *ngIf="allowedPages.Save_Product && products.AppSourceTypeID == enum_AppSourceType.EnterPrise">
+                <a matTooltip="Edit" matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                   href="javascript:void(0)" (click)="onEditProduct(products.ProductID, products.AppSourceTypeID, null)">
+                  <i class="fal fa-edit"></i>
+                </a>
+              </span>
+              <span class="blue" *ngIf="allowedPages.Save_Product && products.AppSourceTypeID == enum_AppSourceType.OnSite ">
+                <a matTooltip="Redirect" matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                (click)="onEditProduct(products.ProductID, products.AppSourceTypeID, products.ProductBranches[0])">
+                  <i class="fal fa-external-link-square"></i>
+                </a>
+              </span>
+
+              <span class="blue" *ngIf="products.ProductClassificationID == productClassification.Variant && products.AppSourceTypeID == enum_AppSourceType.EnterPrise">
+                <a matTooltip="Variant" matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                   href="javascript:void(0)" (click)="openVariantDialog(products.ProductID,products.IsProductVariantGenerated,products.ProductClassificationID)">
+                  <i class="fal fa-boxes"></i>
+                </a>
+              </span>
+              
+              <span class="blue" *ngIf="allowedPages.Pricing_View && products.AppSourceTypeID == enum_AppSourceType.EnterPrise">
+                <a matTooltip="Pricing" matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                   href="javascript:void(0)" (click)="onEditPrice(products.ProductID,products.ProductClassificationID)">
+                  <i class="fa-light fa-list-check"></i>
+                </a>
+              </span>
+             
+              <span class="blue" *ngIf="allowedPages.Inventory_View && products.AppSourceTypeID == enum_AppSourceType.EnterPrise" >
+                <a matTooltip="Inventory" matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                   href="javascript:void(0)" (click)="openInventoryDialog(products.ProductID,products.ProductClassificationID)">
+                  <i class="fa-light fa-layer-plus"></i>
+                </a>
+              </span>
+              <span class="blue" *ngIf="allowedPages.Delete_Product && products.AppSourceTypeID == enum_AppSourceType.EnterPrise">
+                <a matTooltip="Delete" matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                  (click)="onDeleteProduct(products.ProductID)">
+                  <i class="fa-light fa-trash-can"></i>
+                </a>
+              </span>
+            </h5>
+          </div>
+        </div>
+
+      <div id="productCollapse{{i}}" class="collapse show">
+        <ng-container *ngFor="let varientDetail of  products?.ProductVariants; let j = index" >
+
+          <div id="accordion-{{j}}" class="row align-items-center grid-content" *ngIf="varientDetail.IsStandard ==  false">
+
+            <div class="col ml-3" *ngIf="hideAndShowFavouriteViewColumn.isProductColumn">
+              <div class="cursor-pointer cst-collapse collapsed" data-toggle="collapse" attr.data-target="#productVarientCollapse{{i+j}}" attr.aria-label="productVarientCollapse{{i+j}}"
+                aria-expanded="false">
+                <h5>{{varientDetail.ProductVariantName}} </h5>
+              </div>
+            </div>
+            <div class="col 1.2" *ngIf="hideAndShowFavouriteViewColumn.isClassificationColumn">
+              <h5></h5>
+            </div>
+            <div class="col 1.3" *ngIf="hideAndShowFavouriteViewColumn.isTypeColumn">
+              <h5></h5>
+            </div>
+            <div class="col 1.4" *ngIf="hideAndShowFavouriteViewColumn.isBranchColumn">
+              <h5></h5>
+            </div>
+            <div class="col 1.5" *ngIf="hideAndShowFavouriteViewColumn.isCategoryColumn">
+              <h5></h5>
+            </div>
+            <div class="col 1.6" *ngIf="hideAndShowFavouriteViewColumn.isBrandColumn">
+              <h5></h5>
+            </div>
+            <div class="col 1.7" *ngIf="hideAndShowFavouriteViewColumn.isCurrentStockColumn">
+              <h5>{{varientDetail.CurrentStock}}</h5>
+            </div>
+            <div class="col 1.8" *ngIf="hideAndShowFavouriteViewColumn.isRetailPriceColumn">
+              <h5></h5>
+            </div>
+
+            <!-- Start Dynamic Loop Handling -->
+            <div class="col 1.9" *ngIf="hideAndShowFavouriteViewColumn.isPurchaseRestrictionColumn">
+              <h5></h5>
+            </div>
+            <div class="col 1.10" *ngIf="hideAndShowFavouriteViewColumn.isShowOnlineColumn">
+              <h5></h5>
+            </div>
+            <div class="col 1.11" *ngIf="hideAndShowFavouriteViewColumn.isHidePriceOnlineColumn">
+              <h5></h5>
+            </div>
+            <div class="col 1.12" *ngIf="hideAndShowFavouriteViewColumn.isFeaturedColumn">
+              <h5></h5>
+            </div>
+
+            <div class="col 1.14" *ngIf="hideAndShowFavouriteViewColumn.isTrackInventoryColumn">
+              <h5></h5>
+            </div>
+            <div class="col 1.15" *ngIf="hideAndShowFavouriteViewColumn.isShippingColumn">
+              <h5></h5>
+            </div>
+            <div class="col 1.16" *ngIf="hideAndShowFavouriteViewColumn.isBarCodeColumn">
+              <h5></h5>
+            </div>
+            <div class="col 1.17" *ngIf="hideAndShowFavouriteViewColumn.isSKUColumn">
+              <h5></h5>
+            </div>
+            <div class="col 1.18" *ngIf="hideAndShowFavouriteViewColumn.isSupplierColumn">
+              <h5></h5>
+            </div>
+            <div class="col 1.19" *ngIf="hideAndShowFavouriteViewColumn.isSupplerCodeColumn">
+              <h5></h5>
+            </div>
+            <div class="col 1.20" *ngIf="hideAndShowFavouriteViewColumn.isSupplierPriceColumn">
+              <h5></h5>
+            </div>
+            <div class="col 1.21" *ngIf="hideAndShowFavouriteViewColumn.isPriceColumn">
+              <h5></h5>
+            </div>
+            <div class="col 1.22" *ngIf="hideAndShowFavouriteViewColumn.isTaxColumn">
+              <h5></h5>
+            </div>
+            <div class="col 1.23" *ngIf="hideAndShowFavouriteViewColumn.isReorderQuantityColumn">
+              <h5></h5>
+            </div>
+            <div class="col 1.24" *ngIf="hideAndShowFavouriteViewColumn.isThresholdPointColumn">
+              <h5></h5>
+            </div>
+            <div class="col 1.25" *ngIf="hideAndShowFavouriteViewColumn.isStockValueColumn">
+              <h5></h5>
+            </div>
+            <div class="col 1.26" *ngIf="hideAndShowFavouriteViewColumn.isRetailValueColumn">
+              <h5></h5>
+            </div>
+            <!-- End Dynamic Loop Handling -->
+
+            <div class="col 1.27" *ngIf="hideAndShowFavouriteViewColumn.isVarientStatusColumn">
+              <h5></h5>
+            </div>
+            <div class="col 27" *ngIf="hideAndShowFavouriteViewColumn.isProductStatusColumn">
+            </div>
+            <div class="col text-center grid-actions-btn">
+              <h5></h5>
+            </div>
+
+
+
+          </div>
+
+          <!-- further child -->
+          <div id="productVarientCollapse{{i+j}}" [ngClass]="{'collapse':varientDetail.IsStandard ==  false}">
+            <ng-container *ngFor="let productBranches of varientDetail.ProductVariantBranches">
+              <div class="row align-items-center grid-content">
+                <div class="col 2.1" *ngIf="hideAndShowFavouriteViewColumn.isProductColumn">
+                  <h5></h5>
+                </div>
+                <div class="col 2.2" *ngIf="hideAndShowFavouriteViewColumn.isClassificationColumn">
+                  <h5></h5>
+                </div>
+                <div class="col 2.3" *ngIf="hideAndShowFavouriteViewColumn.isTypeColumn">
+                  <h5></h5>
+                </div>
+                <div class="col 2.4" *ngIf="hideAndShowFavouriteViewColumn.isBranchColumn">
+                  <h5>{{productBranches.BranchName}}</h5>
+                </div>
+
+                <div class="col 2.5" *ngIf="hideAndShowFavouriteViewColumn.isCategoryColumn">
+                  <h5></h5>
+                </div>
+                <div class="col 2.6" *ngIf="hideAndShowFavouriteViewColumn.isBrandColumn">
+                  <h5></h5>
+                </div>
+                <div class="col 2.7" *ngIf="hideAndShowFavouriteViewColumn.isRetailPriceColumn">
+                  <h5>{{productBranches.TotalPrice | currency: currencyFormat}}</h5>
+                </div>
+                <div class="col 2.8" *ngIf="hideAndShowFavouriteViewColumn.isCurrentStockColumn">
+                  <h5>{{productBranches.CurrentStock}}</h5>
+                </div>
+
+                <!-- Start Dynamic Loop Handling -->
+                <div class="col 2.9" *ngIf="hideAndShowFavouriteViewColumn.isPurchaseRestrictionColumn">
+                  <h5></h5>
+                </div>
+                <div class="col 2.10" *ngIf="hideAndShowFavouriteViewColumn.isShowOnlineColumn">
+                  <h5>{{productBranches.IsOnline ? 'Yes' : 'No'}}</h5>
+                </div>
+                <div class="col 2.11" *ngIf="hideAndShowFavouriteViewColumn.isHidePriceOnlineColumn">
+                  <h5>{{productBranches.IsHidePriceOnline ? 'Yes' : 'No'}}</h5>
+                </div>
+                <div class="col 2.12" *ngIf="hideAndShowFavouriteViewColumn.isFeaturedColumn">
+                  <h5>{{productBranches.IsFeatured ? 'Yes' : 'No'}}</h5>
+                </div>
+                <!-- <div class="col 2.13" *ngIf="hideAndShowFavouriteViewColumn.isBusinessUseOnlyColumn">
+                  <h5></h5>
+                </div> -->
+                <div class="col 2.14" *ngIf="hideAndShowFavouriteViewColumn.isTrackInventoryColumn">
+                  <h5>{{productBranches.HasTrackInventory ? 'Yes' : 'No'}}</h5>
+                </div>
+                <div class="col 2.15" *ngIf="hideAndShowFavouriteViewColumn.isShippingColumn">
+                  <h5>{{productBranches.HasShipping ? 'Yes' : 'No'}}</h5>
+                </div>
+                <div class="col 2.16" *ngIf="hideAndShowFavouriteViewColumn.isBarCodeColumn">
+                  <h5>{{productBranches.Barcode}}</h5>
+                </div>
+                <div class="col 2.17" *ngIf="hideAndShowFavouriteViewColumn.isSKUColumn">
+                  <h5>{{productBranches.SKU}}</h5>
+                </div>
+                <div class="col 2.18" *ngIf="hideAndShowFavouriteViewColumn.isSupplierColumn">
+                  <h5>{{productBranches.SupplierName}}</h5>
+                </div>
+                <div class="col 2.19" *ngIf="hideAndShowFavouriteViewColumn.isSupplerCodeColumn">
+                  <h5>{{productBranches.SupplierCode}}</h5>
+                </div>
+                <div class="col 2.20" *ngIf="hideAndShowFavouriteViewColumn.isSupplierPriceColumn">
+                  <h5>{{productBranches.SupplierPrice | currency: currencyFormat}}</h5>
+                </div>
+                <div class="col 2.21" *ngIf="hideAndShowFavouriteViewColumn.isPriceColumn">
+                  <h5>{{productBranches.Price | currency: currencyFormat}}</h5>
+                </div>
+                <div class="col 2.22" *ngIf="hideAndShowFavouriteViewColumn.isTaxColumn">
+                  <h5>{{productBranches.Tax}}</h5>
+                </div>
+                <div class="col 2.23" *ngIf="hideAndShowFavouriteViewColumn.isReorderQuantityColumn">
+                  <h5>{{productBranches.ReorderQuantity}}</h5>
+                </div>
+                <div class="col 2.24" *ngIf="hideAndShowFavouriteViewColumn.isThresholdPointColumn">
+                  <h5>{{productBranches.ReorderThreshold}}</h5>
+                </div>
+                <div class="col 2.25" *ngIf="hideAndShowFavouriteViewColumn.isStockValueColumn">
+                  <h5>{{productBranches.StockValue | currency: currencyFormat}}</h5>
+                </div>
+                <div class="col 2.26" *ngIf="hideAndShowFavouriteViewColumn.isRetailValueColumn">
+                  <h5>{{productBranches.RetailValue | currency: currencyFormat}}</h5>
+                </div>
+                <!-- End Dynamic Loop Handling -->
+
+                <div class="col 2.27" *ngIf="hideAndShowFavouriteViewColumn.isVarientStatusColumn">
+                  <h5>{{products.ProductClassificationID == enum_Product_ClassificationType.Variant ? productBranches.ProductVariantBranchIsActive ? 'Active'  : 'Inactive' :''}}</h5>
+                </div>
+                <div class="col 27" *ngIf="hideAndShowFavouriteViewColumn.isProductStatusColumn">
+                  <h5>{{ productBranches.ProductBranchPermissionIsActive ? 'Active'  : 'Inactive' }}</h5>
+                </div>
+                <div class="col">
+                  <h5></h5>
+                </div>
+
+              </div>
+            </ng-container>
+          </div>
+
+        </ng-container>
+      </div>
+
+      </ng-container>
+
+    </div>
+  </div>
+
+
+
+  <div class="row grid-content no-hover" *ngIf="!isDataExists">
+    <div class="col-md-12 text-center">
+      <div class="no-record-found">{{messages.Generic_Messages.No_Record_Found}}</div>
+    </div>
+  </div>
+
+  <app-pagination #appPagination (paginationEvent)="reciviedPagination($event)"></app-pagination>
+
+</div>

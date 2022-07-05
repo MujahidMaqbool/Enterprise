@@ -1,0 +1,21 @@
+// Typography fonts
+@font-face {
+    src: url("#{$font-path}/OpenSans-Regular.ttf") format("truetype");
+    font-family: $font-family-primary;
+    font-weight: $content-weight-regular;
+    font-style: normal;
+}
+
+@font-face {
+    src: url("#{$font-path}/OpenSans-SemiBold.ttf") format("truetype");
+    font-family: $font-family-primary;
+    font-weight: $content-weight-semibold;
+    font-style: normal;
+}
+
+@font-face {
+    src: url("#{$font-path}/OpenSans-Bold.ttf") format("truetype");
+    font-family: $font-family-primary;
+    font-weight: $content-weight-bold;
+    font-style: normal;
+}

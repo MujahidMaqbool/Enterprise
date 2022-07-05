@@ -1,0 +1,87 @@
+<div tabindex="-1" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog-centered">
+      <div class="modal-content xmedium-popup">
+          <div class="popup-header">
+              <h2>Tax</h2>
+          </div>
+          <div class="popup-content cst-scroll-bar">
+
+              <mat-horizontal-stepper #stepper>
+                  <ng-template matStepperIcon="edit">
+                      <mat-icon>edit</mat-icon>
+                  </ng-template>
+
+                  <mat-step #stepper>
+                      <div class="row">
+                          <div class="col-md-12 p-0">
+                            <ng-container *ngIf="isFormSubmited">
+                                <div class="alert alert-danger" *ngIf="taxInformationForm.form.controls.TaxName?.errors?.required || taxInformationForm.form.controls.TaxPercentage?.errors?.required">
+                                    {{messages.Validation.Info_Required}}
+                                </div>
+                                <div class="alert alert-danger" *ngIf="taxInformationForm.form.controls.TaxPercentage?.errors?.min || taxInformationForm.form.controls.TaxPercentage?.errors?.max || zeroValueValidation">
+                                    {{messages.Validation.Invalid_Tax}}
+                                </div>
+                            </ng-container>
+                          </div>
+                      </div>
+                      <ng-template matStepLabel>Tax Information</ng-template>
+                      <form #taxInformationForm="ngForm" novalidate >
+                          <div class="section-block info-content">
+                            <div class="row">
+                                <div class="col-md-12 mt-2">
+                                    <h5 class="field-label">Name</h5>
+                                    <div [ngClass]="{
+                        'has-danger': TaxName.invalid && (TaxName.dirty || TaxName.touched || taxInformationForm.submitted ),
+                        'has-success': TaxName.valid && (TaxName.dirty || TaxName.touched )
+                            }">
+                                        <input type="text" #TaxName="ngModel" required (ngModelChange)="showValidation($event)"
+                                            [(ngModel)]="tax.TaxName" maxlength="50" name="TaxName"
+                                            class="form-control" autoFocusDirective />
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12" [ngClass]="{
+                    'has-danger': TaxPercentage.invalid && (TaxPercentage.dirty || TaxPercentage.touched || taxInformationForm.submitted),
+                    'has-success': TaxPercentage.valid && (TaxPercentage.dirty || TaxPercentage.touched )
+                    }">
+
+                                    <h5 class="field-label">Value</h5>
+                                    <div class="input-group mb-3">
+                                        <input type="number" name="TaxPercentage"
+                                            [(ngModel)]="tax.TaxPercentage" class="form-control" [min]="0" twoDigitDecimaNumber
+                                            [max]="100" #TaxPercentage="ngModel" tabindex="2" (ngModelChange)="onTaxValueChange()" required />
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                      </form>
+
+                  </mat-step>
+
+                  <mat-step #stepper>
+                      <ng-template matStepLabel>Branches & Permissions</ng-template>
+                      <branch-selection [branchList]="tax.BranchList" [HasBranchPermission]="tax.HasBranchPermission" [typeName]="'tax'"></branch-selection>
+
+                  </mat-step>
+              </mat-horizontal-stepper>
+
+          </div>
+          <div class="row popup-footer">
+              <div class="col-md-12">
+                  <div class="float-sm-right float-xs-right" [ngClass]="{
+                    'sm-button-full': showContinue,
+                    'sm-button-three': showPrevious && stepper.selectedIndex > 0}">
+                      <button type="button" class="wellyx-button light-button" (click)="onClosePopup()">Cancel</button>
+                      <button class="wellyx-button light-button" *ngIf="showPrevious && stepper.selectedIndex > 0"
+                          (click)="onPrevious()">Previous</button>
+                      <button class="wellyx-button action-button" (click)="onNext()"
+                          *ngIf="showContinue">Next</button>
+                      <button class="wellyx-button action-button" (click)="onSave()" *ngIf="showSave" [disabled]="isDisabledSaveButton">Save</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

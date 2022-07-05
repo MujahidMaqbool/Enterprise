@@ -1,0 +1,28 @@
+<div tabindex="-1" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog-centered">
+    <div class="modal-content xsmall-popup">
+      <div class="popup-header">
+        <h2>Alert</h2>
+      </div>
+      <div class="popup-content cst-scroll-bar">
+        <div class="section-block py-3">
+          <div class="d-flex align-items-center">
+            <div class="alert-icon warning-icon mx-3">
+              <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+            </div>
+            <div class="description-content pr-3">
+              <p>{{Message}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row popup-footer">
+        <div class="col-md-12 col-sm-12">
+          <div class="float-right">
+            <button class="wellyx-button action-button" (click)="onOk()">Ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

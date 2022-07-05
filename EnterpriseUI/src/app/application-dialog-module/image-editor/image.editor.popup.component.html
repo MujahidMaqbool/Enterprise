@@ -1,0 +1,27 @@
+<div tabindex="-1" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog-centered">
+        <div class="modal-content medium-popup" style="width: 1000px;">
+            <div class="popup-header">
+                    <h2>Image Uploader</h2>
+            </div>
+            <form>
+                <div class="popup-content cst-scroll-bar">
+                    <div class="section-block pt-3 pb-3">
+                        <image-editor #imageEditor [height]="config?.height" [width]="config?.width" [aspectRatio]="config?.aspectRatio" [showWebCam]="config?.showWebCam">
+                        </image-editor>
+                    </div>
+                </div>
+                <div class="row popup-footer">
+                    <div class="col-md-12">
+                        <div class="float-right">
+                            <button type="button" class="wellyx-button light-button" mat-button (click)="onClose()">Cancel</button>
+                            <button type="button" class="wellyx-button action-button" [disabled]="!imageEditor.croppedImg" (click)="onCrop()">
+                                 Crop
+                            </button>
+                        </div>
+                    </div>  
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

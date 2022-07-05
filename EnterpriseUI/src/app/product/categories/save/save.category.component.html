@@ -1,0 +1,97 @@
+<div tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog-centered">
+        <div class="modal-content xmedium-popup">
+            <div class="popup-header">
+                <h2>Product Category</h2>
+            </div>
+            <div class="popup-content cst-scroll-bar">
+
+                <mat-horizontal-stepper #stepper>
+                    <ng-template matStepperIcon="edit">
+                        <mat-icon>edit</mat-icon>
+                    </ng-template>
+
+                    <mat-step #stepper>
+                        <div class="row">
+                            <div class="col-md-12 p-0">
+                                <div class="alert alert-danger" *ngIf="inValidProductCategoryName">
+                                    {{messages.Validation.Info_Required}}
+                                </div>
+                            </div>
+                        </div>
+                        <ng-template matStepLabel>Category Information</ng-template>
+                        <form #CategoryInformationData="ngForm" novalidate>
+                            <div class="section-block info-content pt-2">
+                                <div class="row" [ngClass]="{
+                                    'align-items-center': isImageExist && (imagePath && imagePath != ''),
+                                    'align-items-end': !(isImageExist && (imagePath && imagePath != ''))}">
+                                    <div class="col-md-12 mt-2" class="col-lg-12 col-md-12">
+                                        <h5 class="field-label">Name</h5>
+                                        <div [ngClass]="{
+                                            'has-danger': productCategoryName.invalid && (productCategoryName.dirty || productCategoryName.touched || inValidProductCategoryName),
+                                            'has-success': productCategoryName.valid && (productCategoryName.dirty || productCategoryName.touched )
+                                               }">
+                                            <input type="text" #productCategoryName="ngModel" required
+                                                [(ngModel)]="productCategory.ProductCategoryName" maxlength="50"
+                                                (ngModelChange)="showValidation($event)" name="productCategoryName"
+                                                class="form-control" autoFocusDirective />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7 mb-3 pr-md-0">
+                                        <h5 class="field-label">Description <span class="info-text">(Remaining
+                                                Characters: {{ 250 -
+                                                    productCategory?.Description?.length }})</span></h5>
+                                        <textarea rows="10" maxlength="250" [(ngModel)]="productCategory.Description"
+                                            name="description" class="form-control textarea-resize-none"></textarea>
+                                    </div>
+                                    <div class="col-md-5 mb-3">
+                                        <div class="upload-image-box" *ngIf="!isImageExist"
+                                            (click)="showImageCropperDialog()">
+                                            <i class="fal fa-cloud-upload" aria-hidden="true"></i>
+                                            <p>Upload Image</p>
+                                        </div>
+                                        <div *ngIf="isImageExist && (imagePath && imagePath != '')"
+                                            class="relative_cls">
+                                            <img class="img-fluid" src="{{imagePath}}" alt="no image" />
+                                            <div class="changeimg_btn square_img_action">
+                                                <button type="button" (click)="showImageCropperDialog()"><i
+                                                        class="fal fa-pen"></i></button>
+                                                <button class="delete_img" type="button" (click)="onDeleteImage()"
+                                                    *ngIf="productCategory.ProductCategoryID && productCategory.ImagePath"><i
+                                                        class="fal fa-trash-alt"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </mat-step>
+
+
+                    <mat-step #stepper>
+                        <ng-template matStepLabel>Branches & Permissions</ng-template>
+                        <branch-selection #branchSelectionRef [branchList]="productCategory.BranchList"
+                            [HasBranchPermission]="productCategory.HasBranchPermission" [typeName]="'category'"></branch-selection>
+                    </mat-step>
+
+
+                </mat-horizontal-stepper>
+            </div>
+            <div class="row popup-footer">
+                <div class="col-md-12">
+                    <div class="float-sm-right float-xs-right" [ngClass]="{
+                        'sm-button-full': showContinue,
+                        'sm-button-three': showSave}">
+                        <button type="button" class="wellyx-button light-button"
+                            (click)="onCloseDialog()">Cancel</button>
+                        <button class="wellyx-button light-button"  *ngIf="showSave" (click)="onPrevious()">Previous</button>
+                        <button class="wellyx-button action-button" (click)="onNext()"
+                            *ngIf="showContinue">Next</button>
+                        <button class="wellyx-button action-button" (click)="onSave()" *ngIf="showSave"[disabled]="isDisableSaveButton" >Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

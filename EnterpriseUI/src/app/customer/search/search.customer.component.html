@@ -1,0 +1,665 @@
+<div class="search-filter-block mb-3 px-0">
+  <div id="search_accordion">
+    <div class="panel-heading collapsed row" data-toggle="collapse" data-parent="#search_accordion"
+      data-target="#product_search">
+      <div class="col-md-12">
+        <h3 class="panel-title accordion-toggle">Search Filter</h3>
+      </div>
+    </div>
+    <div id="product_search" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div class="row align-items-end">
+          <div class="col-md-12">
+            <div class="line-seprator"></div>
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h5 class="field-label">Name</h5>
+            <input type="text" class="form-control" name="CustomerName" maxlength="50"
+              [(ngModel)]="enterpriseCustomerListSearchParams.CustomerName">
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h5 class="field-label">Branch</h5>
+            <div class="select-label">
+              <mat-select class="form-control" name="Branch" placeholder="Select Branch"
+                [(ngModel)]="selectedBranchesList" tabindex="10" multiple #branchSelect>
+                <mat-select-trigger *ngIf="selectedBranchesList.length - 1 == BranchList.length">
+                  All
+                </mat-select-trigger>
+                <mat-select-trigger
+                  *ngIf="selectedBranchesList && selectedBranchesList.length > 0 && selectedBranchesList.length - 1 != BranchList.length">
+                  {{selectedBranchesList && selectedBranchesList.length > 0 &&
+                                        selectedBranchesList[0].BranchName ?
+                                        selectedBranchesList[0].BranchName :
+                                        selectedBranchesList && selectedBranchesList.length >= 2 &&
+                                        selectedBranchesList[0].BranchName == undefined ?
+                                        selectedBranchesList[1].BranchName : ''}}
+                  <span *ngIf="selectedBranchesList && selectedBranchesList.length >= 2"
+                    class="example-additional-selection">
+                    (+{{selectedBranchesList[0].BranchName == undefined ?
+                                            selectedBranchesList.length - 2 :
+                                            selectedBranchesList.length - 1 }}
+                    {{selectedBranchesList[0].BranchName == undefined &&
+                                            selectedBranchesList.length === 3 ? 'other' :
+                                            selectedBranchesList.length === 2 ? 'other' : 'others'}})
+                  </span>
+                </mat-select-trigger>
+                <span *ngIf="BranchList && BranchList.length > 1">
+                  <mat-option #allSelectedBranch
+                    (click)="toggleAllSelection(customer_SearchFundamental_DropDowns.Branch)" [value]="0">All
+                  </mat-option>
+                </span>
+                <mat-option *ngFor="let branch of BranchList" [value]="branch"
+                  (click)="tosslePerOneItem(customer_SearchFundamental_DropDowns.Branch)">
+                  {{branch.BranchName}}</mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h5 class="field-label">Type</h5>
+            <div class="select-label">
+              <select class="form-control" [(ngModel)]="enterpriseCustomerListSearchParams.CustomerTypeID"
+                [disabled]="!customerType">
+                <option *ngFor="let customerType of customerTypeList" [ngValue]="customerType.CustomerTypeID">
+                  {{customerType.CustomerTypeName}}
+                </option>
+              </select>
+            </div>
+          </div>
+
+
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h5 class="field-label">Email</h5>
+            <input type="text" class="form-control" [(ngModel)]="enterpriseCustomerListSearchParams.Email">
+          </div>
+          <ng-container *ngIf="isAdvanceSearch">
+            <div class="col-lg-3 col-md-4 col-sm-6">
+              <h5 class="field-label">Membership</h5>
+              <div class="select-label">
+                <mat-select class="form-control" name="Membership" placeholder="Select Membership"
+                  [(ngModel)]="selectedMembershipList" tabindex="10" multiple #membershipSelect>
+                  <mat-select-trigger *ngIf="selectedMembershipList.length - 1 == membershipList.length">
+                    All
+                  </mat-select-trigger>
+                  <mat-select-trigger
+                    *ngIf="selectedMembershipList && selectedMembershipList.length > 0 && selectedMembershipList.length - 1 != membershipList.length">
+                    {{selectedMembershipList && selectedMembershipList.length > 0 &&
+                                            selectedMembershipList[0].MembershipName ?
+                                            selectedMembershipList[0].MembershipName :
+                                            selectedMembershipList && selectedMembershipList.length >= 2 &&
+                                            selectedMembershipList[0].MembershipName == undefined ?
+                                            selectedMembershipList[1].MembershipName : ''}}
+                    <span *ngIf="selectedMembershipList && selectedMembershipList.length >= 2"
+                      class="example-additional-selection">
+                      (+{{selectedMembershipList[0].MembershipName == undefined ?
+                                                selectedMembershipList.length - 2 :
+                                                selectedMembershipList.length - 1 }}
+                      {{selectedMembershipList[0].MembershipName == undefined &&
+                                                selectedMembershipList.length === 3 ? 'other' :
+                                                selectedMembershipList.length === 2 ? 'other' : 'others'}})
+                    </span>
+                  </mat-select-trigger>
+                  <span *ngIf="membershipList && membershipList.length > 1">
+                    <mat-option #allSelectedMembership
+                      (click)="toggleAllSelection(customer_SearchFundamental_DropDowns.Membership)" [value]="0">All
+                    </mat-option>
+                  </span>
+                  <mat-option *ngFor="let membership of membershipList" [value]="membership"
+                    (click)="tosslePerOneItem(customer_SearchFundamental_DropDowns.Membership)">
+                    {{membership.MembershipName}}</mat-option>
+                </mat-select>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+              <h5 class="field-label">Membership Status</h5>
+              <div class="select-label">
+                <mat-select class="form-control" name="MembershipStatus" placeholder="Select Membership Status"
+                  [(ngModel)]="selectedMembershipStatusList" tabindex="10" multiple #membershipStatusSelect>
+                  <mat-select-trigger
+                    *ngIf="selectedMembershipStatusList.length - 1 == membershipStatusTypeList.length">
+                    All
+                  </mat-select-trigger>
+                  <mat-select-trigger
+                    *ngIf="selectedMembershipStatusList && selectedMembershipStatusList.length > 0 && selectedMembershipStatusList.length - 1 != membershipStatusTypeList.length">
+                    {{selectedMembershipStatusList && selectedMembershipStatusList.length > 0 &&
+                                            selectedMembershipStatusList[0].MembershipStatusTypeName ?
+                                            selectedMembershipStatusList[0].MembershipStatusTypeName :
+                                            selectedMembershipStatusList && selectedCustomerType.length >= 2 &&
+                                            selectedMembershipStatusList[0].MembershipStatusTypeName == undefined ?
+                                            selectedMembershipStatusList[1].MembershipStatusTypeName : ''}}
+                    <span *ngIf="selectedMembershipStatusList && selectedMembershipStatusList.length >= 2"
+                      class="example-additional-selection">
+                      (+{{selectedMembershipStatusList[0].MembershipStatusTypeName == undefined ?
+                                                selectedMembershipStatusList.length - 2 :
+                                                selectedMembershipStatusList.length - 1 }}
+                      {{selectedMembershipStatusList[0].MembershipStatusTypeName == undefined &&
+                                                selectedMembershipStatusList.length === 3 ? 'other' :
+                                                selectedMembershipStatusList.length === 2 ? 'other' : 'others'}})
+                    </span>
+                  </mat-select-trigger>
+                  <span *ngIf="membershipStatusTypeList && membershipStatusTypeList.length > 1">
+                    <mat-option #allSelectedMembershipStatus
+                      (click)="toggleAllSelection(customer_SearchFundamental_DropDowns.MembershipStatus)" [value]="0">
+                      All
+                    </mat-option>
+                  </span>
+                  <mat-option *ngFor="let MembershipStatus of membershipStatusTypeList" [value]="MembershipStatus"
+                    (click)="tosslePerOneItem(customer_SearchFundamental_DropDowns.MembershipStatus)">
+                    {{MembershipStatus.MembershipStatusTypeName}}</mat-option>
+                </mat-select>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+              <h5 class="field-label">Membership Start Date</h5>
+              <input type="text" name="StartDate" class="form-control date-picker cst-bg-color"
+                [(ngModel)]="memberShipStartDate" #StartDate="ngModel" matInput [matDatepicker]="datefrom"
+                placeholder="Please Select Date" readonly (click)="onOpenCalendar(datefrom)"
+                (ngModelChange)="onMembershipStartDateChange($event)" />
+              <mat-datepicker #datefrom></mat-datepicker>
+              <mat-datepicker-toggle class="date-picker-toggle" matSuffix [for]="datefrom">
+              </mat-datepicker-toggle>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+              <h5 class="field-label">Membership End Date</h5>
+              <input type="text" name="EndDate" class="form-control date-picker cst-bg-color"
+                [(ngModel)]="memberShipEndDate" #EndDate="ngModel" matInput [matDatepicker]="dateto"
+                placeholder="Please Select Date" [min]="memberShipStartDate" readonly (click)="onOpenCalendar(dateto)"
+                (ngModelChange)="onMembershipEndDateChange($event)" />
+              <mat-datepicker #dateto></mat-datepicker>
+              <mat-datepicker-toggle class="date-picker-toggle" matSuffix [for]="dateto">
+              </mat-datepicker-toggle>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+              <h5 class="field-label">Enquiry Status</h5>
+              <div class="select-label">
+                <mat-select class="form-control" name="EnquiryStatus" placeholder="Select Enquiry Status"
+                  [(ngModel)]="selectedEnquiryList" tabindex="10" multiple #leadStatusTypeSelect>
+                  <mat-select-trigger *ngIf="selectedEnquiryList.length - 1 == LeadStatusTypeList.length">
+                    All
+                  </mat-select-trigger>
+                  <mat-select-trigger
+                    *ngIf="selectedEnquiryList && selectedEnquiryList.length > 0 && selectedEnquiryList.length - 1 != LeadStatusTypeList.length">
+                    {{selectedEnquiryList && selectedEnquiryList.length > 0 &&
+                                            selectedEnquiryList[0].LeadStatusTypeFriendlyName ?
+                                            selectedEnquiryList[0].LeadStatusTypeFriendlyName :
+                                            selectedEnquiryList && selectedCustomerType.length >= 2 &&
+                                            selectedEnquiryList[0].LeadStatusTypeFriendlyName == undefined ?
+                                            selectedEnquiryList[1].LeadStatusTypeFriendlyName : ''}}
+                    <span *ngIf="selectedEnquiryList && selectedEnquiryList.length >= 2"
+                      class="example-additional-selection">
+                      (+{{selectedEnquiryList[0].LeadStatusTypeFriendlyName == undefined ?
+                                                selectedEnquiryList.length - 2 :
+                                                selectedEnquiryList.length - 1 }}
+                      {{selectedEnquiryList[0].LeadStatusTypeFriendlyName == undefined &&
+                                                selectedEnquiryList.length === 3 ? 'other' :
+                                                selectedEnquiryList.length === 2 ? 'other' : 'others'}})
+                    </span>
+                  </mat-select-trigger>
+                  <span *ngIf="LeadStatusTypeList && LeadStatusTypeList.length > 1">
+                    <mat-option #allSelectedLeadStatusType
+                      (click)="toggleAllSelection(customer_SearchFundamental_DropDowns.EnquiryStatus)" [value]="0">All
+                    </mat-option>
+                  </span>
+                  <mat-option *ngFor="let LeadStatusType of LeadStatusTypeList" [value]="LeadStatusType"
+                    (click)="tosslePerOneItem(customer_SearchFundamental_DropDowns.EnquiryStatus)">
+                    {{LeadStatusType.LeadStatusTypeFriendlyName}}</mat-option>
+                </mat-select>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+              <h5 class="field-label">Enquired Membership</h5>
+              <div class="select-label">
+                <mat-select class="form-control" name="EnquiredMembership" placeholder="Select Enquired Membership"
+                  [(ngModel)]="selectedEnquiredMembershipList" tabindex="10" multiple #enquiredMembershipSelect>
+                  <mat-select-trigger
+                    *ngIf="selectedEnquiredMembershipList.length - 1 == EnquiredMembershipList.length">
+                    All
+                  </mat-select-trigger>
+                  <mat-select-trigger
+                    *ngIf="selectedEnquiredMembershipList && selectedEnquiredMembershipList.length > 0 && selectedEnquiredMembershipList.length - 1 != EnquiredMembershipList.length">
+                    {{selectedEnquiredMembershipList && selectedEnquiredMembershipList.length > 0 &&
+                                            selectedEnquiredMembershipList[0].MembershipName ?
+                                            selectedEnquiredMembershipList[0].MembershipName :
+                                            selectedEnquiredMembershipList && selectedEnquiredMembershipList.length >= 2 &&
+                                            selectedEnquiredMembershipList[0].MembershipName == undefined ?
+                                            selectedEnquiredMembershipList[1].MembershipName : ''}}
+                    <span *ngIf="selectedEnquiredMembershipList && selectedEnquiredMembershipList.length >= 2"
+                      class="example-additional-selection">
+                      (+{{selectedEnquiredMembershipList[0].MembershipName == undefined ?
+                                                selectedEnquiredMembershipList.length - 2 :
+                                                selectedEnquiredMembershipList.length - 1 }}
+                      {{selectedEnquiredMembershipList[0].MembershipName == undefined &&
+                                                selectedEnquiredMembershipList.length === 3 ? 'other' :
+                                                selectedEnquiredMembershipList.length === 2 ? 'other' : 'others'}})
+                    </span>
+                  </mat-select-trigger>
+                  <span *ngIf="EnquiredMembershipList && EnquiredMembershipList.length > 1">
+                    <mat-option #allSelectedEnquiredMembership
+                      (click)="toggleAllSelection(customer_SearchFundamental_DropDowns.EnquiredMembership)" [value]="0">
+                      All
+                    </mat-option>
+                  </span>
+                  <mat-option *ngFor="let EnquiredMembership of EnquiredMembershipList" [value]="EnquiredMembership"
+                    (click)="tosslePerOneItem(customer_SearchFundamental_DropDowns.EnquiredMembership)">
+                    {{EnquiredMembership.MembershipName}}</mat-option>
+                </mat-select>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+              <h5 class="field-label">Source</h5>
+              <div class="select-label">
+                <mat-select class="form-control" name="Source" placeholder="Select Source"
+                  [(ngModel)]="selectedEnquirySourceTypeList" tabindex="10" multiple #enquirySourceTypeSelect>
+                  <mat-select-trigger *ngIf="selectedEnquirySourceTypeList.length - 1 == EnquirySourceTypeList.length">
+                    All
+                  </mat-select-trigger>
+                  <mat-select-trigger
+                    *ngIf="selectedEnquirySourceTypeList && selectedEnquirySourceTypeList.length > 0 && selectedEnquirySourceTypeList.length - 1 != EnquirySourceTypeList.length">
+                    {{selectedEnquirySourceTypeList && selectedEnquirySourceTypeList.length > 0 &&
+                                            selectedEnquirySourceTypeList[0].EnquirySourceTypeName ?
+                                            selectedEnquirySourceTypeList[0].EnquirySourceTypeName :
+                                            selectedEnquirySourceTypeList && selectedEnquirySourceTypeList.length >= 2 &&
+                                            selectedEnquirySourceTypeList[0].EnquirySourceTypeName == undefined ?
+                                            selectedEnquirySourceTypeList[1].EnquirySourceTypeName : ''}}
+                    <span *ngIf="selectedEnquirySourceTypeList && selectedEnquirySourceTypeList.length >= 2"
+                      class="example-additional-selection">
+                      (+{{selectedEnquirySourceTypeList[0].EnquirySourceTypeName == undefined ?
+                                                selectedEnquirySourceTypeList.length - 2 :
+                                                selectedEnquirySourceTypeList.length - 1 }}
+                      {{selectedEnquirySourceTypeList[0].EnquirySourceTypeName == undefined &&
+                                                selectedEnquirySourceTypeList.length === 3 ? 'other' :
+                                                selectedEnquirySourceTypeList.length === 2 ? 'other' : 'others'}})
+                    </span>
+                  </mat-select-trigger>
+                  <span *ngIf="EnquirySourceTypeList && EnquirySourceTypeList.length > 1">
+                    <mat-option #allSelectedEnquirySourceType
+                      (click)="toggleAllSelection(customer_SearchFundamental_DropDowns.EnquirySource)" [value]="0">All
+                    </mat-option>
+                  </span>
+                  <mat-option *ngFor="let EnquirySourceType of EnquirySourceTypeList" [value]="EnquirySourceType"
+                    (click)="tosslePerOneItem(customer_SearchFundamental_DropDowns.EnquirySource)">
+                    {{EnquirySourceType.EnquirySourceTypeName}}</mat-option>
+                </mat-select>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 p-0">
+              <dateto-datefrom [dateToPlaceHolder]="dateToPlaceHolder" [dateFromPlaceHolder]="dateFromPlaceHolder"
+                (sendDateTo)="reciviedDate($event)" #customerDateSearch>
+              </dateto-datefrom>
+            </div>
+          </ng-container>
+
+          <div class="offset-xl-7 offset-lg-6 col-xl-5 col-lg-6 col-md-8 mt-3 p-0" [ngClass]="{'offset-md-0':!isAdvanceSearch, 'offset-md-4': isAdvanceSearch}">
+            <div class="row button-space">
+              <div class="col-md-4 col-sm-4">
+                <button class="filter-button light-button" type="button" (click)="resetSearchFilter()">
+                  Reset</button>
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <div class="input-group advance-search" (click)="toggleAdvanceSearch()">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text" *ngIf="!isAdvanceSearch"><i class="fal fa-chevron-down"></i></div>
+                    <div class="input-group-text" *ngIf="isAdvanceSearch"><i class="fal fa-times"></i></div>
+                  </div>
+                  <input type="text" class="form-control cst-bg-color text-center" readonly value="Advanced Search"
+                    *ngIf="!isAdvanceSearch">
+                  <input type="text" class="form-control cst-bg-color text-center" readonly value="Close Advanced Search"
+                    *ngIf="isAdvanceSearch">
+                </div>
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <button class="filter-button blue-button" type="button" (click)="searchAllCustomers()">
+                  Search</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="search-filter-block mb-3">
+  <div class="text-right mb-2">
+    <a class="icon-button" matTooltip="Personalize Grid" matTooltipClass="custom-tooltip" matTooltipPosition="above"
+      (click)="togglePersonalGrid(true)">
+      <i class="far fa-sliders-v" aria-hidden="true"></i>
+    </a>
+  </div>
+  <div class="fav-view-grid py-2" *ngIf="showDropDownGrid">
+    <div (clickOutside)="togglePersonalGrid(false)">
+      <div class="fav-view-head d-flex justify-content-between mb-2 px-2">
+        <h6>Grid</h6>
+        <div>
+          <button class="icon-button mr-2 mb-2 referesh-btn" [disabled]="!canResetEnable"
+            (click)="onResetFavouriteView()" matTooltip="Reset to Default View" matTooltipClass="custom-tooltip"
+            matTooltipPosition="above"><i class="fal fa-sync"></i></button>
+          <button class="icon-button mb-2" *ngIf="canResetEnable" matTooltip="Favorite View"
+            matTooltipClass="custom-tooltip" matTooltipPosition="above"><i class="fas fa-stars"></i></button>
+        </div>
+      </div>
+      <div class="fav-view-body px-2">
+          <div class="pr-1 mb-2 cst-scroll-bar fav-grid-scroll">
+            <div id="customer_accordian1" class="accordian-space">
+              <div class="panel-heading collapsed" data-toggle="collapse" data-parent="#customer_accordian1"
+                data-target="#customer_accordian">
+                <h3 class="accordian-title">Customer</h3>
+              </div>
+              <div id="customer_accordian" class="panel-collapse collapse show">
+                <div class="accordian-body-content">
+                  <ng-container *ngFor="let favouriteView of favouriteViewColumnNameList; let i =index">
+                    <div class="form-group accordian-item" *ngIf="favouriteView.isCustomerInfoColumn">
+                      <input type="checkbox" autocomplete="off" name="fav_Check{{i}}" id="fav_Check{{i}}"
+                        [disabled]="favouriteView.isDefault" [(ngModel)]="favouriteView.selected">
+                      <div class="cst-icon-label">
+                        <label for="fav_Check{{i}}" class="checked-bg"
+                          [ngClass]="{'checked-bg': favouriteView.selected, 'uncheck-bg': !favouriteView.selected, 'cursor-not-allowed': favouriteView.isDefault}">
+                          <span class="fa fa-check"></span>
+                          <span class="fa fa-times"></span>
+                        </label>
+                        <label for="ddd{{i}}">
+                          {{favouriteView.FavouriteViewColumnName}}
+                        </label>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+            <div id="customer_accordian2" class="accordian-space">
+              <div class="panel-heading collapsed" data-toggle="collapse" data-parent="#customer_accordian2"
+                data-target="#membership_accordian">
+                <h3 class="accordian-title">Membership</h3>
+              </div>
+              <div id="membership_accordian" class="panel-collapse collapse">
+                <div class="accordian-body-content">
+                  <ng-container *ngFor="let favouriteView of favouriteViewColumnNameList; let i =index">
+                    <div class="form-group accordian-item"
+                      *ngIf="!favouriteView.isCustomerInfoColumn && !favouriteView.isCustomerEniquryColumn">
+                      <input type="checkbox" autocomplete="off" name="fav_Check_membership{{i}}"
+                        id="fav_Check_membership{{i}}" [(ngModel)]="favouriteView.selected">
+                      <div class="cst-icon-label">
+                        <label for="fav_Check_membership{{i}}" class="checked-bg"
+                          [ngClass]="{'checked-bg': favouriteView.selected, 'uncheck-bg': !favouriteView.selected}">
+                          <span class="fa fa-check"></span>
+                          <span class="fa fa-times"></span>
+                        </label>
+                        <label for="ddd_membership{{i}}">
+                          {{favouriteView.FavouriteViewColumnName}}
+                        </label>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+            <div id="customer_accordian3" class="pb-1">
+              <div class="panel-heading collapsed" data-toggle="collapse" data-parent="#customer_accordian3"
+                data-target="#Enquiry_accordian">
+                <h3 class="accordian-title">Enquiry</h3>
+              </div>
+              <div id="Enquiry_accordian" class="panel-collapse collapse">
+                <div class="accordian-body-content">
+                  <ng-container *ngFor="let favouriteView of favouriteViewColumnNameList; let i =index">
+                    <div class="form-group accordian-item"
+                      *ngIf="!favouriteView.isCustomerInfoColumn && favouriteView.isCustomerEniquryColumn">
+                      <input type="checkbox" autocomplete="off" name="fav_Check_inquiry{{i}}" id="fav_Check_inquiry{{i}}"
+                        [(ngModel)]="favouriteView.selected">
+                      <div class="cst-icon-label">
+                        <label for="fav_Check_inquiry{{i}}" class="checked-bg"
+                          [ngClass]="{'checked-bg': favouriteView.selected, 'uncheck-bg': !favouriteView.selected}">
+                          <span class="fa fa-check"></span>
+                          <span class="fa fa-times"></span>
+                        </label>
+                        <label for="ddd_inquiry{{i}}">
+                          {{favouriteView.FavouriteViewColumnName}}
+                        </label>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <div class="d-flex align-items-center combine-button">
+          <button class="filter-button light-button mb-0" (click)="onSaveAndApplyFavView(true)">Apply & Save</button>
+          <button class="filter-button action-button mb-0" (click)="onApply(true)">Apply</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="overflow-auto">
+    <div class="grid-scroll-lg cst-scroll-bar master-row">
+      <div class="row align-items-center grid-header">
+        <ng-container *ngFor="let view of dummyFavouriteViewColumnNameList">
+          <div class="col">
+            <h5>
+              <a class="primary-color" href="javascript:void(0)" (click)="changeSorting(view.FavouriteViewColumnName)"
+                *ngIf="view.FavouriteViewColumnIndex === ENU_FavouriteViewColumnName.Name || view.FavouriteViewColumnIndex === ENU_FavouriteViewColumnName.DateCreated ">
+                {{view.FavouriteViewColumnName}}
+                <i class="far fa-sort-alt"></i>
+              </a>
+            </h5>
+            <h5
+              *ngIf="view.FavouriteViewColumnIndex != ENU_FavouriteViewColumnName.Name && view.FavouriteViewColumnIndex != ENU_FavouriteViewColumnName.DateCreated">
+              {{view.FavouriteViewColumnName}}</h5>
+          </div>
+        </ng-container>
+        <div class="col text-center">
+          <h5>Actions</h5>
+        </div>
+      </div>
+      <ng-container *ngFor="let enterpriseCustomer of enterpriseCustomerList; let i=index">
+        <div class="row align-items-center grid-content parent-grid-content">
+          <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isNamedColumn">
+            <div class="cursor-pointer cst-collapse collapsed" data-toggle="collapse" attr.data-target="#customerCollapse{{i}}"
+              aria-expanded="false" attr.aria-label="customerCollapse{{i}}" (click)="onToggleClick(i,undefined)">
+              <h5>{{enterpriseCustomer.CustomerName}}</h5>
+            </div>
+          </div>
+          <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isBranchedColumn">
+            <h5></h5>
+          </div>
+          <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isCustomerTypeColumn">
+            <h5></h5>
+          </div>
+          <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isEmailColumn">
+            <h5>{{enterpriseCustomer.Email}}</h5>
+          </div>
+          <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isMobileColumn">
+            <h5>{{enterpriseCustomer.Mobile}}</h5>
+          </div>
+          <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isCreatedDateColumn">
+            <h5>{{enterpriseCustomer.CreatedOn  | customdate}}</h5>
+          </div>
+          <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isMembershipNameColumn">
+            <h5></h5>
+          </div>
+          <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isMembershipStatusColumn">
+            <h5></h5>
+          </div>
+          <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isMembershipStartDateColumn">
+            <h5></h5>
+          </div>
+          <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isMembershipEndDateColumn">
+            <h5></h5>
+          </div>
+          <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isEnquiryStatusColumn">
+            <h5></h5>
+          </div>
+          <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isEnquiredMembershipColumn">
+            <h5></h5>
+          </div>
+          <div class="col text-center grid-actions-btn">
+            <h5 *ngIf="isView">
+              <span class="blue">
+                <a matTooltip="View" matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                  href="javascript:void(0)" (click)="openCustomerDetailDialog(enterpriseCustomer)">
+                  <i class="fal fa-book-open"></i>
+                </a>
+              </span>
+            </h5>
+          </div>
+        </div>
+        <ng-container *ngFor="let customerDetail of  enterpriseCustomer?.EnterpriseCustomerListDetailVM; let j = index">
+          <div class="row align-items-center grid-content collapse" id="customerCollapse{{i}}" >
+            <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isNamedColumn">
+              <h5></h5>
+            </div>
+            <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isBranchedColumn">
+              <h5>{{customerDetail.BranchName}}</h5>
+            </div>
+            <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isCustomerTypeColumn">
+              <h5>
+                <span *ngIf="customerDetail.CustomerTypeID == customerType.Client">
+                  {{'Client'}}
+                </span>
+                <span class="cursor-pointer" *ngIf="customerDetail.CustomerTypeID == customerType.Member"
+                  (click)="onToggleClick(i,j)">
+                  <i *ngIf="customerDetail.EnterpriseCustomerMembershipStatusVM.length > 1 && (customerDetail.CustomerTypeID == customerType.Member) && (hideAndShowFavouriteViewColumn.isMembershipNameColumn)"
+                    class="fal icon-size" aria-hidden="true" [ngClass]="{
+                    'fa-caret-right':customerDetail.collapse == false,
+                    'fa-sort-down': customerDetail.collapse == true
+                }"></i>
+                  {{'Member' }}
+                </span>
+                <span class="cursor-pointer" *ngIf="customerDetail.CustomerTypeID == customerType.Lead"
+                  (click)="onToggleClick(i,j)">
+                  <i *ngIf="customerDetail.EnterpriseCustomerMembershipStatusVM.length > 1 && (customerDetail.CustomerTypeID == customerType.Lead) && ( hideAndShowFavouriteViewColumn.isEnquiredMembershipColumn)"
+                    class="fal icon-size" aria-hidden="true" [ngClass]="{
+                    'fa-caret-right':customerDetail.collapse == false,
+                    'fa-sort-down': customerDetail.collapse == true
+                }"></i>
+                  {{ 'Lead'}}
+                </span>
+              </h5>
+            </div>
+            <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isEmailColumn">
+              <h5></h5>
+            </div>
+            <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isMobileColumn">
+              <h5></h5>
+            </div>
+            <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isCreatedDateColumn">
+              <h5></h5>
+            </div>
+            <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isMembershipNameColumn">
+              <h5 *ngIf="customerDetail.collapse == false  && customerDetail.CustomerTypeID == customerType.Member">
+                {{customerDetail.EnterpriseCustomerMembershipStatusVM[0]?.MembershipName}}
+                <span class="blue-color cursor-pointer" (click)="onToggleClick(i,j)"
+                  *ngIf="customerDetail.EnterpriseCustomerMembershipStatusVM.length > 1 "> (+
+                  {{customerDetail.EnterpriseCustomerMembershipStatusVM.length - 1}} others)
+                </span>
+              </h5>
+            </div>
+            <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isMembershipStatusColumn">
+              <h5 *ngIf="customerDetail.collapse == false && customerDetail.CustomerTypeID == customerType.Member">
+                {{customerDetail.EnterpriseCustomerMembershipStatusVM[0]?.MembershipStatusTypeName}}
+              </h5>
+            </div>
+            <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isMembershipStartDateColumn">
+              <h5 *ngIf="customerDetail.collapse == false && customerDetail.CustomerTypeID == customerType.Member">
+                {{customerDetail.EnterpriseCustomerMembershipStatusVM[0]?.MembershipStartDate === staticMinimumDateValue ? '' : customerDetail.EnterpriseCustomerMembershipStatusVM[0]?.MembershipStartDate | customdate}}
+              </h5>
+            </div>
+            <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isMembershipEndDateColumn">
+              <h5 *ngIf="customerDetail.collapse == false && customerDetail.CustomerTypeID == customerType.Member">
+                {{customerDetail.EnterpriseCustomerMembershipStatusVM[0]?.MembershipEndDate === staticMinimumDateValue ? '' : customerDetail.EnterpriseCustomerMembershipStatusVM[0]?.MembershipEndDate | customdate}}
+              </h5>
+            </div>
+            <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isEnquiryStatusColumn">
+              <h5 *ngIf="customerDetail.collapse == false && customerDetail.CustomerTypeID == customerType.Lead">
+                {{customerDetail.EnterpriseCustomerMembershipStatusVM[0]?.LeadStatusTypeName }}
+              </h5>
+            </div>
+            <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isEnquiredMembershipColumn">
+              <h5 *ngIf="customerDetail.collapse == false  && customerDetail.CustomerTypeID == customerType.Lead">
+                {{customerDetail.EnterpriseCustomerMembershipStatusVM[0]?.MembershipName}}
+                <span class="blue-color cursor-pointer" (click)="onToggleClick(i,j)"
+                  *ngIf="customerDetail.EnterpriseCustomerMembershipStatusVM.length > 1 "> (+
+                  {{customerDetail.EnterpriseCustomerMembershipStatusVM.length - 1}} others)
+                </span>
+              </h5>
+            </div>
+            <div class="col text-center grid-actions-btn">
+              <h5 *ngIf="isEditAllow && isBranchPermission(customerDetail.BranchID)">
+                <span class="blue">
+                  <a matTooltip="Redirect" (click)="onRouteUrl(customerDetail)" matTooltipPosition="above"
+                    matTooltipClass="custom-tooltip" href="javascript:void(0)">
+                    <i class="fal fa-external-link-square"></i>
+                  </a>
+                </span>
+              </h5>
+            </div>
+          </div>
+          <!-- further child -->
+          <ng-container
+            *ngFor="let membershipobj of customerDetail.EnterpriseCustomerMembershipStatusVM">
+            <div class="row align-items-center grid-content" *ngIf="customerDetail.collapse == true">
+
+              <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isNamedColumn">
+                <h5></h5>
+              </div>
+              <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isBranchedColumn">
+                <h5></h5>
+              </div>
+              <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isCustomerTypeColumn">
+                <h5></h5>
+              </div>
+              <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isEmailColumn">
+                <h5></h5>
+              </div>
+              <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isMobileColumn">
+                <h5></h5>
+              </div>
+              <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isCreatedDateColumn">
+                <h5></h5>
+              </div>
+              <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isMembershipNameColumn ">
+                <h5 *ngIf="customerDetail.CustomerTypeID == customerType.Member">{{membershipobj?.MembershipName}}</h5>
+              </div>
+              <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isMembershipStatusColumn ">
+                <h5 *ngIf="customerDetail.CustomerTypeID == customerType.Member">
+                  {{membershipobj?.MembershipStatusTypeName}}
+                </h5>
+              </div>
+              <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isMembershipStartDateColumn ">
+                <h5 *ngIf="customerDetail.CustomerTypeID == customerType.Member">
+                  {{membershipobj?.MembershipStartDate === staticMinimumDateValue ? '' : membershipobj?.MembershipStartDate | customdate}}
+                </h5>
+              </div>
+              <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isMembershipEndDateColumn ">
+                <h5 *ngIf="customerDetail.CustomerTypeID == customerType.Member">
+                  {{membershipobj?.MembershipEndDate === staticMinimumDateValue ? '' : membershipobj?.MembershipEndDate | customdate}}
+                </h5>
+              </div>
+              <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isEnquiryStatusColumn ">
+                <h5 *ngIf="customerDetail.CustomerTypeID == customerType.Lead">
+                  {{membershipobj.LeadStatusTypeName}}
+                </h5>
+              </div>
+              <div class="col" *ngIf="hideAndShowFavouriteViewColumn.isEnquiredMembershipColumn ">
+                <h5 *ngIf="customerDetail.CustomerTypeID == customerType.Lead">{{membershipobj?.MembershipName}}</h5>
+              </div>
+              <div class="col text-center">
+                <h5></h5>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+
+      <ng-container *ngIf="!isDataExists">
+        <div class="row grid-content no-hover">
+          <div class="col-md-12 text-center">
+            <div class="no-record-found">{{messages.Generic_Messages.No_Record_Found}}</div>
+          </div>
+        </div>
+      </ng-container>
+
+  <app-pagination #appPagination (paginationEvent)="reciviedPagination($event)"></app-pagination>
+</div>

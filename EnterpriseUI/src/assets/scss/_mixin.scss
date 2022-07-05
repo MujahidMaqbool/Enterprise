@@ -1,0 +1,78 @@
+@mixin content($size, $weight, $color) {
+  font-size: $size;
+  font-weight: $weight;
+  color: $color;
+}
+@mixin max-height-scroll($height) {
+  max-height: $height;
+  overflow: auto;
+}
+@mixin height-scroll($height) {
+  height: $height;
+  overflow: auto;
+}
+@mixin content-ellipsis-limit($width) {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: $width;
+}
+@mixin position-element($position, $top, $left, $bottom, $right) {
+  position: $position;
+  top: $top;
+  left: $left;
+  bottom: $bottom;
+  right: $right;
+}
+@mixin rounded-circle($width, $height, $radius) {
+  width: $width;
+  height: $height;
+  border-radius: $radius;
+}
+@mixin zoom-scale-in($value) {
+  transform: scale($value);
+  transition: all 0.2s ease-in;
+}
+@mixin zoom-scale-out {
+  transition: all 0.2s ease-out;
+}
+@mixin submenu-unorder-list {
+  ul {
+    list-style: none;
+    padding: 0;
+    li{
+      a{
+        float: left;
+        padding: 11px 16px;
+        @extend %primary-regular-dark;
+        text-align: center;
+        border-bottom: 2px solid transparent;
+        line-height: 1.4;
+        &.active{
+          border-bottom: 2px solid $blue-color-primary;
+          background: transparent;
+          color: $blue-color-primary;
+        }
+      }
+    }
+  }
+}
+
+@mixin content-block {
+  background: $white-color;
+  @extend %primary-border-radious;
+  padding: 15px;
+}
+@mixin form-field-height {
+  width: 100%;
+  height:40px;
+}
+@mixin border-radious($tl, $tr, $bl, $br) {
+  border-radius: $tl $tr $bl $br;
+}
+
+@mixin background-image-right ($image-name, $image-format) {
+  background: url("#{$image-path}/#{$image-name}.#{$image-format}") no-repeat;
+  background-position: center right 10px;
+  padding-right: 30px;
+}

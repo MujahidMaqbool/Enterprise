@@ -1,0 +1,110 @@
+
+<div class="container-fluid px-0">
+  <div class="row">
+    <div class="col top_bar d-flex align-items-center justify-content-between py-3">
+      <div class="brand-name">
+        <h1 class="mb-0">{{CompanyInfo?.CompanyName}} - Enterprise</h1>
+      </div>
+      <div class="d-flex align-items-center">
+        <div class="user-sidebar">
+          <a role="menu" class="d-flex align-items-center" (click)="toggleUserMenu(true)">
+            <img class="rounded-circle mr-2" src="{{staffImagePath}}" />
+            <span class="user-name mr-2 sm-hide">{{StaffInfo?.FirstName +' '+StaffInfo?.LastName}}</span> &nbsp;
+            <i class="fal fa-chevron-down"></i>
+          </a>
+
+          <div class="qucik_link_dp logout_dp" *ngIf="showUserMenu">
+            <h3 class="m-0">{{StaffInfo.Email}}<br><span>{{StaffInfo.RoleName}}</span></h3>
+            <ul (clickOutside)="toggleUserMenu(false)">
+
+              <li>
+                <a role="button" href="https://support.wellyx.com/support/home" target="_blank">
+                  <i class="fal fa-tasks"></i>
+                  Help with Features
+                </a>
+              </li>
+              <li>
+                <a role="button" href="https://support.wellyx.com/support/login" target="_blank">
+                  <i class="fal fa-ticket-alt"></i>
+                  Support Ticket
+                </a>
+              </li>
+              <li >
+                <a role="button" (click)="onChangePassword()" >
+                  <i class="fal fa-lock"></i>
+                  Change Password
+                </a>
+              </li>
+              <li (click)="onLogout()">
+                <a role="button">
+                  <i class="fal fa-sign-out-alt"></i>
+                  Logout
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="main_menu">
+  <div class="container-fluid px-0">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" id="mob-toggle-btn">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse main_nav" id="navbarNavDropdown">
+        <div class="row">
+          <div class="col-md-12 col-sm-12">
+            <ul class="navbar-nav">
+
+              <li >
+                <a [routerLinkActive]="['active']" [routerLink]="['/branches']" (click)="mobToogle()">
+                  <i class="fa-regular fa-buildings"></i> Branches
+                </a>
+              </li>
+
+
+              <li *ngIf="allowedModules.Customer">
+                <a [routerLinkActive]="['active']" [routerLink]="['/customer']" (click)="mobToogle()">
+                  <i class="fal fa-user"></i> Customer
+                </a>
+              </li>
+
+              <li *ngIf="allowedModules.Staff">
+                <a [routerLinkActive]="['active']" [routerLink]="['/staff']" (click)="mobToogle()">
+                  <i class="fal fa-user-friends"></i> Staff
+                </a>
+              </li>
+
+              <li *ngIf="allowedModules.Product">
+                <a [routerLinkActive]="['active']" [routerLink]="['/product']" (click)="mobToogle()">
+                  <i class="fa-light fa-box-taped"></i> Product
+                </a>
+              </li>
+
+              <li *ngIf="allowedModules.Setup">
+                <a [routerLinkActive]="['active']" [routerLink]="['/setup']" (click)="mobToogle()">
+                  <i class="fal fa-cog"></i> Setup</a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>
+<router-outlet>
+</router-outlet>
+
+<div class="container-fluid p-0">
+  <div class="footer-floating-space"></div>
+  <footer>
+      <p class="mb-0 text-center">Powered by <a href="https://wellyx.com" target="_blank">Wellyx</a></p>
+  </footer>
+</div>

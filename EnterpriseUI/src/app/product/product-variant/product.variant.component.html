@@ -1,0 +1,266 @@
+<div tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog-centered">
+        <div class="modal-content full-screen-popup">
+            <div class="popup-header">
+                <h2>Edit Variant</h2>
+            </div>
+            <div class="popup-content cst-scroll-bar">
+
+                <div class="section-block info-content pb-3 mb-3">
+                    <div class="edit-variant-title">
+                        <div>
+                            <h5>Variants </h5>
+                            <p>Provide variants for the product.</p>
+                        </div>
+
+                        <div><a (click)="addNewVariant()" href="javascript:void(0);" class="float-right"><i
+                                    class="fa-light fa-circle-plus"></i> Add New Variant</a></div>
+                    </div>
+                    <div class="example-list mt-20" [sortablejs]="productVariant">
+                        <div class="variant-items edit-variant-item"
+                            *ngFor="let variant of productVariant, let i = index">
+                            <div class="cursor-move" cdkDragHandle><i
+                                    class="fa-solid fa-grip-dots-vertical mt-4 ml-2"></i>
+                            </div>
+
+                            <div>
+                                <h5 class="field-label mt-0">Attribute</h5>
+                                <div class="select-label w-100" [ngClass]="{
+                                    'has-danger': variant.isRequiredAttribute
+                                       }">
+                                    <select class="form-control" [(ngModel)]="variant.productAttribute.AttributeID"
+                                        name="{{i}}" (change)="onSelectAttribute(i,true)">
+                                        <option [ngValue]="null">Select Attribute</option>
+                                        <option *ngFor="let attribute of variant.productAttributeDD"
+                                            [ngValue]="attribute.AttributeID">{{attribute.AttributeName}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+
+                                <h5 class="field-label mt-0">Variant Value</h5>
+                                <div class="select-label w-100 ms-pop" [ngClass]="{
+                                    'has-danger': variant.isRequiredAttributeValue
+                                       }">
+                                    <mat-select class="form-control" name="{{i}}" placeholder="Select Variant"
+                                        [(ngModel)]="variant.attributeValue" tabindex="10" multiple
+                                        [disabled]="variant.productAttribute.AttributeID == null">
+                                        <mat-select-trigger
+                                            *ngIf="variant.attributeValue.length - 1 == variant.attributeValuesDD.length">
+                                            All
+                                        </mat-select-trigger>
+                                        <mat-select-trigger
+                                            *ngIf="variant.attributeValue && variant.attributeValue.length > 0  && variant.attributeValue.length - 1 != variant.attributeValuesDD.length">
+                                            {{variant.attributeValue && variant.attributeValue.length > 0 &&
+                                        variant.attributeValue[0].AttributeValue ?
+                                        variant.attributeValue[0].AttributeValue :
+                                        variant.attributeValue && variant.attributeValue.length >= 2 &&
+                                        variant.attributeValue[0].AttributeValue == undefined ?
+                                        variant.attributeValue[1].AttributeValue : ''}}
+                                            <span *ngIf="variant.attributeValue && variant.attributeValue.length >= 2"
+                                                class="example-additional-selection">
+                                                (+{{variant.attributeValue[0].AttributeValue == undefined ?
+                                            variant.attributeValue.length - 2 :
+                                            variant.attributeValue.length - 1 ==  variant.attributeValuesDD.length ? variant.attributeValue.length - 2 : variant.attributeValue.length - 1}}
+                                                {{variant.attributeValue[0].AttributeValue == undefined &&
+                                            variant.attributeValue.length === 3 ? 'other' :
+                                            variant.attributeValue.length === 2 ? 'other' : 'others'}})
+                                            </span>
+                                        </mat-select-trigger>
+                                        <span class="d-flex mat-option"
+                                            *ngIf="variant.attributeValuesDD && variant.attributeValuesDD.length > 1">
+                                            <input type="checkbox" class="mat-pseudo-checkbox checkbox-clr"
+                                                [checked]="variant.attributeValue.length - 1 ==  variant.attributeValuesDD.length? true:false"
+                                                [value]="allVarientValue" (click)="toggleAllSelection(i, $event)"
+                                                name="allVarientValue"> <span class="mat-option-text cst-lab">All</span>
+
+                                            <!-- <mat-option  id="{{i}}" aria-selected="true" (click)="toggleAllSelection(i)" [value]="allVarientValue" >
+                                                All {{allVarientValue}}
+                                            </mat-option> -->
+                                        </span>
+                                        <mat-option *ngFor="let attributeValue of variant.attributeValuesDD"
+                                            [value]="attributeValue" (click)="tosslePerOneItem(i)">
+                                            {{attributeValue.AttributeValue}}</mat-option>
+                                    </mat-select>
+                                </div>
+
+
+                                <!-- <input type="text" class="form-control" name="attributeDetailName_{{i}}"
+                                    [(ngModel)]="variant.attributeID" maxlength="50" tabindex="{{i+1}}" required /> *ngIf="productVariant.length > 1" -->
+                            </div>
+                            <div class="text-right"><a href="javascript:void(0);" *ngIf="productVariant.length > 1"
+                                    (click)="deleteVariant(i)" role="button"><i class="fa-regular fa-trash-can"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="border-space"></div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="float-right"><button [disabled]="isShowGenerateVariantBtn"
+                                    class="wellyx-button action-button mb-0" (click)="generateVariant()"
+                                    href="javascript:void(0)"> Generate </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="search-filter-block ">
+                    <div class="edit-variant-title m-0 pt-1">
+                        <div>
+                            <h5>Variants </h5>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-end pt-2 pb-2">
+                        <div class="col-lg-3 col-md-3 col-sm-6 pl-0 mob-pr-0">
+                            <h5 class="field-label">Branch</h5>
+                            <div class="select-label">
+                                <select class="form-control" [(ngModel)]="searchProductVariant.branchID"
+                                    name="branchID">
+                                    <option [ngValue]="null">All</option>
+                                    <option *ngFor="let branch of branchList" [ngValue]="branch.BranchID">
+                                        {{branch.BranchName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-sm-6 pl-0 mob-pr-0 xmob-pr-0">
+                            <h5 class="field-label">Variant Name</h5>
+                            <input type="text" [(ngModel)]="searchVariantName" name="searchVariantName"
+                                class="form-control">
+                        </div>
+                        <div class="col-lg-1 col-md-2 col-sm-6 pl-0 mt-3 mob-pr-0">
+                            <button class="filter-button blue-button" type="button" (click)="onSearchProductVariant()">
+                                Search</button>
+                        </div>
+
+                        <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 p-0 offset-xl-4 offset-lg-4 offset-md-1 offset-sm-0 text-lg-right">
+                            <button class="filter-button blue-button fit-content-width" type="button" (click)="onRestoreVariant()">
+                                Restore Variant</button>
+                        </div>
+                    </div>
+                    <div class=" overflow-auto">
+                        <div class="grid-scroll-lg cst-scroll-bar master-row master-row">
+                            <div class="row align-items-center grid-header">
+                                <div class="col">
+                                    <h5>
+                                        Name
+                                    </h5>
+                                </div>
+                                <div class="col">
+                                    <h5>Branch</h5>
+                                </div>
+                                <div class="col text-center">
+                                    <h5>Active</h5>
+                                </div>
+                                <div class="col-2 text-center">
+                                    <h5>Actions</h5>
+                                </div>
+                            </div>
+
+                            <ng-container>
+                                <div *ngFor="let productVariant of productVariantList; let i = index">
+                                    <div class="row align-items-center grid-content parent-grid-content" *ngIf="!isVaraintExist">
+                                        <div class="col">
+                                            <div class="cursor-pointer cst-collapse" data-toggle="collapse"
+                                                attr.data-target="#productCollapse{{i}}" aria-expanded="false"
+                                                attr.aria-label="productCollapse{{i}}">
+                                                <h5> &nbsp; &nbsp;{{productVariant.ProductName}}</h5>
+                                            </div>
+                                        </div>
+
+                                        <div class="col text-center grid-actions-btn">
+                                            <h5>
+                                            </h5>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="collapse show" id="productCollapse{{i}}"
+                                        *ngFor="let pvInfo of productVariant.VariantInfo; let j = index">
+                                        <div class="row align-items-center grid-content collapse-dd">
+                                            <div class="col">
+                                                <div class="cursor-pointer cst-collapse collapsed" data-toggle="collapse"
+                                                    attr.data-target="#variantCollapse{{j}}" aria-expanded="false"
+                                                    attr.aria-label="variantCollapse{{j}}">
+                                                    <h5> &nbsp; {{pvInfo.ProductVariantName}}</h5>
+
+                                                </div>
+                                            </div>
+                                            <div class="col"></div>
+                                            <div class="col"></div>
+                                            <div class="col-2 text-center grid-actions-btn">
+                                                <h5>
+                                                    <span class="red">
+                                                        <a matTooltip="Delete" matTooltipPosition="above"
+                                                            matTooltipClass="custom-tooltip" href="javascript:void(0)"
+                                                            (click)="openDeleteProductVariantDialog(pvInfo.ProductVariantID,i,j);">
+                                                            <i class="fa-light fa-trash-can"></i>
+                                                        </a>
+                                                    </span>
+                                                </h5>
+                                            </div>
+                                        </div>
+
+                                        <div class="row align-items-center grid-content collapse"
+                                            id="variantCollapse{{j}}"
+                                            *ngFor="let branch of pvInfo.VariantBranchInfo; let k = index">
+                                            <div class="col">
+                                            </div>
+                                            <div class="col">
+                                                <h5>{{branch.BranchName}}</h5>
+                                            </div>
+                                            <div class="col">
+                                                <div class="checkbox checkbox-success d-flex justify-content-center">
+                                                    <input id="{{'Chk_branch' + branch.BranchID + i + j + k}}"
+                                                        [disabled]="!branch.ProductVariantBranchIsIncluded"
+                                                        name="{{'Chk_branch' + branch.BranchID + i + j + k}}"
+                                                        type="checkbox"
+                                                        [(ngModel)]="branch.ProductVariantBranchIsActive"
+                                                        (click)="activeProductVariant($event, branch,true,i,j,k)">
+                                                    <label for="{{'Chk_branch' + branch.BranchID + i + j + k}}"></label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-2 text-center">
+                                                <mat-slide-toggle [(ngModel)]="branch.ProductVariantBranchIsIncluded"
+                                                    id="{{'Chk_branch' + branch.BranchID + i + j + k}}"
+                                                    name="{{'Chk_branch' + branch.BranchID + i + j + k}}"
+                                                    (change)="activeProductVariant($event, branch, false,i,j,k)">
+                                                </mat-slide-toggle>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </ng-container>
+                            <div class="row grid-content no-hover" *ngIf="!isDataExists || isVaraintExist">
+                                <div class="col-md-12 text-center">
+                                    <div class="no-record-found">{{messages.Generic_Messages.No_Record_Found}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <app-pagination #appPagination (paginationEvent)="reciviedPagination($event)"></app-pagination>
+                </div>
+            </div>
+            <div class="row popup-footer">
+                <div class="col-md-12">
+                    <div class="float-right">
+                        <button type="button" class="wellyx-button light-button"
+                            (click)="onCloseDialog()">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

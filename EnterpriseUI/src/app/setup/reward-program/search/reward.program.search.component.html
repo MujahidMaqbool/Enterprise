@@ -1,0 +1,165 @@
+<div *ngIf="isSaveAllow" class="row mb-3">
+  <div class="col-md-12 p-0">
+    <div class="float-right">
+      <button class="wellyx-button action-button mb-0" [routerLink]="['../reward-program/details/0']">
+        Add Reward Program
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<div class="search-filter-block mb-3 px-0">
+  <div id="search_accordion">
+    <div class="panel-heading collapsed row" data-toggle="collapse" data-parent="#search_accordion"
+      data-target="#member_search">
+      <div class="col-md-12">
+        <h3 class="panel-title accordion-toggle"> Search Filter </h3>
+      </div>
+    </div>
+    <div id="member_search" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div class="row align-items-end">
+          <div class="col-md-12">
+            <div class="line-seprator"></div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h5 class="field-label">Reward Program Name</h5>
+            <input type="text" class="form-control" name="Name" maxlength="50"
+              [(ngModel)]="rewardProgramSearchParameter.Name">
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h5 class="field-label">Status</h5>
+            <div class="select-label">
+              <select class="form-control" name="IsActive" [(ngModel)]="rewardProgramSearchParameter.StatusIDs">
+                <option [ngValue]=" '' ">
+                  All
+                </option>
+                <option [ngValue]="1">
+                  Active
+                </option>
+                <option [ngValue]="0">
+                  In-Active
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="field-label">
+              Branch Name
+            </div>
+            <div class="select-label">
+              <select class="form-control" name="IsActive" [(ngModel)]="rewardProgramSearchParameter.BranchID">
+                <option [ngValue]=" '' ">
+                  All
+                </option>
+                <option *ngFor="let option of branchList" [ngValue]="option.BranchID">
+                  {{option.BranchName}}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-lg-3 offset-lg-0 offset-md-6 col-md-6 col-sm-6 mt-3 p-0">
+            <div class="row button-space">
+              <div class="col-md-6 col-sm-6">
+                <button class="filter-button light-button" type="button" (click)="resetSearchFilter()">
+                  Reset
+                </button>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <button class="filter-button blue-button" type="button"
+                  (click)="searchAllRewardProgram()">Search</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="search-filter-block mb-3">
+  <div class="overflow-auto">
+    <div class="grid-scroll-lg cst-scroll-bar">
+      <div class="row align-items-center grid-header">
+        <div class="col">
+          <h5>Reward Program Name</h5>
+        </div>
+        <div class="col">
+          <h5>Type</h5>
+        </div>
+        <div class="col">
+          <h5>Branches</h5>
+        </div>
+        <div class="col text-center">
+          <h5>Status</h5>
+        </div>
+        <div class="col text-center">
+          <h5>Actions</h5>
+        </div>
+      </div>
+
+      <div class="row align-items-center grid-content" *ngFor="let data of rewardProgramList">
+        <div class="col">
+          <h5>{{data.Name}}</h5>
+        </div>
+        <div class="col">
+          <h5>{{data.Type}}</h5>
+        </div>
+        <div class="col">
+          <h5>{{data.Branches}}</h5>
+        </div>
+        <div class="col text-center">
+          <h5>{{data.IsActive == true ? 'Active' : 'Inactive'}}</h5>
+        </div>
+        <div class="col text-center grid-actions-btn">
+          <h5>
+            <span class="red" *ngIf="data.ActionStatus == action_Status.Terminated">
+              <a matTooltip="This program is being terminated in the background." matTooltipPosition="above"
+                matTooltipClass="custom-tooltip" href="javascript:void(0)">
+                <i class="fal fa-stopwatch"></i>
+              </a>
+            </span>
+            <span class="blue" *ngIf="data.ActionStatus != action_Status.Terminated">
+              <a matTooltip="View" matTooltipPosition="above" matTooltipClass="custom-tooltip" href="javascript:void(0)"
+                (click)="onViewRewardProgram(data.RewardProgramID)">
+                <i class="fal fa-book-open"></i>
+              </a>
+            </span>
+            <span class="blue"
+              *ngIf="isEditAllow && data.AppSourceTypeID != appSourceID.OnSite && data.ActionStatus != action_Status.Terminated">
+              <a matTooltip="Edit" matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                (click)="onEditRewardProgram(data.RewardProgramID)" href="javascript:void(0)">
+                <i class="fal fa-edit"></i>
+              </a>
+            </span>
+            <span class="red"
+              *ngIf="isDeleteAllow && data.AppSourceTypeID != appSourceID.OnSite && data.ActionStatus == action_Status.Delete">
+              <a matTooltip="Delete" matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                href="javascript:void(0)" (click)="onDeleteRewardProgram(data)">
+                <i class="fal fa-trash-alt"></i>
+              </a>
+            </span>
+            <span class="red"
+              *ngIf="isDeleteAllow && data.AppSourceTypeID != appSourceID.OnSite && data.ActionStatus == action_Status.Revert">
+              <a matTooltip="Revert Termination" matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                href="javascript:void(0)" (click)="onRevertRewardProgram(data.RewardProgramID)">
+                <i class="fal fa-undo"></i>
+              </a>
+            </span>
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row grid-content no-hover" *ngIf="!isDataExists">
+    <div class="col-md-12 text-center">
+      <div class="no-record-found">{{messages.Generic_Messages.No_Record_Found}}</div>
+    </div>
+  </div>
+
+  <app-pagination #appPagination (paginationEvent)="reciviedPagination($event)"></app-pagination>
+</div>

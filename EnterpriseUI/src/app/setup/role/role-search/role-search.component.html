@@ -1,0 +1,93 @@
+<div class="row mb-3" *ngIf="allowedPages.Save_Role">
+  <div class="col-md-12 p-0">
+    <div class="float-right">
+      <button class="wellyx-button action-button mb-0" routerLink="/setup/roles/save/0" tabindex="0">
+        Add Role
+      </button>
+    </div>
+  </div>
+</div>
+<div class="search-filter-block mb-3 px-0">
+  <div id="search_accordion">
+    <div class="panel-heading collapsed row" data-toggle="collapse" data-parent="#search_accordion"
+      data-target="#role-search">
+      <div class="col-md-12">
+        <h3 class="panel-title accordion-toggle">Search Filter</h3>
+      </div>
+    </div>
+    <div id="role-search" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div class="row align-items-end">
+          <div class="col-md-12">
+            <div class="line-seprator"></div>
+          </div>
+          <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+            <h5 class="field-label">Role Name</h5>
+            <input class="form-control" name="RoleName" type="text" [(ngModel)]="roleSearchParameter.RoleName">
+          </div>
+          <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 offset-xl-6 offset-lg-4 offset-md-4 mt-3 p-0">
+            <div class="row button-space">
+              <div class="col-md-6 col-sm-6">
+                <button class="filter-button light-button" type="button" (click)="onResetSearchFilters()"> Reset
+                </button>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <button class="filter-button blue-button" type="button" (click)="onSearchForm()"> Search</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="search-filter-block mb-3">
+  <div class="overflow-auto">
+    <div class="grid-scroll-md cst-scroll-bar">
+      <div class="row align-items-center grid-header">
+        <div class="col-md-3 col">
+          <h5><a> Name <i class="far fa-sort-alt"></i></a></h5>
+        </div>
+        <div class="col-md-7 col">
+          <h5>Description</h5>
+        </div>
+        <div class="col-md-2 col text-center">
+          <h5>Actions</h5>
+        </div>
+      </div>
+      <div class="row align-items-center grid-content" *ngFor="let roleObj of allRolesList">
+        <div class="col-md-3 col">
+          <h5>{{roleObj.RoleName}}</h5>
+        </div>
+        <div class="col-md-7 col">
+          <h5>{{roleObj.Description ? roleObj.Description : 'N/A'}}</h5>
+        </div>
+        <div class="col-md-2 col text-center grid-actions-btn">
+          <h5>
+            <span class="blue"> <a matTooltip="View" matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                (click)="onViewRoleDetail(roleObj.RoleID)" href="javascript:void(0)"><i
+                  class="fal fa-book-open"></i></a></span>
+            <span *ngIf="allowedPages.Save_Role" class="blue"><a matTooltip="Edit" matTooltipPosition="above"
+                matTooltipClass="custom-tooltip" [routerLink]="['../roles/save',roleObj.RoleID]"><i
+                  class="fal fa-edit"></i></a></span>
+            <span class="red">
+              <a matTooltip="Delete" matTooltipPosition="above" matTooltipClass="custom-tooltip" (click)="onDelete(roleObj.RoleID)"
+                href="javascript:void(0)">
+                <i class="fal fa-trash-alt"></i>
+              </a>
+            </span>
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row grid-content no-hover" *ngIf="!isDataExists">
+    <div class="col-md-12 text-center">
+      <div class="no-record-found">{{messages.Generic_Messages.No_Record_Found}}</div>
+    </div>
+  </div>
+
+  <app-pagination #appPagination (paginationEvent)="reciviedPagination($event)"></app-pagination>
+</div>

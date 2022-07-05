@@ -1,0 +1,168 @@
+// Placeholder Extend
+%flex-center {
+    display: flex;
+    align-items: center;
+  }
+  %button-min-width-height {
+    min-width: 125px;
+    height:40px;
+  }
+  %filter-seprator {
+    border-top: 1px solid $border-color-primary;
+    margin: 10px 0;
+  }
+  %border-none {
+    border: none !important;
+  }
+  %background-color-blue {
+    background: $blue-color-secondary;
+  }
+  %background-color-action {
+    background: $blue-color-primary;
+  }
+  %background-color-listing {
+    background: $listing-color-primary;
+  }
+  %color-blue-primary {
+    color: $blue-color-primary;
+  }
+  %color-dark {
+    color: $dark-color-primary;
+  }
+  %color-white {
+    color: $white-color;
+  }
+  %background-color-white {
+    background: $white-color;
+  }
+  %primary-border-radious {
+    border-radius: $border-radious-primary !important;
+  }
+  
+  // Generic Fonts
+  %small-semibold-dark {
+    @include content($content-size-small, $content-weight-semibold, $dark-color-primary);
+  }
+  %primary-regular-dark {
+    @include content($content-size-primary, $content-weight-regular, $dark-color-primary);
+  }
+  %secondary-regular-dark {
+    @include content($content-size-secondary, $content-weight-regular, $dark-color-primary);
+  }
+  %secondary-regular-white {
+    @include content($content-size-secondary, $content-weight-regular, $white-color);
+  }
+  %primary-semibold-dark {
+    @include content($content-size-primary, $content-weight-semibold, $dark-color-primary);
+  }
+  %medium-semibold-dark {
+    @include content($content-size-medium, $content-weight-semibold, $dark-color-primary);
+  }
+  %secondary-semibold-dark {
+    @include content($content-size-secondary, $content-weight-semibold, $dark-color-primary);
+  }
+  %medium-semibold-blue {
+    @include content($content-size-medium, $content-weight-semibold, $blue-color-primary);
+  }
+  %small-semibold-blue {
+    @include content($content-size-small, $content-weight-semibold, $blue-color-primary);
+  }
+  %primary-semibold-blue {
+    @include content($content-size-primary, $content-weight-semibold, $blue-color-primary);
+  }
+  %primary-regular-white {
+    @include content($content-size-primary, $content-weight-regular, $white-color);
+  }
+  %three-regular-dark {
+    @include content($content-size-three, $content-weight-regular, $dark-color-primary);
+  }
+  %four-semibold-white {
+    @include content($content-size-four, $content-weight-semibold, $white-color);
+  }
+  %four-semibold-blue {
+    @include content($content-size-four, $content-weight-semibold, $blue-color-primary);
+  }
+  %secondary-regular-blue {
+    @include content($content-size-secondary, $content-weight-regular, $blue-color-primary);
+  }
+  %primary-regular-blue {
+    @include content($content-size-primary, $content-weight-regular, $blue-color-primary);
+  }
+  %secondary-bold-icon {
+    @include content($content-size-secondary, $content-weight-bold, $icon-color-primary);
+  }
+  %primary-bold-dark {
+    @include content($content-size-primary, $content-weight-bold, $dark-color-primary);
+  }
+  %primary-bold-icon {
+    @include content($content-size-primary, $content-weight-bold, $icon-color-primary);
+  }
+  %primary-regular-grey {
+    @include content($content-size-primary, $content-weight-regular, $grey-color-primary);
+  }
+  %medium-regular-icon {
+    @include content($content-size-medium, $content-weight-regular, $icon-color-primary);
+  }
+  %medium-regular-dark {
+    @include content($content-size-medium, $content-weight-regular, $dark-color-primary);
+  }
+  %primary-null-icon {
+    @include content($content-size-primary, null, $icon-color-primary);
+  }
+  %primary-null-blue  {
+    @include content($content-size-primary, null, $blue-color-primary);
+  }
+  %secondary-null-blue  {
+    @include content($content-size-secondary, null, $blue-color-primary);
+  }
+  %secondary-null-icon  {
+    @include content($content-size-secondary, null, $icon-color-primary);
+  }
+  %small-regular-waring {
+    @include content($content-size-small, $content-weight-regular, $warning-color-primary);
+  }
+  %six-null-dark {
+    @include content($content-size-six, null, $dark-color-primary);
+  }
+  
+  // gutter space
+  %left-right-space {
+    padding: 0 15px;
+  }
+  %top-bottom-space {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  %left-right-zero {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+  %padding-left-gutter-space {
+    padding-left: 15px !important;
+  }
+  %padding-right-gutter-space {
+    padding-right: 15px !important;
+  }
+  %top-border-radious {
+    @include border-radious(4px, 4px, 0, 0);
+  }
+  %bottom-border-radious {
+    @include border-radious(0, 0, 4px, 4px);
+  }
+  %icon-button {
+    display:inline-block;
+    @extend %background-color-blue;
+    @extend %secondary-null-blue;
+    @include rounded-circle(38px, 38px, $border-radious-secondary);
+    line-height: 38px;
+    text-align: center;
+    border: none;
+  }
+  %border-bottom-space {
+    border-bottom: 1px solid $border-color-primary;
+    margin-bottom: 8px;
+    &:last-child {
+      border: none;
+      margin-bottom: 0;
+    }
+  }

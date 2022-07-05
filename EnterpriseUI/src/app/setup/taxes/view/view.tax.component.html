@@ -1,0 +1,83 @@
+﻿<div tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog-centered">
+    <div class="modal-content medium-popup">
+      <div class="popup-header">
+        <h2>Tax Details</h2>
+      </div>
+      <div class="popup-content cst-scroll-bar">
+        <div class="section-block mb-3 info-content">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="section-title">
+                <h3>Tax Information</h3>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class=" col-sm-6 mb-3"
+              [ngClass]="[tax.AppSourceTypeID === enum_AppSourceType.OnSite ? 'col-lg-4 col-md-4' :'col-lg-3 col-md-3']">
+              <h6>Name</h6>
+              <p>{{tax.TaxName? tax.TaxName : "N/A"}}</p>
+            </div>
+            <div class=" col-sm-6 mb-3"
+              [ngClass]="[tax.AppSourceTypeID === enum_AppSourceType.OnSite ? 'col-lg-4 col-md-4' :'col-lg-3 col-md-3']">
+              <h6>Value</h6>
+              <p>{{tax.TaxPercentage? tax.TaxPercentage + '%' : "N/A"}}</p>
+            </div>
+            <div class="col-sm-6 mb-3"
+              [ngClass]="[tax.AppSourceTypeID === enum_AppSourceType.OnSite ? 'col-lg-4 col-md-4' :'col-lg-3 col-md-3']">
+              <h6>Type</h6>
+              <p>{{tax.TaxTypeName? tax.TaxTypeName : "N/A"}}</p>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 mb-3" *ngIf="tax.AppSourceTypeID === enum_AppSourceType.EnterPrise">
+              <h6>Branch Permissions</h6>
+              <p>{{tax.HasBranchPermission ? "Yes": "No"}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-block info-content">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="section-title border-zero mb-1">
+                <h3>Branches & Permissions</h3>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="overflow-auto">
+                <div class="grid-scroll-xs cst-scroll-bar">
+                  <div class="row align-items-center grid-header">
+                    <div class="col">
+                      <h5>Branch</h5>
+                    </div>
+                    <div class="col-3 text-center">
+                      <h5>Active</h5>
+                    </div>
+                  </div>
+                  <div class="row align-items-center grid-content" *ngFor="let branch of tax.BranchList">
+                    <div class="col">
+                      <h5>{{branch.BranchName}}</h5>
+                    </div>
+
+                    <div class="col-3 text-center">
+                      <h5>{{branch.IsActive? 'Yes' : 'No'}}</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row popup-footer">
+        <div class="col-md-12">
+          <div class="float-right scroll-space">
+            <button type="button" class="wellyx-button light-button" (click)="onCloseDialog()">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

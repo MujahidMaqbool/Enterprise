@@ -1,0 +1,322 @@
+﻿<div class="search-filter-block mb-3 px-0">
+  <div id="search_accordion">
+    <div class="panel-heading collapsed row" data-toggle="collapse" data-parent="#search_accordion"
+      data-target="#product_search">
+      <div class="col-md-12">
+        <h3 class="panel-title accordion-toggle">Search Filter</h3>
+      </div>
+    </div>
+    <div id="product_search" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div class="row align-items-end">
+          <div class="col-md-12">
+            <div class="line-seprator"></div>
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h5 class="field-label">Name</h5>
+            <input type="text" class="form-control" name="StaffName" maxlength="50"
+              [(ngModel)]="staffSearchFilterParams.StaffName">
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h5 class="field-label">Branch</h5>
+            <div class="select-label">
+              <mat-select class="form-control" name="BranchName" [(ngModel)]="selectedStaffBranches" tabindex="10"
+                multiple #branchSelect>
+
+                <mat-select-trigger *ngIf="selectedStaffBranches?.length - 1 == staffBranchList?.length">
+                  All
+                </mat-select-trigger>
+
+                <mat-select-trigger
+                  *ngIf="selectedStaffBranches && selectedStaffBranches?.length > 0 && !staffAllSelectToggleModel.isAllSelectedBranch">
+                  {{selectedStaffBranches && selectedStaffBranches?.length > 0 && selectedStaffBranches[0]?.BranchName ?
+                                selectedStaffBranches[0]?.BranchName :
+                                selectedStaffBranches && selectedStaffBranches?.length >= 2 && selectedStaffBranches[0]?.BranchName == undefined ?
+                                selectedStaffBranches[1]?.BranchName : ''}}
+                  <span *ngIf="selectedStaffBranches && selectedStaffBranches.length >= 2"
+                    class="example-additional-selection">
+                    (+{{selectedStaffBranches[0]?.BranchName == undefined ? selectedStaffBranches?.length - 2 :
+                                    selectedStaffBranches.length - 1 }}
+                    {{selectedStaffBranches[0]?.BranchName == undefined && selectedStaffBranches?.length === 3 ? 'other' :
+                                selectedStaffBranches?.length === 2 ? 'other' : 'others'}})
+                  </span>
+                </mat-select-trigger>
+                <span *ngIf="staffBranchList && staffBranchList.length > 1">
+                  <mat-option #allSelectedStaffBranches
+                    (click)="onSelectAllStaffPositions(ENU_StaffSearchDropDown.StaffBranch)" [value]="0">
+                    All</mat-option>
+                </span>
+                <mat-option *ngFor="let branch of staffBranchList" [value]="branch"
+                  (click)="onToggleStaffPositionSelection(branch,ENU_StaffSearchDropDown.StaffBranch)">
+                  {{branch.BranchName}} </mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h5 class="field-label">Position</h5>
+            <div class="select-label">
+              <mat-select class="form-control" name="StaffPositionName" [(ngModel)]="selectedStaffPositions"
+                tabindex="10" multiple #staffPositionSelect>
+
+                <mat-select-trigger *ngIf="selectedStaffPositions?.length - 1 == staffPositionList?.length">
+                  All
+                </mat-select-trigger>
+
+                <mat-select-trigger
+                  *ngIf="selectedStaffPositions && selectedStaffPositions?.length > 0 && !staffAllSelectToggleModel.isAllSelectedPosition">
+                  {{selectedStaffPositions && selectedStaffPositions?.length > 0 && selectedStaffPositions[0]?.StaffPositionName ?
+                                    selectedStaffPositions[0]?.StaffPositionName :
+                                    selectedStaffPositions && selectedStaffPositions?.length >= 2 && selectedStaffPositions[0]?.StaffPositionName == undefined ?
+                                    selectedStaffPositions[1]?.StaffPositionName : ''}}
+                  <span *ngIf="selectedStaffPositions && selectedStaffPositions.length >= 2"
+                    class="example-additional-selection">
+                    (+{{selectedStaffPositions[0]?.StaffPositionName == undefined ? selectedStaffPositions?.length - 2 :
+                                        selectedStaffPositions.length - 1 }}
+                    {{selectedStaffPositions[0]?.StaffPositionName == undefined && selectedStaffPositions?.length === 3 ? 'other' :
+                                    selectedStaffPositions?.length === 2 ? 'other' : 'others'}})
+                  </span>
+                </mat-select-trigger>
+                <span *ngIf="staffPositionList && staffPositionList.length > 1">
+                  <mat-option #allSelectedStaffPositions
+                    (click)="onSelectAllStaffPositions(ENU_StaffSearchDropDown.staffPosition)" [value]="0">
+                    All</mat-option>
+                </span>
+                <mat-option *ngFor="let position of staffPositionList" [value]="position"
+                  (click)="onToggleStaffPositionSelection(position,ENU_StaffSearchDropDown.staffPosition)">
+                  {{position.StaffPositionName}} </mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h5 class="field-label">Email</h5>
+            <input type="text" class="form-control" name="email" maxlength="50"
+              [(ngModel)]="staffSearchFilterParams.Email">
+          </div>
+
+          <ng-container *ngIf="showAdvancedSearchFiels">
+            <div class="col-lg-3 col-md-4 col-sm-6">
+              <h5 class="field-label">Role</h5>
+              <div class="select-label">
+                <mat-select class="form-control" placeholder="Select Role" name="RoleName"
+                  [(ngModel)]="selectedStaffRoles" tabindex="10" multiple #staffRoleSelect>
+
+                  <mat-select-trigger *ngIf="selectedStaffRoles?.length - 1 == staffRoleList?.length">
+                    All
+                  </mat-select-trigger>
+
+                  <mat-select-trigger
+                    *ngIf="selectedStaffRoles && selectedStaffRoles.length > 0 && !staffAllSelectToggleModel.isAllSelectedRoll">
+                    {{selectedStaffRoles && selectedStaffRoles.length > 0 && selectedStaffRoles[0].RoleName ?
+                                      selectedStaffRoles[0].RoleName :
+                                      selectedStaffRoles && selectedStaffRoles.length >= 2 && selectedStaffRoles[0].RoleName == undefined ?
+                                      selectedStaffRoles[1].RoleName : ''}}
+                    <span *ngIf="selectedStaffRoles && selectedStaffRoles.length >= 2"
+                      class="example-additional-selection">
+                      (+{{selectedStaffRoles[0].RoleName == undefined ? selectedStaffRoles.length - 2 :
+                                          selectedStaffRoles.length - 1 }}
+                      {{selectedStaffRoles[0].RoleName == undefined && selectedStaffRoles.length === 3 ? 'other' :
+                                      selectedStaffRoles.length === 2 ? 'other' : 'others'}})
+                    </span>
+                  </mat-select-trigger>
+                  <span *ngIf="staffRoleList && staffRoleList.length > 1">
+                    <mat-option #allSelectedStaffRoles
+                      (click)="onSelectAllStaffPositions(ENU_StaffSearchDropDown.StaffRole)" [value]="0">
+                      All</mat-option>
+                  </span>
+                  <mat-option *ngFor="let role of staffRoleList" [value]="role"
+                    (click)="onToggleStaffPositionSelection(role,ENU_StaffSearchDropDown.StaffRole)">
+                    {{role.RoleName}} | {{role?.BranchName}} </mat-option>
+                </mat-select>
+              </div>
+
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+              <h5 class="field-label">Login Access</h5>
+              <div class="select-label">
+                <select class="form-control" name="IsActive" [(ngModel)]="staffSearchFilterParams.allowLogin">
+                  <option [ngValue]="null">All</option>
+                  <option *ngFor="let statusObj of statusList" [ngValue]="statusObj.StatusID">
+                    {{statusObj.StatusName}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-8 col-sm-12 p-0">
+              <dateto-datefrom [dateToPlaceHolder]="dateToPlaceHolder" [dateFromPlaceHolder]="dateFromPlaceHolder"
+                (sendDateTo)="reciviedDate($event)" #staffDateSearch>
+              </dateto-datefrom>
+            </div>
+          </ng-container>
+
+          <div class="offset-xl-7 offset-lg-6 col-xl-5 col-lg-6 col-md-8 mt-3 p-0" [ngClass]="{'offset-md-0':!showAdvancedSearchFiels, 'offset-md-4': showAdvancedSearchFiels}">
+            <div class="row button-space">
+              <div class="col-md-4 col-sm-4">
+                <button class="filter-button light-button" type="button" (click)="resetStaffSearchFilters()">
+                  Reset</button>
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <div class="input-group advance-search" (click)="stafAdvacnedfSearch()">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text" *ngIf="!showAdvancedSearchFiels"><i class="fal fa-chevron-down"></i>
+                    </div>
+                    <div class="input-group-text" *ngIf="showAdvancedSearchFiels"><i class="fal fa-times"></i></div>
+                  </div>
+                  <input type="text" class="form-control cst-bg-color text-center" readonly value="Advanced Search"
+                    *ngIf="!showAdvancedSearchFiels">
+                  <input type="text" class="form-control cst-bg-color text-center" readonly value="Close Advanced Search"
+                    *ngIf="showAdvancedSearchFiels">
+                </div>
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <button class="filter-button blue-button" type="button" (click)="staffSearch()">
+                  Search</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="search-filter-block mb-3">
+  <div class="overflow-auto">
+    <div class="grid-scroll-lg cst-scroll-barr master-row">
+
+      <div class="row align-items-center grid-header">
+        <div class="col">
+          <h5>
+            <a class="primary-color" (click)="changeSorting(1)" href="javascript:void(0)">
+              Name
+              <i class="far fa-sort-alt"></i>
+            </a>
+          </h5>
+        </div>
+        <div class="col">
+          <h5>Branch</h5>
+        </div>
+        <div class="col">
+          <h5>Position</h5>
+        </div>
+        <div class="col">
+          <h5>Email</h5>
+        </div>
+        <div class="col">
+          <h5>Mobile</h5>
+        </div>
+        <div class="col">
+          <h5>Role</h5>
+        </div>
+        <div class="col" *ngIf="showAdvancedSearchFiels">
+          <h5>Login Access</h5>
+        </div>
+        <div class="col" *ngIf="showAdvancedSearchFiels">
+          <h5>
+            <a class="primary-color" (click)="changeSorting(1)" href="javascript:void(0)">
+              Date Created
+              <i class="far fa-sort-alt"></i>
+            </a>
+          </h5>
+        </div>
+        <div class="col text-center">
+          <h5>Actions</h5>
+        </div>
+      </div>
+
+      <ng-container *ngFor="let staff Of staffGridDataObj;  let i = index">
+        <div class="row align-items-center grid-content parent-grid-content">
+          <div class="col">
+            <div class="cursor-pointer cst-collapse collapsed" data-toggle="collapse" attr.data-target="#collapseExample{{i}}"
+              aria-expanded="false" attr.aria-label="collapseExample{{i}}">
+              <h5>{{staff.StaffName}}</h5>
+            </div>
+          </div>
+          <div class="col">
+            <h5>{{staff.EnterpriseRoleID > 0?'Enterprise': ''}}</h5>
+          </div>
+          <div class="col">
+            <h5></h5>
+          </div>
+          <div class="col">
+            <h5>{{staff.Email}}</h5>
+          </div>
+          <div class="col">
+            <h5>{{staff.Mobile}}</h5>
+          </div>
+          <div class="col">
+            <h5>{{staff.EnterpriseRoleName}}</h5>
+          </div>
+          <div class="col" *ngIf="showAdvancedSearchFiels">
+            <h5>{{staff.AllowLogin ? 'Yes' : 'No'}}</h5>
+          </div>
+          <div class="col" *ngIf="showAdvancedSearchFiels">
+            <h5></h5>
+          </div>
+          <div class="col text-center grid-actions-btn">
+            <h5>
+              <span class="blue">
+                <a matTooltip="View" matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                  href="javascript:void(0)" (click)="viewStaffDetails(staff.StaffID)">
+                  <i class="fal fa-book-open"></i>
+                </a>
+              </span>
+              <span class="blue" *ngIf="isEditAllow && !staff.IsSuperAdmin">
+                <a matTooltip="Assign Enterprise Role" matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                  (click)="getStaffRoleFundamental(staff)">
+                  <i class="fal fa-user-tag"></i>
+                </a>
+              </span>
+            </h5>
+          </div>
+        </div>
+
+        <div class="row align-items-center grid-content collapse" *ngFor="let staffChild of staff.Detail"
+          id="collapseExample{{i}}">
+          <div class="col">
+            <h5></h5>
+          </div>
+          <div class="col">
+            <h5>{{staffChild.BranchName}}</h5>
+          </div>
+          <div class="col">
+            <h5>{{staffChild.StaffPositionName}}</h5>
+          </div>
+          <div class="col">
+            <h5></h5>
+          </div>
+          <div class="col">
+            <h5></h5>
+          </div>
+          <div class="col">
+            <h5>{{staffChild.StaffRoleName}}</h5>
+          </div>
+          <div class="col" *ngIf="showAdvancedSearchFiels">
+            <h5></h5>
+          </div>
+          <div class="col" *ngIf="showAdvancedSearchFiels">
+            <h5>{{staffChild.CreatedOn | customdate}}</h5>
+          </div>
+          <div class="col text-center grid-actions-btn">
+            <h5 *ngIf="isBranchPermission(staffChild.BranchID) && isEditAllow">
+              <span class="blue">
+                <a matTooltip="Redirect" (click)="onRoutRrl(staffChild.StaffID ,staffChild.BranchID)"
+                  matTooltipPosition="above" matTooltipClass="custom-tooltip">
+                  <i class="fal fa-external-link-square"></i>
+                </a>
+              </span>
+            </h5>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="row grid-content no-hover" *ngIf="!isDataExists">
+    <div class="col-md-12 text-center">
+      <div class="no-record-found">{{messages.Generic_Messages.No_Record_Found}}</div>
+    </div>
+  </div>
+
+  <app-pagination #appPagination (paginationEvent)="reciviedPagination($event)"></app-pagination>
+</div>

@@ -1,0 +1,71 @@
+<form #saveRoleForm="ngForm" (ngSubmit)="saveRole(saveRoleForm.valid)" novalidate>
+  <div class="row mb-3">
+    <div class="col-md-12 p-0">
+      <div class="float-sm-right sm-button-full">
+        <button type="button" class="wellyx-button light-button mb-0" [routerLink]="['/setup/roles']"><i></i> Back To Search</button>
+        <button type="submit" class="wellyx-button action-button mb-0" [disabled]="(saveInProgress)">Save</button></div>
+    </div>
+  </div>
+  <div class="search-filter-block mb-3 px-0">
+    <div class="row" *ngIf="saveRoleForm.invalid && saveRoleForm.submitted">
+      <div class="col-md-12 col-sm-12">
+          <div class="alert alert-danger">
+              <div *ngIf="saveRoleForm.invalid">
+                  {{messages.Validation.Info_Required}}
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="row align-items-center">
+      <div class="col-md-4 col-sm-6 mb-sm-3">
+        <h5 class="field-label">Role</h5>
+        <div [ngClass]="{
+        'has-danger': RoleName.invalid && (RoleName.dirty || RoleName.touched || saveRoleForm.submitted),
+         'has-success': RoleName.valid && (RoleName.dirty || RoleName.touched )
+            }">
+          <input type="text" name="RoleName" class="form-control" #RoleName="ngModel"
+            [(ngModel)]="rolesListData.RoleName" tabindex="1" maxlength="50" required />
+        </div>
+      </div>
+      <div class="col-md-8 col-sm-6 mb-3" [ngClass]="{
+              'has-danger': description.invalid && (description.dirty || description.touched || saveRoleForm.submitted),
+               'has-success': description.valid && (description.dirty || description.touched )
+                  }">
+        <h5 class="field-label">Description</h5>
+        <input type="text" name="description" class="form-control" #description="ngModel"
+          [(ngModel)]="rolesListData.Description" maxlength="250" tabindex="2" required />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-6 mb-3" *ngFor="let modulesObj of allRolesModuleList">
+        <div class="row align-items-center grid-header">
+            <div class="col col-md-8">
+              <h5>{{modulesObj.ModuleName}}</h5>
+            </div>
+            <div class="col text-right">
+                <mat-slide-toggle id="{{'slidetoggle' + modulesObj.ModuleID}}"
+                [(checked)]="modulesObj.IsModuleSelected" name="{{modulesObj.ModuleID}}"
+                [(ngModel)]="modulesObj.IsModuleSelected"
+                (ngModelChange)="onModuleSelectionChange(modulesObj.ModuleID, modulesObj.IsModuleSelected)">
+              </mat-slide-toggle>
+            </div>
+        </div>
+
+        <div class="role-details cst-scroll-bar">
+          <div class="row align-items-center my-2">
+            <div class="col-xl-6 col-lg-12 col-md-12" *ngFor="let modulePagesObj of modulesObj.ModulePageList">
+              <div class="checkbox checkbox-success d-flex mb-2">
+                <input id="{{'checkbox' + modulePagesObj.ModulePageID}}"
+                  name="{{modulePagesObj.ModulePageName + modulePagesObj.ModulePageID}}" type="checkbox"
+                  [(ngModel)]="modulePagesObj.IsPageSelected"
+                  (ngModelChange)="onPageSelectionChange(modulesObj.ModuleID,modulePagesObj.IsPageSelected)" [disabled]="modulePagesObj.IsDashboardPage">
+                <label for="{{'checkbox' + modulePagesObj.ModulePageID}}"> {{modulePagesObj.ModulePageName}} </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

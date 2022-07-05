@@ -1,0 +1,52 @@
+<div aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog-centered">
+    <div class="modal-content medium-popup">
+      <div class="popup-header">
+        <!-- <div class="col-md-6 col-sm-6" *ngFor="let modulesObj of viewRoleDetail.RoleModuleList">
+          {{modulesObj.ModuleName}}</div> -->
+        <h2>{{viewRoleDetail.RoleName}}</h2>
+      </div>
+      <div class="popup-content cst-scroll-bar">
+        <div class="section-block py-3 info-content">
+          <div class="row">
+            <div class="col-md-6 col-sm-6 mb-3">
+              <h6>Role Name</h6>
+              <p>{{viewRoleDetail.RoleName}}</p>
+            </div>
+            <div class="col-md-6 col-sm-6 mb-3" *ngFor="let modulesObj of viewRoleDetail.RoleModuleList">
+              <div class="row align-items-center grid-header">
+                <div class="col col-md-9">
+                  <h5>{{modulesObj.ModuleName}}</h5>
+                </div>
+                <div class="col text-right">
+                  <h5 id="{{'checkbox' + modulesObj.ModuleName}}">On</h5>
+                </div>
+              </div>
+
+              <div class="role-details cst-scroll-bar">
+                <div class="row align-items-center my-2">
+                  <div class="col-lg-6 col-md-12" *ngFor="let ModulePagesObj of modulesObj.ModulePageList">
+                    <div class="checkbox checkbox-success d-flex mb-2">
+                      <input id="{{'checkbox' + ModulePagesObj.ModulePageID}}" name="{{ModulePagesObj.ModulePageName}}"
+                        type="checkbox" [(checked)]="ModulePagesObj.IsPageSelected" [disabled]="true">
+                      <label for="{{'checkbox' + ModulePagesObj.ModulePageID}}"> {{ModulePagesObj.ModulePageName}}
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row popup-footer">
+        <div class="col-md-12">
+          <div class="float-right scroll-space">
+            <button mat-button type="button" class="wellyx-button light-button" (click)="onClosePopup()">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

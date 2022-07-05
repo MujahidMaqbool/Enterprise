@@ -1,0 +1,41 @@
+<div tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog-centered">
+    <div class="modal-content small-popup">
+
+      <div class="bg-white">
+        <div [ngClass]="{'reward-app-view': showApp }">
+          <div class="popup-header text-center">
+            <h2 class="border-none font-weight-bold" [ngClass]="{'size-three': showWidget, 'size-primary': showApp }">
+              {{data.rewardProgramName ? data.rewardProgramName : '[Reward Program Name]'}}
+            </h2>
+          </div>
+          <img src="../assets/images/reward-program-image.jpg" width="100%" alt="Reward Program" />
+
+          <div class="popup-content-template cst-scroll-bar">
+            <div class="template-desription" *ngIf="data.description">
+              <div [innerHTML]="data.description | safeHtml"></div>
+            </div>
+            <div class="template-desription" *ngIf="!data.description">
+              <div [innerHTML]="defaultDescription | safeHtml"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row popup-footer mt-3 sm-button-full flex-sm-row flex-column-reverse">
+        <div class="col-md-4 col-sm-4">
+          <button type="button" class="wellyx-button light-button" (click)="closeDialog()">Close</button>
+        </div>
+        <div class="col-md-8 col-sm-8 mb-sm-0 mb-3">
+          <div class="float-sm-right sm-button-half">
+            <button class="wellyx-button app-button font-weight-medium" [ngClass]="widgetactive ? 'active' : ''"
+              type="button" (click)="onClickWidget()"><i class="fal fa-tv"></i> &nbsp; Widget</button>
+            <button class="wid wellyx-button app-button font-weight-medium" [ngClass]="appactive ? 'active' : ''"
+              (click)="onClickApp()"><i class="fal fa-mobile-android"></i> &nbsp;
+              App</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

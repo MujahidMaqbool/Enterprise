@@ -1,0 +1,74 @@
+<div class="row" *ngIf="showBranchValidation">
+  <div class="col-md-12 p-0">
+    <div class="alert alert-danger">
+      {{messages.Error.Atleast_One_branch}}
+    </div>
+  </div>
+</div>
+<form #SupplierBranchesPermission="ngForm" novalidate>
+  <div class="search-filter-block mb-3 px-0">
+    <div class="row align-items-center description-content">
+      <div class="col col-md-10">
+        <h2>Branch Permissions</h2>
+        <p class="mb-0">Toggle on to allow branches to delete this {{typeName}} or mark it as active/inactive.</p>
+      </div>
+      <div class="col-4 col-md-2 text-right">
+        <mat-slide-toggle [checked]="HasBranchPermission" [(ngModel)]="HasBranchPermission" class="wellyx-checked"
+          name="IsActive">
+        </mat-slide-toggle>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-block pb-3">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="section-title">
+          <h3>Branches & Permissions</h3>
+        </div>
+      </div>
+    </div>
+    <div class="row ">
+      <div class="col-md-12">
+        <div class="overflow-auto-xs">
+          <div class="grid-scroll-xs cst-scroll-bar">
+            <div class="row align-items-center grid-header">
+              <div class="col">
+                <h5>Branch</h5>
+              </div>
+              <div class="col">
+                <h5>Active</h5>
+              </div>
+              <div class="col-3 pr-0">
+                <h5>Actions</h5>
+              </div>
+            </div>
+            <div class="row align-items-center grid-content" *ngFor="let data of branchList;let i = index">
+              <div class="col">
+                <h5>{{data.BranchName}}</h5>
+              </div>
+
+              <div class="col">
+                <div class="checkbox checkbox-success d-flex">
+                  <input type="checkbox" [(ngModel)]="data.IsActive" name="{{'Chk_item' + i}}"
+                    [disabled]="!data.IsIncluded" id="{{'Chk_item' +i}}" [(checked)]="data.IsActive">
+                  <label for="{{'Chk_item' +i}}"></label>
+                </div>
+              </div>
+
+              <div class="col-3 pr-0 text-nowrap">
+                <h5>
+                  <mat-slide-toggle class="small-check" [(ngModel)]="data.IsIncluded" name="{{'toggle' +i}}"
+                    id="{{'toggle' +i}}" [(checked)]="data.IsIncluded" (change)="toggleChange($event,data)">
+                  </mat-slide-toggle>
+                  <span class="font-weight-medium pl-2"> {{data.IsIncluded ? 'Added' : 'Not Added'}}</span>
+                </h5>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

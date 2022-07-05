@@ -1,0 +1,68 @@
+<div tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog-centered">
+        <div class="modal-content small-popup">
+            <div class="popup-header">
+                <h2>Packaging</h2>
+            </div>
+            <div class="popup-content cst-scroll-bar">
+                <div class="section-block pb-2 pt-1 info-content">
+                    <form #productPackagingForm="ngForm" novalidate>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                                <h5 class="field-label">Weight</h5>
+                                <div class="input-group">
+                                    <input type="text" name="weight" id="weight" [(ngModel)]="savePackagingDetail.Weight" class="form-control"  maxlength="15" numberControl TwoDigitDecimaNumber>
+                                    <span class="input-group-text post-fix" id="basic-addon2">{{weighrUnitName}}</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <h5 class="field-label">Dimensions <span class="info-text">({{dimensionUnitName}})</span></h5>
+                            </div>
+                            <div class="col-md-4 col-sm-6 pb-2">
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon1">Length</span>
+                                    <input type="text" name="length" id="length" class="form-control" [(ngModel)]="savePackagingDetail.Length" maxlength="15" numberControl TwoDigitDecimaNumber>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6 pb-2">
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon1">Width</span>
+                                    <input type="text" name="width" id="width" class="form-control" [(ngModel)]="savePackagingDetail.Width" maxlength="15" numberControl TwoDigitDecimaNumber>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6 pb-2">
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon1">Height</span>
+                                    <input type="text" name="height" id="height" class="form-control" [(ngModel)]="savePackagingDetail.Height" maxlength="15" numberControl TwoDigitDecimaNumber>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <h5 class="field-label">Size/Volume</h5>
+                            </div>
+                            <div class="col-lg-8 col-md-8 pb-2">
+                                <input type="text" name="sizeVolume" id="sizeVolume" class="form-control" [(ngModel)]="savePackagingDetail.SizeVolume" maxlength="15" numberControl TwoDigitDecimaNumber>
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                <div class="select-label">
+                                    <select class="form-control" name="sizeVolumeUnitID" id="sizeVolumeUnitID" [(ngModel)]="savePackagingDetail.SizeVolumeUnitID">
+                                        <option [ngValue]="null">Select Unit</option>
+                                        <option *ngFor="let unit of unitList" [ngValue]="unit.UnitID">
+                                            {{unit.UnitName}}
+                                        </option>
+                                      </select>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row popup-footer">
+                <div class="col-md-12">
+                    <div class="float-sm-right sm-button-full">
+                        <button type="button" class="wellyx-button light-button" (click)="onClose()">Cancel</button>
+                        <button type="button" class="wellyx-button action-button" (click)="onSavePackaging()" [disabled]="productPackagingForm.pristine" >Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>

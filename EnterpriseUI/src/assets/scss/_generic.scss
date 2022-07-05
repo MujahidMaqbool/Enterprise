@@ -1,0 +1,369 @@
+/**Custom  Scroll CSS**/
+.cst-scroll-bar::-webkit-scrollbar-track {
+  background-color: $white-color;
+}
+.cst-scroll-bar::-webkit-scrollbar {
+  width: 8px;
+  height: 5px;
+}
+.cst-scroll-bar::-webkit-scrollbar-thumb {
+  background-color: $scrollbar-color ;
+}
+
+::selection {
+  color: $white-color;
+  background: $blue-color-primary;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+/* for Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+.textarea-resize-none {
+  resize: none;
+}
+
+// Generic Style
+body {
+  font-family: $font-family-primary;
+  font-weight: $content-weight-regular;
+  background: $popup-body-content-color;
+  min-height: 100vh;
+  position: relative;
+}
+.primary-color {
+  @extend %color-dark;
+}
+a:hover {
+  text-decoration: none;
+}
+i, span {
+  display: inline-block;
+}
+.font-weight-medium {
+  font-weight: 600 !important;
+}
+a, button, .panel-heading, select, .date-picker[readonly], .cursor-pointer,
+.advance-search .input-group-text, .advance-search input, .cst-collapse:before, .checkbox label {
+  cursor: pointer;
+}
+.cursor-not-allowed {
+  cursor: not-allowed !important;
+}
+.navbar {
+  padding: 0;
+}
+.no-border {
+  border: none !important;
+}
+.row {
+  margin-right: 0px !important;
+  margin-left: 0px !important;
+}
+.checkbox {
+  margin: 4px 0;
+}
+.date-picker-toggle {
+  display: none;
+}
+.cst-col-5 {
+  flex: 0 0 20%;
+  max-width: 20%;
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+.input-mb {
+  margin-bottom: 6px;
+}
+
+.flag {
+  background-image: url('#{$image-path}/country-flags.jpg') !important;
+}
+.blue-color, .blue a:hover i {
+  @extend %color-blue-primary;
+}
+.section-title h3.blue-color{
+  @extend %color-blue-primary;
+}
+.grid-scrolls {
+  min-width: $content-scroll-all;
+}
+.grid-scroll-long {
+  min-width: $content-scroll-long;
+}
+.red a:hover i{
+    color: $red-color-primary;
+}
+.orange a:hover i{
+    color: $orange-color-primary;
+}
+.yellow a:hover i{
+    color: $yellow-color-primary;
+}
+.green a:hover i, .green-color, .green-color:hover {
+    color: $green-color-primary;
+}
+.icon-size {
+    @extend %primary-bold-icon;
+    &.fa-sort-down:before {
+      position: relative;
+      top: -3px;
+    }
+}
+.profile-image-size {
+  width: 40px;
+}
+.text-danger {
+  font-size: $content-size-medium;
+}
+.error {
+  color: $red-color-primary;
+  font-size: $content-size-primary;
+}
+.size-primary {
+  font-size: $content-size-primary !important;
+}
+.size-md {
+  font-size: $content-size-medium !important;
+}
+.size-three {
+  font-size: $content-size-three !important;
+}
+.info-tooltip {
+  @include position-element(relative, -4px, null, null, null);
+  @extend %primary-null-blue;
+}
+.fav-grid-scroll {
+  @include max-height-scroll(294px);
+}
+.pv-product-details {
+  @include height-scroll(calc(100vh - 552px));
+}
+.pv-inventory-details {
+  @include height-scroll(calc(100vh - 318px));
+}
+.p-edit-pricing-details {
+  @include height-scroll(calc(100vh - 365px));
+}
+.grey-info-text {
+  @extend %primary-regular-grey;
+  &:hover {
+    color: darken($grey-color-primary, 8%);
+  }
+}
+.wellyx-button {
+  @extend %primary-regular-dark;
+  @extend %button-min-width-height;
+  padding: 6px 10px;
+  border-radius: $border-radious-button;
+  border: 1px solid $border-color-primary;
+  outline: none;
+}
+.wellyx-button:not(:first-child) {
+  margin-left: 10px;
+}
+.light-button {
+  background: $white-color;
+  border: 1px solid $border-color-primary;
+}
+.text-blue-button{
+  background: $white-color;
+  color: $blue-color-primary;
+  font-weight: $content-weight-semibold;
+  border: 1px solid $border-color-primary;
+
+}
+.blue-button {
+  @extend %background-color-blue;
+  border: 1px solid $blue-color-secondary !important;
+}
+.action-button {
+  @extend %background-color-action;
+  border: 1px solid $blue-color-primary;
+  color: $white-color;
+}
+.text-button {
+  @extend %primary-semibold-blue;
+  background: transparent;
+  border: 0;
+  outline: none;
+  margin-bottom: 6px;
+}
+.app-button {
+  color: $icon-color-primary;
+  background: $white-color;
+  border: 1px solid $border-color-primary;
+  &.active {
+    color: $blue-color-primary;
+    border: 1px solid $blue-color-primary;
+  }
+  i {
+    font-size: $content-size-secondary;
+  }
+}
+.wellyx-login-button {
+  @extend %secondary-regular-dark;
+  @include rounded-circle(100%, 50px, $border-radious-button);
+  background: $white-color;
+  padding: 6px 10px;
+  border: 1px solid $white-color;
+}
+.checkbox label.blue-bold-cont {
+  @extend %primary-semibold-blue;
+}
+.combine-button button:last-child {
+  margin-left: 8px;
+}
+.combine-button button:first-child {
+  margin-right: 8px;
+}
+.icon-button {
+  @extend %icon-button;
+}
+.no-record-found {
+  @extend %primary-semibold-dark;
+  padding: 20px 0;
+  margin-bottom: 0;
+}
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+.form-control:disabled,
+.mat-select-disabled {
+    cursor: not-allowed;
+    background: $border-color-primary;
+}
+.alert-icon {
+ i {
+  @include rounded-circle(2.7em, 2.7em, 50%);
+  line-height: 2.5em;
+  font-size: 30px;
+  text-align: center;
+  }
+}
+.alert-icon.warning-icon {
+  i {
+   color: $blue-color-primary;
+   background: rgba($blue-color-primary, 16%);
+  }
+ }
+ .alert-icon.delete-icon {
+  i {
+   color: $red-color-primary;
+   background: rgba($red-color-primary, 16%);
+  }
+ }
+.primary-white {
+  @extend %primary-regular-white;
+}
+
+/**Image Cropper Css**/
+
+.upload-image-box {
+  height: 225px;
+  text-align: center;
+  background-color: $blue-color-four;
+  cursor: pointer;
+  outline: 1px dashed rgba(32,45,57,.4117647058823529);
+  border-radius: $border-radious-button;
+  outline-offset: -14px;
+  @extend %flex-center;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 6px;
+  i {
+    @extend %six-null-dark;
+  }
+}
+.img_editor .btn_upload {
+  outline: 1px dashed rgba(32,45,57,.4117647058823529);
+  outline-offset: -10px;
+  transition: outline-offset .15s ease-in-out,background-color .15s linear;
+  padding: 10em 0;
+  text-align: center!important;
+  margin: 0;
+  width: 100%!important;
+  background-color: #f5f8fb;
+  cursor: pointer;
+  font-size: 18px;
+  color: #202d39;
+}
+.relative_cls{
+  position: relative;
+  img{
+    margin-top: 36px;
+  }
+}
+.square_img_action {
+  bottom: 10%!important;
+  right: 2%!important;
+  position: absolute;
+  button{
+    background: 0 0;
+    border: none;
+    display: inline-block;
+    padding: 0;
+    margin: 0 20px 0 0;
+  }
+  i{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    bottom: 18px;
+    color: #fff;
+    padding: 11px 0;
+    background: #1b6eb8;
+  }
+  .delete_img  i{
+    background: #DC3545;
+  }
+}
+.img_editor  {
+  h5{
+    font-size: 14px;
+    color: #202d39;
+    font-weight: 600;
+  }
+  button, label{
+    min-width: 150px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    font-size: 14px;
+    background: #1b6eb8;
+    color: #fff;
+  }
+}
+.img-toolbar button {
+  background: #fff;
+  border-radius: 4px;
+  color: #222a30;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 10px 10px 10px 0;
+  padding: 10px 20px;
+  min-width: 70px;
+  outline: none;
+  border: 1px solid #ccc;
+}
+
+/****Group Input Style****/
+.input-group span.input-group-text{
+  background: #eee;
+  color: $dark-color-primary;
+  font-weight: 600;
+  border: 1px solid #eee;
+  border-radius: 0.25rem 0 0 0.25rem;
+  font-size: 14px;
+}
+.input-group span.post-fix{
+  border-radius: 0 0.25rem 0.25rem 0;
+}

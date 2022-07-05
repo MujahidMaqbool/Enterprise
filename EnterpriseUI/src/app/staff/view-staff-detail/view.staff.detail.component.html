@@ -1,0 +1,162 @@
+﻿<div tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog-centered">
+    <div class="modal-content medium-popup">
+      <div class="popup-header">
+        <h2>Staff Details</h2>
+      </div>
+      <div class="popup-content cst-scroll-bar">
+        <div class="section-block mb-3 py-2">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="customer-info-box">
+                <div>
+                  <img src="{{imagePath}}" class="img-fluid rounded-circle profile-image-size">
+                </div>
+                <div class="customer-info-item char-limit font-weight-medium ml-md-2">
+                  {{staffViewModel.Title + ' ' + staffViewModel.FirstName + ' ' +
+                                      staffViewModel.LastName}}
+                </div>
+                <div class="customer-info-item ml-md-3">
+                  <i class="fal fa-envelope"></i> {{staffViewModel.Email}}
+                </div>
+                <div *ngIf="staffViewModel.Mobile" class="customer-info-item ml-md-3">
+                  <i class="fal fa-mobile-android-alt"></i>{{staffViewModel.Mobile}}
+                </div>
+                <div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="section-block mb-3 info-content">
+          <div class="row ">
+            <div class="col-md-12">
+              <div class="section-title">
+                <h3>Personal Information</h3>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+              <h6>Gender</h6>
+              <p>{{staffViewModel.Gender ? staffViewModel.Gender: 'Not Specified'}}</p>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+              <h6>Date of Brith</h6>
+              <p>{{staffViewModel.BirthDate ? (staffViewModel.BirthDate | customdate) : 'N/A'}}
+              </p>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+              <h6>Phone</h6>
+              <p>{{staffViewModel.Phone ? staffViewModel.Phone : 'N/A'}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="section-block mb-3 info-content">
+          <div class="row ">
+            <div class="col-md-12">
+              <div class="section-title">
+                <h3>Address</h3>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+              <h6>Country</h6>
+              <p>{{staffViewModel.CountryName ? staffViewModel.CountryName : 'N/A'}}</p>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+              <h6>County/State</h6>
+              <p>{{staffViewModel.StateCountyName ? staffViewModel.StateCountyName : 'N/A'}}</p>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+              <h6>City</h6>
+              <p>{{staffViewModel.CityName ? staffViewModel.CityName : 'N/A'}}</p>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+              <h6>Address Line 1</h6>
+              <p>{{staffViewModel.Address1 ? staffViewModel.Address1 : 'N/A'}} </p>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+              <h6>Address Line 2</h6>
+              <p>{{staffViewModel.Address2 ? staffViewModel.Address2 : 'N/A'}} </p>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+              <h6>Post Code / Zip Code</h6>
+              <p>{{staffViewModel.PostCode ? staffViewModel.PostCode : 'N/A'}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="section-block mb-3 info-content">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="section-title">
+                <h3>General Information</h3>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+              <h6>Card Number</h6>
+              <p>{{staffViewModel.CardNumber ? staffViewModel.CardNumber : 'N/A'}}</p>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+              <h6>Allow Login</h6>
+              <p>{{staffViewModel.AllowLogin ? 'Yes' : 'No'}}</p>
+            </div>
+            <div class="col-md-12 mb-3">
+              <h6>Notes</h6>
+              <p>{{staffViewModel.Notes ? staffViewModel.Notes : 'N/A'}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="section-block info-content">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="section-title">
+                <h3>Branches</h3>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="overflow-auto">
+                <div class="grid-scroll-xs cst-scroll-bar">
+                  <div class="row align-items-center grid-header">
+                    <div class="col">
+                      <h5>Branch</h5>
+                    </div>
+                    <div class="col">
+                      <h5>Position</h5>
+                    </div>
+                    <div class="col">
+                      <h5>Role</h5>
+                    </div>
+                  </div>
+                  <div class="row align-items-center grid-content"
+                    *ngFor="let objBranch of staffViewModel.StaffBranchList">
+                    <div class="col">
+                      <h5>{{objBranch.BranchName }}</h5>
+                    </div>
+                    <div class="col">
+                      <h5>{{objBranch.PositionName ? objBranch.PositionName: '--' }}</h5>
+                    </div>
+                    <div class="col">
+                      <h5>{{objBranch.RoleName ? objBranch.RoleName: '--' }}</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row popup-footer">
+        <div class="col-md-12">
+          <div class="float-right scroll-space">
+            <button type="button" class="wellyx-button light-button" (click)="onCloseDialog()">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

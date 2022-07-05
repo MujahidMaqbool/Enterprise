@@ -1,0 +1,212 @@
+<div class="row">
+  <div class="col-md-12 p-0">
+    <div class="float-sm-right sm-button-half">
+      <button type="button" class="wellyx-button light-button mb-3" role="navigation"
+        [routerLink]="['/product/suppliers']">
+        Back to Search
+      </button>
+
+      <button class="wellyx-button light-button mb-3" (click)="onPrevious()" [hidden]="!showPrevious">Previous</button>
+      <button class="wellyx-button action-button mb-3" (click)="onNext(SupplierInformation)" *ngIf="showContinue">Next</button>
+      <button class="wellyx-button action-button mb-3" (click)="onSave()" *ngIf="showSave"
+        [disabled]="isSaveClicked">Save</button>
+    </div>
+  </div>
+</div>
+
+
+<mat-horizontal-stepper #stepper>
+  <ng-template matStepperIcon="edit">
+    <mat-icon>edit</mat-icon>
+  </ng-template>
+
+  <mat-step #stepper>
+    <div class="row" *ngIf="SupplierInformation.invalid && errorMsg != '' ">
+      <div class="col-md-12 p-0" >
+
+        <div class="alert alert-danger" >
+          {{ errorMsg }}
+        </div>
+      </div>
+    </div>
+
+  <!-- supplier information -->
+
+    <ng-template matStepLabel>Supplier Information</ng-template>
+    <form #SupplierInformation="ngForm" novalidate>
+
+      <div class="search-filter-block mb-3 px-0 pt-0">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="section-title">
+              <h3>Supplier Information</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="row align-items-center description-content">
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h5 class="field-label">Name</h5>
+            <div [ngClass]="{ 'has-danger': supplierName.invalid && (supplierName.dirty || supplierName.touched ||showError),
+                              'has-success': supplierName.valid && (supplierName.dirty || supplierName.touched ) }">
+
+              <input autoFocusDirective type="text" [(ngModel)]="supplierObj.SupplierName" class="form-control" #supplierName="ngModel"
+                name="supplierName" tabindex="1" id="supplierName" maxlength="30" pattern=".*\S+.*" (ngModelChange)="showValidation($event,SupplierInformation , supplierValidationENUM.SupplierName)" required>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h5 class="field-label">Email <span class="info-text">(Optional)</span></h5>
+            <input type="text" pattern="^([a-zA-Z0-9_\-\.]+)@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,10})$" [(ngModel)]="supplierObj.Email"
+            class="form-control" #email="ngModel" (ngModelChange)="showValidation($event,SupplierInformation ,supplierValidationENUM.Email)"
+                name="email" id="email" maxlength="50" tabindex="2" />
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <h5 class="field-label">Website <span class="info-text">(Optional)</span></h5>
+            <input type="text" [(ngModel)]="supplierObj.Website" class="form-control" #website="ngModel"
+            name="website" id="website" maxlength="50" tabindex="3" />
+          </div>
+        </div>
+        <div class="row description-content">
+          <div class="col-md-12">
+              <h5 class="field-label">Description <span class="info-text">(Remaining Characters: {{ 1500 -
+                supplierObj?.Description?.length }})</span></h5>
+              <textarea rows="4" maxlength="1500" [(ngModel)]="supplierObj.Description" class="form-control" #description="ngModel"
+              name="description" id="description" tabindex="4"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="search-filter-block mb-3 px-0 pt-0">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="section-title">
+                <h3>Contact Information <span class="info-text">(Optional)</span></h3>
+              </div>
+            </div>
+          </div>
+          <div class="row align-items-center description-content">
+
+            <div class="col-lg-3 col-md-4 col-sm-6 p-0">
+              <div class="row">
+                <div class="col-lg-4 col-md-5 col-sm-5">
+                  <h5 class="field-label">Title</h5>
+                    <div class="select-label">
+                      <select class="form-control" name="title" id="title" tabindex="5" [(ngModel)]="supplierObj.ContactTitle" #title="ngModel"
+                        >
+                        <option [ngValue]= "''">
+                          Select Title
+                        </option>
+                        <option *ngFor="let title of titleList" [ngValue]="title">
+                          {{title}}
+                        </option>
+                      </select>
+                    </div>
+
+                </div>
+                <div class="col-lg-8 col-md-7 col-sm-7 pl-sm-0">
+                  <h5 class="field-label">First Name</h5>
+              <input type="text"[(ngModel)]="supplierObj.ContactFirstName" class="form-control" #contactFirstName="ngModel"
+              name="contactFirstName" id="contactFirstName" maxlength="50" tabindex="6" />
+                </div>
+              </div>
+
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+              <h5 class="field-label">Last Name </h5>
+              <input type="text" [(ngModel)]="supplierObj.ContactLastName" class="form-control" #contactLastName="ngModel"
+              name="contactLastName" id="contactLastName" maxlength="50" tabindex="7">
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6" *ngIf="defaultCountry">
+              <div class="field-label">
+                <h5 class="field-label">Phone</h5>
+              </div>
+              <div [ngClass]="{
+                          'has-danger': phone.invalid && (phone.dirty || phone.touched ||SupplierInformation.submitted),
+                          'has-success': phone.valid && phone.value && (phone.dirty || phone.touched )
+                      }">
+                <international-phone-number name="phone" id="phone"  [(ngModel)]="supplierObj.ContactPhone" #phone="ngModel"
+                  [defaultCountry]="supplierObj.ContactPhone ? '' : defaultCountry" >
+                </international-phone-number>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6" *ngIf="defaultCountry">
+              <div class="field-label">
+                <h5 class="field-label">Mobile</h5>
+              </div>
+              <div [ngClass]="{
+                          'has-danger': mobile.invalid && (mobile.dirty || mobile.touched ||SupplierInformation.submitted),
+                          'has-success': mobile.valid && mobile.value && (mobile.dirty || mobile.touched )
+                      }">
+                <international-phone-number name="mobile" id="mobile" [(ngModel)]="supplierObj.ContactMobile" #mobile="ngModel"
+                  [defaultCountry]="supplierObj.ContactMobile ? '' : defaultCountry" >
+                </international-phone-number>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="search-filter-block mb-3 px-0 pt-0">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="section-title">
+                  <h3>Address <span class="info-text">(Optional)</span></h3>
+                </div>
+              </div>
+            </div>
+
+            <div class="row align-items-center description-content">
+              <div class="col-lg-3 col-md-4 col-sm-6">
+                <h5 class="field-label">Country</h5>
+                <div class="select-label">
+                <select class="form-control" #countryName="ngModel" name="countryName" id="countryName"
+                   [(ngModel)]="supplierObj.CountryID">
+                  <option [ngValue]= 0 selected> Select Country </option>
+                  <option *ngFor="let country of countryList" [ngValue]="country.CountryID">
+                    {{country.CountryName}}
+                  </option>
+                </select>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-4 col-sm-6">
+                <h5 class="field-label">State/County </h5>
+                <input type="text" [(ngModel)]="supplierObj.StateCountyName" class="form-control" #stateCountyID="ngModel"
+              name="stateCountyID" id="stateCountyID" maxlength="50">
+              </div>
+
+              <div class="col-lg-3 col-md-4 col-sm-6">
+                <h5 class="field-label">Address Line 1 </h5>
+                <input type="text" [(ngModel)]="supplierObj.AddressLine1" class="form-control" #addressLine1="ngModel"
+                name="addressLine1" id="addressLine1" maxlength="50">
+              </div>
+              <div class="col-lg-3 col-md-4 col-sm-6">
+                  <h5 class="field-label">Address Line 2 </h5>
+                  <input type="text" [(ngModel)]="supplierObj.AddressLine2" class="form-control" #addressLine2="ngModel"
+                  name="addressLine2" id="addressLine2" maxlength="50">
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <h5 class="field-label">City </h5>
+                    <input type="text" [(ngModel)]="supplierObj.CityName" class="form-control" #cityName="ngModel"
+                    name="cityName" id="cityName" maxlength="50">
+                  </div>
+                  <div class="col-lg-3 col-md-4 col-sm-6">
+                      <h5 class="field-label">Postal Code / Zip Code</h5>
+                      <input type="text" [(ngModel)]="supplierObj.PostalCode" class="form-control" #postalCode="ngModel"
+                      name="postalCode" id="postalCode" maxlength="50">
+                    </div>
+            </div>
+          </div>
+
+    </form>
+  </mat-step>
+
+  <!-- Branches & Permission -->
+  <mat-step #stepper>
+    <ng-template matStepLabel>Branches & Permissions</ng-template>
+    <branch-selection #branchSelectionRef [branchList]="branchList" [HasBranchPermission]="supplierObj.HasBranchPermission" [typeName]="'supplier'" ></branch-selection>
+  </mat-step>
+
+</mat-horizontal-stepper>

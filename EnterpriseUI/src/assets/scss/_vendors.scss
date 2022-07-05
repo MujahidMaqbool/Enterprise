@@ -1,0 +1,303 @@
+// ================ Material icons library ============== //
+@import '~material-design-icons-iconfont/dist/material-design-icons.css';
+
+.mat-option, .mat-tab-label, .dx-widget,
+.mat-tab-group, .mat-stepper-horizontal, .mat-stepper-vertical {
+  font-family: $font-family-primary;
+  font-weight: $content-weight-regular;
+}
+.branch-time-view .dx-texteditor.dx-editor-outlined {
+  @extend %border-none;
+}
+.branch-time-view input[type="text"] {
+  text-align: center;
+}
+.branch-time-view .dx-placeholder, .center_place .dx-placeholder{
+    width: 100%;
+    text-align: center;
+}
+.branch-time-view .dx-state-focused{ box-shadow: none !important;}
+
+.ng-invalid.ng-touched,
+.has-danger .form-control {
+  border-color: $red-color-primary !important;
+}
+
+
+// ================ Mat stepper Style ============== //
+.mat-step-header .mat-step-label.mat-step-label-active.mat-step-label-selected {
+  color: #1B6EB8!important;
+}
+.mat-horizontal-stepper-header-container {
+  @extend %background-color-white;
+  @extend %primary-border-radious;
+  margin-bottom: 1rem;
+}
+.mat-horizontal-stepper-header {
+  pointer-events: none !important;
+}
+.mat-step-header .mat-step-icon {
+  @extend %background-color-action;
+  color: $white-color;
+}
+.mat-step-icon, .mat-step-icon-not-touched {
+  height: 35px !important;
+  width: 35px !important;
+}
+.mat-step-header .mat-step-label {
+  @extend %primary-semibold-dark;
+}
+.mat-step-header .mat-step-label-selected {
+  font-weight: $content-weight-semibold;
+}
+.mat-stepper-horizontal-line {
+  border-top-color: $border-color-primary;
+}
+.mat-horizontal-content-container {
+  padding: 0px !important;
+}
+
+// ================ Mat toggle slide Style ============== //
+.mat-slide-toggle-bar {
+  background-color: $icon-color-primary;
+}
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+  background-color: rgba($blue-color-primary, 40%);
+}
+.mat-calendar-body-selected, .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+  background-color: $blue-color-primary;
+}
+
+
+// ================ Mat Popup Tabs Style ============== //
+.popup-header .mat-tab-label {
+  opacity: 1;
+  max-width: 160px;
+  padding-left: 0;
+  min-width: fit-content;
+}
+.popup-header .mat-tab-label .mat-ripple-element {
+  display: none;
+}
+.popup-header .mat-tab-label-content {
+  margin: 0;
+  padding: 12px 6px !important;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1B6EB8;
+  border-bottom: 2px solid transparent;
+}
+.popup-header .mat-tab-label-active .mat-tab-label-content {
+  border-bottom: 2px solid #1B6EB8;
+}
+.cdk-global-scrollblock {
+  position: fixed;
+  width: 100%;
+  overflow-y: scroll;
+}
+
+
+// ================ Matdate picker Style ============== //
+mat-calendar.mat-calendar {
+  @extend %background-color-white;
+  color: rgba($dark-color-primary, 87%);
+  box-shadow: 0 2px 4px rgb(0 0 0 / 30%);
+  @extend %primary-border-radious;
+}
+.mat-button, .mat-icon-button {
+  background: 0 0;
+}
+.mat-calendar-body-label, .mat-calendar-period-button,
+.mat-button, .mat-fab, .mat-icon-button, .mat-mini-fab, .mat-raised-button {
+  @extend %primary-regular-dark;
+}
+.mat-calendar-arrow {
+  border-top-color: $border-color-primary;
+}
+.mat-icon-button.mat-calendar-next-button,
+.mat-icon-button.mat-calendar-previous-button {
+  height: 40px !important;
+  width: 40px !important;
+}
+.mat-calendar-table-header th {
+  font-size: $content-size-xsmall;
+  font-weight: $content-weight-semibold;
+}
+.mat-calendar-table-header-divider::after {
+  background: rgba($dark-color-primary, 12%);
+  border-top-color: $border-color-primary;
+}
+.mat-calendar-body {
+  font-size: $content-size-medium;
+}
+.mat-calendar-body-label {
+  color: rgba($dark-color-primary, 54%);
+}
+.mat-calendar-body-cell-content {
+  border-color: transparent;
+}
+.mat-calendar-body-selected {
+  @extend %background-color-action;
+  @extend %color-white;
+}
+.mat-calendar-body-disabled > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected) {
+  color: rgba($dark-color-primary, 38%);
+}
+.mat-calendar-body-today:not(.mat-calendar-body-selected) {
+  border-color: rgba($dark-color-primary, 38%);
+}
+.mat-calendar-body-disabled > .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+  border-color: rgba($dark-color-primary, 18%);
+}
+.mat-fab, .mat-mini-fab, .mat-raised-button {
+  color: rgba($dark-color-primary, 87%);
+  @extend %background-color-white;
+}
+.cdk-keyboard-focused .mat-calendar-body-active > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected), :not(.mat-calendar-body-disabled):hover > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected) {
+  background-color: rgba($dark-color-primary, 4%);
+}
+
+
+// ================ Pagination Style ============== //
+.pagination {
+  margin-top: 15px;
+}
+.popup-pagination {
+  .pagination {
+    border-top: 1px solid darken($border-color-primary, 2%);
+    padding-top: 10px;
+  }
+}
+.mat-paginator, .mat-paginator-page-size .mat-select-trigger {
+  color: rgba($dark-color-primary, 0.54);
+  font-size: 13px;
+}
+.mat-paginator-page-size-select {
+  margin-top: 0px !important;
+  width: 80px !important;
+}
+.mat-form-field-infix {
+  padding: .4375em 8px !important;
+  border: 1px solid $border-color-primary;
+  border-radius: $border-radious-primary;
+}
+.mat-select-value {
+  color: $dark-color-primary;
+}
+.mat-icon-button {
+  width: 30px !important;
+  color: rgba($dark-color-primary, 0.66);
+}
+.mat-select-value-text{
+  overflow: initial !important;
+}
+.mat-select-arrow, .border-none {
+  @extend %border-none;
+}
+.pagination .mat-select-arrow-wrapper::after {
+  content: "\f107";
+  font-family: $font-family-icons;
+  @include position-element(absolute, 0, null, null, 2px);
+  @extend %primary-null-icon;
+  padding-top: 0;
+  pointer-events: none;
+}
+.mat-paginator-container {
+  padding-right: 0 !important;
+}
+
+
+// ================ Mat Select Style ============== //
+.custom-tooltip, .mat-tooltip {
+  background-color: darken($white-color, 70%);
+  font-size: $content-size-medium;
+  @include position-element(relative, 8px, 0px, null, null);
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+.mat-select-panel {
+  background: $white-color;
+  box-shadow: 0px 0px 4px 1px $boxshadow-color-primary;
+  position: relative;
+  left: 15px;
+}
+.mat-select-panel .mat-optgroup-label,
+.mat-select-panel .mat-option {
+    line-height: 1.5em !important;
+    height: 2.5em !important;
+    color: $dark-color-primary;
+}
+.mat-option.mat-selected.mat-active:not(.mat-option-multiple),
+.mat-option.mat-selected.mat-active:not(.mat-option-multiple):hover {
+  background: $blue-color-secondary;
+}
+.mat-option:focus:not(.mat-option-disabled), .mat-option:hover:not(.mat-option-disabled) {
+  background: $blue-color-terniary;
+}
+.mat-select-panel[role="listbox"] > span:first-child {width: 100% !important;}
+.mat-accent .mat-pseudo-checkbox-checked, .mat-accent .mat-pseudo-checkbox-indeterminate, .mat-pseudo-checkbox-checked, .mat-pseudo-checkbox-indeterminate {
+  @extend %background-color-action;
+}
+.mat-pseudo-checkbox::after {
+  @extend %color-white;
+}
+.mat-option-pseudo-checkbox:not(.mat-pseudo-checkbox-checked) {
+  border: 1px solid lighten($icon-color-primary, 20%) !important;
+}
+.mat-select.mat-select-multiple .mat-select-trigger {
+  top: 2px;
+}
+
+// need to style
+.mat-autocomplete-panel {
+  background: #fff;
+  color: rgba(0,0,0,.87)
+}
+.mat-autocomplete-panel .mat-option.mat-selected:not(.mat-active):not(:hover) {
+  background: #fff
+}
+.mat-autocomplete-panel .mat-option.mat-selected:not(.mat-active):not(:hover):not(.mat-option-disabled) {
+  color: rgba(0,0,0,.87)
+}
+.mat-autocomplete-panel .mat-option{
+  font-size: 14px;
+}
+.mat-autocomplete-panel .mat-option:nth-child(odd){
+  background: #f2f3f8;
+}
+.mat-autocomplete-panel .mat-option:hover{
+  background: transparent !important;
+}
+.mat-autocomplete-panel.mat-autocomplete-visible {
+  box-shadow: 0 0 10px 1px #9a9a9a;
+}
+input.dx-texteditor-input {
+  @extend %left-right-zero;
+}
+.dx-texteditor-input-container {
+  flex-grow: unset;
+}
+
+// ================ Alert Message Style ============== //
+
+.mat-snack-bar-container {
+  font-family: Roboto,Helvetica Neue,sans-serif;
+  font-size: $content-size-primary;
+  margin: 5px 15px !important;
+}
+.mat-snack-bar-container.success {
+  color: $success-color-primary;
+  background-color: lighten($success-color-primary, 54%);
+  border-color: lighten($success-color-primary, 54%);
+}
+.mat-snack-bar-container.error {
+  color: $red-color-primary;
+  background-color: lighten($red-color-primary, 40%);
+  border-color: lighten($red-color-primary, 40%);
+}
+.mat-snack-bar-container.warning {
+  color: $warning-color-primary;
+  background: lighten($warning-color-primary, 62%);
+  border-color: lighten($warning-color-primary, 62%);
+}

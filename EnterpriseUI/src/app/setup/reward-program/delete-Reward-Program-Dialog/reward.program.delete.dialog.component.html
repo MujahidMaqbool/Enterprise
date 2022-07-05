@@ -1,0 +1,36 @@
+<div tabindex="-1" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog-centered">
+    <div class="modal-content xsmall-popup">
+      <div class="popup-header">
+        <h2>Schedule Termination</h2>
+      </div>
+      <div class="popup-content cst-scroll-bar">
+        <div class="section-block py-3">
+        <div class="row description-content">
+          <div class="col-md-12">
+            <h2>Are you sure you want to delete?</h2>
+            <p class="mb-0">The reward program will be deleted. All customers enrolled in the reward program will be removed and all
+              points terminated.
+              Select termination date from below. This cannot be undone!
+            </p>
+          </div>
+
+          <div class="col-md-12 mt-3">
+            <date-picker [value]="DeleteDate" [min]="minDate" [showClear]="false" (onDateChange)="onDateChange($event)">
+            </date-picker>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div class="row popup-footer">
+        <div class="col-md-12 col-sm-12">
+          <div class="float-sm-right sm-button-full">
+            <button class="wellyx-button light-button" (click)="onCancel()">Cancel</button>
+            <button class="wellyx-button action-button" (click)="onConfirm()"
+              [disabled]="!terminationDate">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
