@@ -276,10 +276,10 @@
                                                 <h5>{{productVariantBranch.ReorderQuantity}}</h5>
                                             </div>
                                             <div class="col">
-                                                <h5>{{currencySymbol}}{{productVariantBranch.SupplierPrice}}</h5>
+                                                <h5>{{productVariantBranch.SupplierPrice | currency: currencySymbol}}</h5>
                                             </div>
                                             <div class="col">
-                                                <h5>{{currencySymbol}}{{productVariantBranch.Price}}</h5>
+                                                <h5>{{productVariantBranch.Price | currency: currencySymbol}}</h5>
                                             </div>
                                             <div class="col">
                                                 <div class="row"
@@ -299,7 +299,7 @@
                                                 </div>
                                             </div>
                                             <div class="col">
-                                                <h5>{{currencySymbol}}{{productVariantBranch.RetailPrice}}</h5>
+                                                <h5>{{productVariantBranch.RetailPrice | currency: currencySymbol}}</h5>
                                             </div>
                                             <div class="col text-center grid-actions-btn">
                                                 <h5>
