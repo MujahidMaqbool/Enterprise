@@ -206,9 +206,11 @@
                     <div class="row">
                         <div class="col">
                             <div class="light-blue-badge mt-2">
-                                <h5>Retail Price <span
-                                        class="float-right">{{savePricingDetail.TotalPrice ? data.currencySymbol : '' }}{{savePricingDetail.TotalPrice ? savePricingDetail.TotalPrice : ''}}</span>
-                                </h5>
+                                <h5>Retail Price <span *ngIf="!savePricingDetail.TotalPrice"
+                                    class="float-right">{{''}}</span>
+                                    <span *ngIf="savePricingDetail.TotalPrice"
+                                    class="float-right">{{savePricingDetail.TotalPrice | currency: currencyFormat}}</span>
+                            </h5>
                             </div>
                         </div>
                     </div>
