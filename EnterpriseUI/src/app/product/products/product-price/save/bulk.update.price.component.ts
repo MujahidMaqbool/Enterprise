@@ -10,7 +10,9 @@ import { TaxCalculation } from '@app/services/tax.calculations.service';
 import { HttpService } from '@app/services/app.http.service';
 import { MessageService } from '@app/services/app.message.service';
 import { ProductApi } from '@app/helper/config/app.webapi';
-import { ApiResponse } from '@app/models/common.model';
+import { ApiResponse,DD_Branch } from '@app/models/common.model';
+import { SubscriptionLike as ISubscription } from "rxjs";
+import { DataSharingService } from '@app/services/data.sharing.service';
 
 @Component({
   selector: 'app-bulk-update-price',
@@ -21,7 +23,7 @@ export class BulkUpdatePriceComponent implements OnInit {
   @Output() savePricingModel = new EventEmitter<ProductVariantBranchViewModel>();
   @ViewChild('allSelectedTax') private allSelectedTax: MatOption;
   @ViewChild('allSupplierTax') private allSupplierTax: MatOption;
-
+  currentBranchSubscription: ISubscription;
   /***********Messages*********/
   messages = Messages;
 
@@ -39,20 +41,39 @@ export class BulkUpdatePriceComponent implements OnInit {
   productAreaEnum = ProductAreaEnum;
   PricingCheckBoxValues = PricingCheckBoxValues;
   savebtnEnabled: boolean = false;
+  currencyFormat: string;
 
   constructor(
     private _dialog: MatDialogRef<BulkUpdatePriceComponent>,
     private _taxCalculationService: TaxCalculation,
     private _httpService: HttpService,
     private _messageService: MessageService,
+    private _dataSharingService: DataSharingService,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) { }
+  ) {
+    this.getBranchInfo();
+   }
 
   ngOnInit() {
     this.oldPricingDetail = JSON.parse(JSON.stringify(this.data.pricingDetail));
     this.savePricingDetail = this.data.pricingDetail;
     this.savePricingDetail.SupplierID = this.savePricingDetail.SupplierID ? this.savePricingDetail.SupplierID : null;
     this.setModelValues();
+  }
+
+  ngOnDestroy() {
+    this.currentBranchSubscription?.unsubscribe();
+  }
+
+  getBranchInfo() {
+    // get data according to selected branch
+    this.currentBranchSubscription = this._dataSharingService.currentBranch.subscribe(
+      (branch: DD_Branch) => {
+        if (branch.BranchID) {
+          this.currencyFormat = branch.CurrencySymbol;
+        }
+      }
+    )
   }
 
   //#region  event
