@@ -38,7 +38,7 @@
 }
 .company-list {
   border-bottom: 1px solid rgba($white-color, 40%);
-  padding: 20px 10px;
+  padding: 20px 0px;
   &:first-child {
     border-top: 1px solid rgba($white-color, 40%);
   }
@@ -47,7 +47,10 @@
     font-size: $content-size-four;
   }
   .company-list-logo {
-    width: 112px;
+    width: 65px;
+    img {
+      @extend %primary-border-radious;
+    }
   }
   .company-list-name {
     flex-grow: 1;
