@@ -12,7 +12,7 @@
 //   ENVName: 'live'
 // };
 // export const environment = {
-//     version: '0.0.135',
+//     version: '0.0.143',
 //     production: true
 //   };
 import { DynamicEnvironment } from './dynamic-environment';
