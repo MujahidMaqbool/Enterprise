@@ -178,8 +178,8 @@ export class SaveAddExceptionFormComponent implements OnInit {
                         // var result = this.branchList.find(i => i.BranchID == item?.value.BranchID);
 
                         if (result) {
-                            if (item.value.BranchID == result.BranchID)
-                                item.select()
+                            // if (item.value.BranchID == result.BranchID)
+                            //     item.select()
                         }
                     });
                 }, 400);
@@ -190,8 +190,8 @@ export class SaveAddExceptionFormComponent implements OnInit {
                 setTimeout(() => {
                     if (this.selectedBranch) {
                         this.selectedBranch.options.forEach((item: MatOption) => {
-                            if (item.viewValue == "All")
-                                item.select()
+                            // if (item.viewValue == "All")
+                            //     item.select()
                         });
                     }
                 }, 400);
@@ -204,8 +204,8 @@ export class SaveAddExceptionFormComponent implements OnInit {
                     this.selectItem.options.forEach((item: MatOption) => {
                         var result = this.gridTableList.find(i => i.FormID == item?.value.FormID);
                         if (result) {
-                            if (item.value.FormID == result.FormID)
-                                item.select()
+                            // if (item.value.FormID == result.FormID)
+                            //     item.select()
                         }
                     });
                 }
@@ -225,12 +225,16 @@ export class SaveAddExceptionFormComponent implements OnInit {
                 setTimeout(() => {
                     if (this.selectItem) {
                         this.selectItem.options.forEach((item: MatOption) => {
-                            if (item.viewValue == "All")
-                                item.select()
+                            // if (item.viewValue == "All")
+                            //     item.select()
                         });
                     }
                 }, 400);
             }
+
+            this.selectedItemTypeList = [];
+            this.selectedBranchTypeList = [];
+            this.allExceptionItemTypeList =[];
 
         }
     }
@@ -450,18 +454,19 @@ export class SaveAddExceptionFormComponent implements OnInit {
                 this.allSearchBranchList.push(data)
             }
         });
-        var removedItemIndex = [];
-        //remove unselected item
-        this.gridTableList.forEach((item, index) => {
-            var result = this.selectedItemTypeList.find(i => i.FormID == item.FormID);
-            if (!result) {
-                removedItemIndex.push(item.FormID);
-            }
-        });
 
-        removedItemIndex.forEach((id) => {
-            this.gridTableList = this.gridTableList.filter(i => i.FormID != id);
-        });
+        // var removedItemIndex = [];
+        // //remove unselected item
+        // this.gridTableList.forEach((item, index) => {
+        //     var result = this.selectedItemTypeList.find(i => i.FormID == item.FormID);
+        //     if (!result) {
+        //         removedItemIndex.push(item.FormID);
+        //     }
+        // });
+
+        // removedItemIndex.forEach((id) => {
+        //     this.gridTableList = this.gridTableList.filter(i => i.FormID != id);
+        // });
 
         this.sortExceptionList();
 
@@ -471,6 +476,10 @@ export class SaveAddExceptionFormComponent implements OnInit {
         }
         this.searchItemTypeList = JSON.parse(JSON.stringify(this.gridTableList));
         this.copySearchItemTypeList = JSON.parse(JSON.stringify(this.gridTableList));
+
+        this.selectedItemTypeList = [];
+        this.selectedBranchTypeList = [];
+        this.allExceptionItemTypeList =[];
     }
 
     /** Sort exception list in grid  **/
