@@ -37,7 +37,7 @@ export class LoginComponent {
   invalidPassword: boolean;
   isShowLoginPage:boolean = false;
   loginInProcess: boolean = false;
-  imagePath: string = 'assets/images/company_placeholder.jpg';
+  imagePath: string = 'assets/images/wellyx-company-logo.png';
   coreAuthenticationToken:any;
   loginStates = ENU_LoginState;
   enum_AppSourceType = EnumSaleSourceType;
@@ -213,7 +213,7 @@ export class LoginComponent {
                   company.LogoPath = this.env.imageUrl.replace("{ImagePath}", company.CompanyID) + company.CompanyLogo;
                 }
                 else {
-                  company.LogoPath = this.env.imageUrl.replace("{ImagePath}", company.CompanyID) + company.CompanyLogo;
+                  company.LogoPath = this.imagePath;
                 }
               })
 
