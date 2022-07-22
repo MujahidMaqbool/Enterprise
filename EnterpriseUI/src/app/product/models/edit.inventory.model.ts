@@ -24,6 +24,7 @@ export class ProductVariants {
     public BranchID: string = null;
     public ProductVariantName: string;
     public CurrentStock: number;
+    public ActualCurrentStock: number;
     public RetailValue: number;
     public ProductVariantID: number;
     public ProductVariantBranches: Array<ProductVariantBranches> = [];

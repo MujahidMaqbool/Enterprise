@@ -133,16 +133,16 @@ export class EditInventoryComponent implements OnInit {
         this.isDataExists = response.Result != null && response.Result.length > 0 ? true : false;
         if (this.isDataExists) {
           this.InventoryDetail = response.Result;
-          this.InventoryDetail.filter(x => x.ProductVariants.filter(y => y.ProductVariantBranches.filter(z => x.CurrentStock = z.CurrentStock)))
+          this.InventoryDetail.filter(x => x.ProductVariants.filter(y => y.ProductVariantBranches.filter(z => x.TotalActualStock == z.ActualCurrentStock)))
           this.InventoryDetail.filter(x => this.isVaraintExist = x.ProductVariants.length == 0 ? true : false)
           this.InventoryDetail.forEach(pElement => {
             pElement.ProductVariants.forEach(cElement => {
-              cElement.CurrentStock = 0;
+              cElement.ActualCurrentStock = 0;
               cElement.RetailValue = 0;
               cElement.ProductVariantBranches.forEach(subCElement => {
-                pElement.CurrentStock += subCElement.CurrentStock;
+                //pElement.TotalActualStock += subCElement.ActualCurrentStock;
                 pElement.RetailValue += subCElement.RetailValue;
-                cElement.CurrentStock += subCElement.CurrentStock;
+                cElement.ActualCurrentStock += subCElement.ActualCurrentStock;
                 cElement.RetailValue += subCElement.RetailValue;
               })
             })
