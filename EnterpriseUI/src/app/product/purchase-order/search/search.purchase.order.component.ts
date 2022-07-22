@@ -350,7 +350,7 @@ export class SearchPurchaseOrderComponent implements OnInit {
     if(PO.PurchaseOrderStatusID === this.enumPOStatus.Received || PO.PurchaseOrderStatusID === this.enumPOStatus.PartiallyReceived) {
       isGRN = 1;
     }
-    var pdfFileName: string = PO.PurchaseOrderID + "-Purchase_Order_report";
+    var pdfFileName: string = PO.PurchaseOrderNumber;
     let apiURL = PurchaseOrderApi.getPurchaseOrderReport.replace('{0}', PO.PurchaseOrderID).replace('{1}', this.purchaseOrderSearchParameter.BranchID.toString()) + isGRN;
     
     this._httpService.get(apiURL) //+ "/" + this.fileType.PDF
