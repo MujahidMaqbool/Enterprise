@@ -10,20 +10,19 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatStepper } from '@angular/material/stepper';
 
 /**********************  Components *********************/
-import { BranchSelectionComponent } from '@app/shared-components/branch-selection/branch.selection.component';
+import { BranchSelectionComponent } from 'src/app/shared-components/branch-selection/branch.selection.component';
 
 /**********************  Configurations *********************/
-import { SupplierValidation, WizardforSupplier } from '@app/helper/config/app.enums';
-import { SupplierApi } from '@app/helper/config/app.webapi';
-import { Messages } from '@app/helper/config/app.messages';
+import { SupplierValidation, WizardforSupplier } from 'src/app/helper/config/app.enums';
+import { SupplierApi } from 'src/app/helper/config/app.webapi';
+import { Messages } from 'src/app/helper/config/app.messages';
 
 /********************** Services & Models *********************/
-import { ApiResponse, CompanyInformation, DD_Branch } from '@app/models/common.model';
-import { HttpService } from '@app/services/app.http.service';
-import { MessageService } from '@app/services/app.message.service';
-import { DataSharingService } from '@app/services/data.sharing.service';
+import { ApiResponse, CompanyInformation, DD_Branch } from 'src/app/models/common.model';
+import { HttpService } from 'src/app/services/app.http.service';
+import { MessageService } from 'src/app/services/app.message.service';
+import { DataSharingService } from 'src/app/services/data.sharing.service';
 import { Branches, SupplierViewModel } from '../../models/supplier.models';
-import { MAT_STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 // #region end
 
@@ -32,9 +31,7 @@ import { MAT_STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 @Component({
   selector: "app-save-supplier",
   templateUrl: "./save.supplier.component.html",
-  providers: [{
-    provide: MAT_STEPPER_GLOBAL_OPTIONS, useValue: { displayDefaultIndicatorType: false }
-}]
+ 
 })
 export class SaveSupplierComponent implements OnInit {
   @ViewChild("SupplierInformation") supplierInformation: NgForm;

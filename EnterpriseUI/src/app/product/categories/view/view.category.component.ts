@@ -1,10 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ProductCategoryApi } from '@app/helper/config/app.webapi';
-import { HttpService } from '@app/services/app.http.service';
-import { Messages } from '@app/helper/config/app.messages';
-import { MessageService } from '@app/services/app.message.service';
-import { EnumSaleSourceType } from '@app/helper/config/app.enums';
+import { ProductCategoryApi } from 'src/app/helper/config/app.webapi';
+import { HttpService } from 'src/app/services/app.http.service';
+import { Messages } from 'src/app/helper/config/app.messages';
+import { MessageService } from 'src/app/services/app.message.service';
+import { EnumSaleSourceType } from 'src/app/helper/config/app.enums';
 
 @Component({
   selector: 'app-view-category',

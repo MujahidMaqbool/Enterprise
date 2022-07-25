@@ -1,25 +1,22 @@
 import { Component, OnInit, ViewChild, EventEmitter, Output, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
-import { WizardforSaveBrand } from '@app/helper/config/app.enums';
-import { NgForm } from '@angular/forms';
+import { WizardforSaveBrand } from 'src/app/helper/config/app.enums';
 import { SaveBrand, BranchList, ProductCategoryList } from '../brand.models';
-import { HttpService } from '@app/services/app.http.service';
-import { BrandApi } from '@app/helper/config/app.webapi';
-import { MessageService } from '@app/services/app.message.service';
-import { Messages } from '@app/helper/config/app.messages';
-import { ApiResponse } from '@app/models/common.model';
+import { HttpService } from 'src/app/services/app.http.service';
+import { BrandApi } from 'src/app/helper/config/app.webapi';
+import { MessageService } from 'src/app/services/app.message.service';
+import { Messages } from 'src/app/helper/config/app.messages';
+import { ApiResponse } from 'src/app/models/common.model';
 import { MatOption } from '@angular/material/core';
-import { BranchSelectionComponent } from '@app/shared-components/branch-selection/branch.selection.component';
-import { TrimPipe } from '@app/application-pipes/trim';
-import { MAT_STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { BranchSelectionComponent } from 'src/app/shared-components/branch-selection/branch.selection.component';
+import { TrimPipe } from 'src/app/application-pipes/trim';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: "app-save-brand",
   templateUrl: "./save.brand.component.html",
-  providers: [{
-    provide: MAT_STEPPER_GLOBAL_OPTIONS, useValue: { displayDefaultIndicatorType: false }
-}]
+  
 })
 export class SaveBrandComponent implements OnInit {
   /*********** region Local Members ****/

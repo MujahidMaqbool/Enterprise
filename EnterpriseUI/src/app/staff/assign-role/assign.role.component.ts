@@ -1,10 +1,10 @@
 import { Component, OnInit, Inject, EventEmitter, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatDialogService } from '@app/services/mat.dialog.service';
-import { HttpService } from '@app/services/app.http.service';
-import { StaffApi } from '@helper/config/app.webapi'
+import { MatDialogService } from 'src/app/services/mat.dialog.service';
+import { HttpService } from 'src/app/services/app.http.service';
+import { StaffApi } from 'src/app/helper/config/app.webapi'
 import { StaffAssignEnterPriseRole } from '../models/staff.models';
-import { RoleViewComponent } from '@app/shared-components/role-view/role-view.component';
+import { RoleViewComponent } from 'src/app/shared-components/role-view/role-view.component';
 @Component({
   selector: 'app-assign-role',
   templateUrl: './assign.role.component.html',

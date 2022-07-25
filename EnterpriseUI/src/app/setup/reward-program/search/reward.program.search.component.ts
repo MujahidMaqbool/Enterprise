@@ -6,26 +6,26 @@ import { Router } from '@angular/router';
 import { SubscriptionLike } from 'rxjs';
 
 /**********************  Configurations *********************/
-import { Messages } from '@app/helper/config/app.messages';
-import { BranchApi, RewardProgramApi } from '@app/helper/config/app.webapi';
-import { EnumSaleSourceType, ENU_Reward_Action_Progress } from '@app/helper/config/app.enums';
-import { ENU_Permission_Module, ENU_Permission_Setup } from '@app/helper/config/app.module.page.enums';
+import { Messages } from 'src/app/helper/config/app.messages';
+import { BranchApi, RewardProgramApi } from 'src/app/helper/config/app.webapi';
+import { EnumSaleSourceType, ENU_Reward_Action_Progress } from 'src/app/helper/config/app.enums';
+import { ENU_Permission_Module, ENU_Permission_Setup } from 'src/app/helper/config/app.module.page.enums';
 
 
 /********************** Services & Models *********************/
-import { ApiResponse } from '@app/models/common.model';
-import { HttpService } from '@app/services/app.http.service';
-import { MessageService } from '@app/services/app.message.service';
-import { AuthService } from '@app/helper/app.auth.service';
-import { MatDialogService } from '@app/services/mat.dialog.service';
+import { ApiResponse } from 'src/app/models/common.model';
+import { HttpService } from 'src/app/services/app.http.service';
+import { MessageService } from 'src/app/services/app.message.service';
+import { AuthService } from 'src/app/helper/app.auth.service';
+import { MatDialogService } from 'src/app/services/mat.dialog.service';
 import { RewardProgramList, RewardProgramSearchParameter } from '../models/reward-program.model';
-import { BranchListRewardProgram } from '@app/branch/models/branch.models';
+import { BranchListRewardProgram } from 'src/app/branch/models/branch.models';
 
 /**********************  Components  *************************/
-import { AppPaginationComponent } from '@app/shared-pagination-module/app-pagination/app.pagination.component';
+import { AppPaginationComponent } from 'src/app/shared-pagination-module/app-pagination/app.pagination.component';
 import { RewardProgramDelete } from '../delete-Reward-Program-Dialog/reward.program.delete.dialog.component';
 import { RewardViewComponent } from '../view/view.component';
-import { AlertConfirmationComponent } from '@app/application-dialog-module/confirmation-dialog/alert.confirmation.component';
+import { AlertConfirmationComponent } from 'src/app/application-dialog-module/confirmation-dialog/alert.confirmation.component';
 
 
 // #endregion

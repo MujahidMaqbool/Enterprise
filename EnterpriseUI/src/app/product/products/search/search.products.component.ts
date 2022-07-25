@@ -3,41 +3,42 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { SubscriptionLike as ISubscription } from "rxjs";
 
 /********************* Material:Refference ********************/
-import { MatDialogService } from "@app/services/mat.dialog.service";
+import { MatDialogService } from "src/app/services/mat.dialog.service";
 import { MatOption } from "@angular/material/core";
 import { MatSelect } from "@angular/material/select";
 
 /********************** Services & Models *********************/
 /* Services */
-import { HttpService } from "@services/app.http.service";
-import { MessageService } from "@services/app.message.service";
+import { HttpService } from "src/app/services/app.http.service";
+import { MessageService } from "src/app/services/app.message.service";
 import { MatPaginator } from "@angular/material/paginator";
-import { LoaderService } from "@app/services/app.loader.service";
-import { AuthService } from "@app/helper/app.auth.service";
+import { LoaderService } from "src/app/services/app.loader.service";
+import { AuthService } from "src/app/helper/app.auth.service";
 
 /* Models */
-import { ApiResponse, DD_Branch } from "@app/models/common.model";
-import { AllProductSelectToggleModel } from "@app/models/all-select-toggle-model";
-import { HideAndShowFavouriteViewColumnProduct, HideAndShowFavouriteViewColumnProductForFavView, ProductSearchParameter, SupplierDropDown } from "@app/product/models/product.model";
+import { ApiResponse, DD_Branch } from "src/app/models/common.model";
+import { AllProductSelectToggleModel } from "src/app/models/all-select-toggle-model";
+import { HideAndShowFavouriteViewColumnProduct, HideAndShowFavouriteViewColumnProductForFavView, ProductSearchParameter, SupplierDropDown } from "src/app/product/models/product.model";
 
 /********************** Component *********************/
-import { DeleteConfirmationComponent } from "@app/application-dialog-module/delete-dialog/delete.confirmation.component";
-import { AppPaginationComponent } from "@app/shared-pagination-module/app-pagination/app.pagination.component";
+import { DeleteConfirmationComponent } from "src/app/application-dialog-module/delete-dialog/delete.confirmation.component";
+import { AppPaginationComponent } from "src/app/shared-pagination-module/app-pagination/app.pagination.component";
 import { ProductPriceComponent } from "../product-price/product.price.component";
 import { ViewProductComponent } from "../view/view.products.component";
-import { DateToDateFromComponent } from "@app/shared-components/app-datePicker/dateto.datefrom.component";
+import { DateToDateFromComponent } from "src/app/shared-components/app-datePicker/dateto.datefrom.component";
 
 /**********************  Configurations *********************/
-import { Messages } from "@helper/config/app.messages";
-import { ProductApi } from "@app/helper/config/app.webapi";
-import { Configurations } from "@app/helper/config/app.config";
-import { ProductFavouriteViewColumnNameString, Product_SearchFundamental_DropDowns, ProductAreaEnum, ENU_CoreUrlType, ProductModulePagesEnum, EnumSaleSourceType, ProductClassification} from "@app/helper/config/app.enums";
-import { ENU_Permission_Module, ENU_Permission_Product} from "@app/helper/config/app.module.page.enums";
+
+import { ProductApi } from "src/app/helper/config/app.webapi";
+import { Configurations } from "src/app/helper/config/app.config";
+import { ProductFavouriteViewColumnNameString, Product_SearchFundamental_DropDowns, ProductAreaEnum, ENU_CoreUrlType, ProductModulePagesEnum, EnumSaleSourceType, ProductClassification} from "src/app/helper/config/app.enums";
+import { ENU_Permission_Module, ENU_Permission_Product} from "src/app/helper/config/app.module.page.enums";
 import { Router } from "@angular/router";
-import { ProductVariantComponent } from "@app/product/product-variant/product.variant.component";
-import { EditInventoryComponent } from "@app/product/edit-inventory/edit.inventory.component";
-import { DataSharingService } from "@app/services/data.sharing.service";
-import { environment } from "environments/environment";
+import { ProductVariantComponent } from "src/app/product/product-variant/product.variant.component";
+import { EditInventoryComponent } from "src/app/product/edit-inventory/edit.inventory.component";
+import { DataSharingService } from "src/app/services/data.sharing.service";
+import { environment } from "src/environments/environment";
+import { Messages } from "src/app/helper/config/app.messages";
 
 @Component({
   selector: "app-products-search",

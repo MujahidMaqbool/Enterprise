@@ -1,22 +1,18 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, Inject } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Messages } from '@app/helper/config/app.messages';
+import { Messages } from 'src/app/helper/config/app.messages';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
-import { BranchSelectionComponent } from '@app/shared-components/branch-selection/branch.selection.component';
-import { Tax } from '@app/product/models/tax.model';
-import { MatDialogService } from '@app/services/mat.dialog.service';
-import { HttpService } from '@app/services/app.http.service';
-import { MessageService } from '@app/services/app.message.service';
-import { TaxApi } from '@app/helper/config/app.webapi';
-import { MAT_STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { BranchSelectionComponent } from 'src/app/shared-components/branch-selection/branch.selection.component';
+import { Tax } from 'src/app/product/models/tax.model';
+import { MatDialogService } from 'src/app/services/mat.dialog.service';
+import { HttpService } from 'src/app/services/app.http.service';
+import { MessageService } from 'src/app/services/app.message.service';
+import { TaxApi } from 'src/app/helper/config/app.webapi';
 
 @Component({
   selector: 'app-save-tax',
-  templateUrl: './save.tax.component.html',
-  providers: [{
-    provide: MAT_STEPPER_GLOBAL_OPTIONS, useValue: { displayDefaultIndicatorType: false }
-  }]
+  templateUrl: './save.tax.component.html'
 })
 export class SaveTaxComponent implements OnInit {
   // #region Local Members

@@ -1,20 +1,20 @@
 import { Component, OnInit, ViewChild, Inject, EventEmitter, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BulkUpdateComponent } from './bulk-update/bulk.update.component';
-import { MatDialogService } from '@app/services/mat.dialog.service';
+import { MatDialogService } from 'src/app/services/mat.dialog.service';
 import { element } from 'protractor';
-import { AppPaginationComponent } from '@app/shared-pagination-module/app-pagination/app.pagination.component';
-import { HttpService } from '@app/services/app.http.service';
-import { ProductApi } from '@app/helper/config/app.webapi';
-import { ApiResponse, DD_Branch } from '@app/models/common.model';
+import { AppPaginationComponent } from 'src/app/shared-pagination-module/app-pagination/app.pagination.component';
+import { HttpService } from 'src/app/services/app.http.service';
+import { ProductApi } from 'src/app/helper/config/app.webapi';
+import { ApiResponse, DD_Branch } from 'src/app/models/common.model';
 import { InventoryAdjustStock, InventoryDetail } from '../models/edit.inventory.model';
-import { Messages } from '@app/helper/config/app.messages';
-import { MessageService } from '@app/services/app.message.service';
+import { Messages } from 'src/app/helper/config/app.messages';
+import { MessageService } from 'src/app/services/app.message.service';
 import { SubscriptionLike } from 'rxjs';
-import { DataSharingService } from '@app/services/data.sharing.service';
-import { AuthService } from '@app/helper/app.auth.service';
-import { ENU_Permission_Module, ENU_Permission_Product } from '@app/helper/config/app.module.page.enums';
-import { ProductClassification } from '@app/helper/config/app.enums';
+import { DataSharingService } from 'src/app/services/data.sharing.service';
+import { AuthService } from 'src/app/helper/app.auth.service';
+import { ENU_Permission_Module, ENU_Permission_Product } from 'src/app/helper/config/app.module.page.enums';
+import { ProductClassification } from 'src/app/helper/config/app.enums';
 
 @Component({
   selector: 'app-edit-inventory',

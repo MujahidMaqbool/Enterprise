@@ -7,31 +7,31 @@ import { MatDatepicker } from "@angular/material/datepicker";
 import { SubscriptionLike as ISubscription } from "rxjs";
 /********************** Services & Models *********************/
 /* Services */
-import { HttpService } from "@services/app.http.service";
-import { MessageService } from "@services/app.message.service";
+import { HttpService } from "src/app/services/app.http.service";
+import { MessageService } from "src/app/services/app.message.service";
 /********************** Component *********************/
 /* Models */
 /**********************  Common *********************/
-import { Messages } from "@app/helper/config/app.messages";
-import { AppPaginationComponent } from "@app/shared-pagination-module/app-pagination/app.pagination.component";
+import { Messages } from "src/app/helper/config/app.messages";
+import { AppPaginationComponent } from "src/app/shared-pagination-module/app-pagination/app.pagination.component";
 import { ViewCustomerDetail } from "../view/view.customer.detail.component";
-import { MatDialogService } from "@app/services/mat.dialog.service";
-import { Customer_SearchFundamental_DropDowns, CustomerType, FavouriteViewColumnNameString, ENU_CoreUrlType, ENU_FavouriteViewColumnName } from "@app/helper/config/app.enums";
+import { MatDialogService } from "src/app/services/mat.dialog.service";
+import { Customer_SearchFundamental_DropDowns, CustomerType, FavouriteViewColumnNameString, ENU_CoreUrlType, ENU_FavouriteViewColumnName } from "src/app/helper/config/app.enums";
 import { MatOption } from "@angular/material/core";
-import { CustomerApi } from "@app/helper/config/app.webapi";
-import { Configurations } from "@app/helper/config/app.config";
-import { EnterpriseCustomerListSearchViewModel } from "@app/models/CustomerSearchFundamental";
-import { DateToDateFromComponent } from '@app/shared-components/app-datePicker/dateto.datefrom.component';
+import { CustomerApi } from "src/app/helper/config/app.webapi";
+import { Configurations } from "src/app/helper/config/app.config";
+import { EnterpriseCustomerListSearchViewModel } from "src/app/models/CustomerSearchFundamental";
+import { DateToDateFromComponent } from 'src/app/shared-components/app-datePicker/dateto.datefrom.component';
 import { MemberDetail } from "../models/customers.models";
-import { HideAndShowFavouriteViewColumn } from "@app/models/favourite-view-show-hide-model";
-import { DeleteConfirmationComponent } from "@app/application-dialog-module/delete-dialog/delete.confirmation.component";
-import { LoaderService } from "@app/services/app.loader.service";
-import { AuthService } from "@app/helper/app.auth.service";
-import { DataSharingService } from "@app/services/data.sharing.service";
+import { HideAndShowFavouriteViewColumn } from "src/app/models/favourite-view-show-hide-model";
+import { DeleteConfirmationComponent } from "src/app/application-dialog-module/delete-dialog/delete.confirmation.component";
+import { LoaderService } from "src/app/services/app.loader.service";
+import { AuthService } from "src/app/helper/app.auth.service";
+import { DataSharingService } from "src/app/services/data.sharing.service";
 import { MatSelect } from "@angular/material/select";
-import { AllSelectToggleModel } from "@app/models/all-select-toggle-model";
-import { ENU_Permission_Module, ENU_Permission_Customer } from "@app/helper/config/app.module.page.enums";
-import { environment } from "environments/environment.prod";
+import { AllSelectToggleModel } from "src/app/models/all-select-toggle-model";
+import { ENU_Permission_Module, ENU_Permission_Customer } from "src/app/helper/config/app.module.page.enums";
+import { environment } from "src/environments/environment.prod";
 
 @Component({
   selector: 'app-customer-search',

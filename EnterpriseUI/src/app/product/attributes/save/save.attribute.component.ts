@@ -1,30 +1,27 @@
 // #region Angular References
 import { Component, ElementRef, EventEmitter, Inject, OnInit, Output, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
 
 /*****Material/ Third party imports  ******/
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 
 /****Model/enums *******/
-import { WizardforProductAttribute } from '@app/helper/config/app.enums';
-import { Attribute, AttributeValue, AttributeBranches } from '@app/product/models/attributes.model';
-import { AttributeApi } from '@app/helper/config/app.webapi';
+import { WizardforProductAttribute } from 'src/app/helper/config/app.enums';
+import { Attribute, AttributeValue, AttributeBranches } from 'src/app/product/models/attributes.model';
+import { AttributeApi } from 'src/app/helper/config/app.webapi';
 
 /**** * Services/ components ******/
-import { HttpService } from '@app/services/app.http.service';
-import { MessageService } from '@app/services/app.message.service';
-import { Messages } from '@app/helper/config/app.messages';
-import { BranchSelectionComponent } from '@app/shared-components/branch-selection/branch.selection.component';
-import { MAT_STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { HttpService } from 'src/app/services/app.http.service';
+import { MessageService } from 'src/app/services/app.message.service';
+import { Messages } from 'src/app/helper/config/app.messages';
+import { BranchSelectionComponent } from 'src/app/shared-components/branch-selection/branch.selection.component';
+import { NgForm } from '@angular/forms';
 
 
 @Component({
   selector: 'attribute-save',
   templateUrl: './save.attribute.component.html',  
-  providers: [{
-    provide: MAT_STEPPER_GLOBAL_OPTIONS, useValue: { displayDefaultIndicatorType: false }
-}]
+ 
 })
 export class SaveAttributeComponent implements OnInit {
 

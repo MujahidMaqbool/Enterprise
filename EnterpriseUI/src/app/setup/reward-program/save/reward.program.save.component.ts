@@ -10,25 +10,25 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatStepper } from '@angular/material/stepper';
 
 /**********************  Configurations *********************/
-import { BranchApi, RewardProgramApi } from '@app/helper/config/app.webapi';
-import { customerEnrollmentTypeID, customerEnrollmentTypeName, CustomerType, RewardProgramActivityType, RewardProgramPurchasesType, WizardforRewardProgram } from '@app/helper/config/app.enums';
+import { BranchApi, RewardProgramApi } from 'src/app/helper/config/app.webapi';
+import { customerEnrollmentTypeID, customerEnrollmentTypeName, CustomerType, RewardProgramActivityType, RewardProgramPurchasesType, WizardforRewardProgram } from 'src/app/helper/config/app.enums';
 
 /********************** Services & Models *********************/
-import { MatDialogService } from '@app/services/mat.dialog.service';
-import { BranchListRewardProgram } from '@app/branch/models/branch.models';
-import { Messages } from '@app/helper/config/app.messages';
+import { MatDialogService } from 'src/app/services/mat.dialog.service';
+import { BranchListRewardProgram } from 'src/app/branch/models/branch.models';
+import { Messages } from 'src/app/helper/config/app.messages';
 import { RewardProgramEarningRuleFrontEnd, RewardProgramEarningRuleViewModel, RewardProgramModel } from '../models/reward-program.model';
-import { ApiResponse, DD_Branch } from '@app/models/common.model';
-import { HttpService } from '@app/services/app.http.service';
-import { MessageService } from '@app/services/app.message.service';
-import { DataSharingService } from '@app/services/data.sharing.service';
+import { ApiResponse, DD_Branch } from 'src/app/models/common.model';
+import { HttpService } from 'src/app/services/app.http.service';
+import { MessageService } from 'src/app/services/app.message.service';
+import { DataSharingService } from 'src/app/services/data.sharing.service';
 
 /**********************  Components  *************************/
-import { DeleteConfirmationComponent } from '@app/application-dialog-module/delete-dialog/delete.confirmation.component';
+import { DeleteConfirmationComponent } from 'src/app/application-dialog-module/delete-dialog/delete.confirmation.component';
 import { SaveAddExceptionComponent } from './add-exception-dialog/add.exception.component';
 import { SaveAddExceptionFormComponent } from './add-form-exception/add.form-exception.save.component';
 import { RewardTemplateComponent } from './reward-template/reward.template.component';
-import { AlertConfirmationComponent } from '@app/application-dialog-module/confirmation-dialog/alert.confirmation.component';
+import { AlertConfirmationComponent } from 'src/app/application-dialog-module/confirmation-dialog/alert.confirmation.component';
 
 // #endregion
 

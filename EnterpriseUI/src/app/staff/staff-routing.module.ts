@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SearchStaffComponent } from '@app/staff/search/search.staff.component';
+import { SearchStaffComponent } from 'src/app/staff/search/search.staff.component';
 import { StaffNavigation } from './navigation/main/staff.navigation.component';
 
 

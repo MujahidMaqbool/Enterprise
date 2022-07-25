@@ -3,12 +3,12 @@ import { Component, Inject, OnInit } from '@angular/core';
 
 /*********************** Material References *************************/
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { EnumSaleSourceType } from '@app/helper/config/app.enums';
+import { EnumSaleSourceType } from 'src/app/helper/config/app.enums';
 
 /*************************** Services & Models ***********************/
 
 /********************** START: Common *********************/
-import { Messages } from '@helper/config/app.messages';
+import { Messages } from 'src/app/helper/config/app.messages';
 
 @Component({
     selector: 'view-supplier-detail',

@@ -1,18 +1,18 @@
 import { Component, HostListener, OnInit } from "@angular/core";
 import { Router, RouteConfigLoadStart, RouteConfigLoadEnd } from "@angular/router";
-import { ApiResponse, CompanyInfo, DD_Branch, StaffInfo } from "@app/models/common.model";
-import { AuthService } from "@app/helper/app.auth.service";
-import { HttpService } from "@app/services/app.http.service";
-import { MessageService } from "@app/services/app.message.service";
-import { Messages } from "@app/helper/config/app.messages";
-import { ImagesPlaceholder } from "@app/helper/config/app.placeholder";
-import { StaffApi, BranchApi } from "@app/helper/config/app.webapi";
-import { DataSharingService } from "@app/services/data.sharing.service";
-import { ENU_Permission_Module } from "@app/helper/config/app.module.page.enums";
+import { ApiResponse, CompanyInfo, DD_Branch, StaffInfo } from "src/app/models/common.model";
+import { AuthService } from "src/app/helper/app.auth.service";
+import { HttpService } from "src/app/services/app.http.service";
+import { MessageService } from "src/app/services/app.message.service";
+import { Messages } from "src/app/helper/config/app.messages";
+import { ImagesPlaceholder } from "src/app/helper/config/app.placeholder";
+import { StaffApi, BranchApi } from "src/app/helper/config/app.webapi";
+import { DataSharingService } from "src/app/services/data.sharing.service";
+import { ENU_Permission_Module } from "src/app/helper/config/app.module.page.enums";
 import { SubscriptionLike } from "rxjs";
 import { ChangePasswordPopup } from "./change-password/change.password.popup.component";
-import { MatDialogService } from "@app/services/mat.dialog.service";
-import { environment } from "environments/environment.prod";
+import { MatDialogService } from "src/app/services/mat.dialog.service";
+import { environment } from "src/environments/environment.prod";
 
 
 @Component({

@@ -1,6 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
-import { Messages } from '@app/helper/config/app.messages';
-import { CompanyInformation, DD_Branch } from '@app/models/common.model';
+import { Messages } from 'src/app/helper/config/app.messages';
+import { CompanyInformation, DD_Branch } from 'src/app/models/common.model';
 import { BehaviorSubject } from 'rxjs';
 import { MessageService } from './app.message.service';
 

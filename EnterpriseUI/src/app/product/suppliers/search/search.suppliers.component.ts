@@ -2,33 +2,33 @@
 /********************** Angular Refrences *********************/
 import { Component, OnInit, ViewChild } from "@angular/core";
 /********************* Material:Refference ********************/
-import { MatDialogService } from "@app/services/mat.dialog.service";
+import { MatDialogService } from "src/app/services/mat.dialog.service";
 import { SubscriptionLike as ISubscription } from "rxjs";
 
 /********************** Services & Models *********************/
 /* Services */
-import { HttpService } from "@services/app.http.service";
-import { MessageService } from "@services/app.message.service";
+import { HttpService } from "src/app/services/app.http.service";
+import { MessageService } from "src/app/services/app.message.service";
 import { MatPaginator } from "@angular/material/paginator";
 
 /* Models */
 import { SupplierSearchParameter, SupplierViewModel } from "../../models/supplier.models";
-import { ApiResponse } from "@app/models/common.model";
+import { ApiResponse } from "src/app/models/common.model";
 
 /********************** Component *********************/
-import { DeleteConfirmationComponent } from "@app/application-dialog-module/delete-dialog/delete.confirmation.component";
-import { AppPaginationComponent } from "@app/shared-pagination-module/app-pagination/app.pagination.component";
+import { DeleteConfirmationComponent } from "src/app/application-dialog-module/delete-dialog/delete.confirmation.component";
+import { AppPaginationComponent } from "src/app/shared-pagination-module/app-pagination/app.pagination.component";
 
 /**********************  Configurations *********************/
-import { Messages } from '@helper/config/app.messages';
-import { SupplierApi } from "@app/helper/config/app.webapi";
-import { Configurations } from "@app/helper/config/app.config";
+import { Messages } from 'src/app/helper/config/app.messages';
+import { SupplierApi } from "src/app/helper/config/app.webapi";
+import { Configurations } from "src/app/helper/config/app.config";
 import { ViewSupplierComponent } from "../view/view.supplier.component";
-import { AuthService } from "@app/helper/app.auth.service";
-import { ENU_Permission_Module, ENU_Permission_Product, ENU_Permission_Setup } from "@app/helper/config/app.module.page.enums";
-import { EnumSaleSourceType, ENU_CoreUrlType, ProductModulePagesEnum } from "@app/helper/config/app.enums";
-import { environment } from "environments/environment.prod";
-import { DataSharingService } from "@app/services/data.sharing.service";
+import { AuthService } from "src/app/helper/app.auth.service";
+import { ENU_Permission_Module, ENU_Permission_Product, ENU_Permission_Setup } from "src/app/helper/config/app.module.page.enums";
+import { EnumSaleSourceType, ENU_CoreUrlType, ProductModulePagesEnum } from "src/app/helper/config/app.enums";
+import { environment } from "src/environments/environment.prod";
+import { DataSharingService } from "src/app/services/data.sharing.service";
 
 
 @Component({

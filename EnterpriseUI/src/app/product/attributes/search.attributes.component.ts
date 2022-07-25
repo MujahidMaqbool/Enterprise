@@ -1,29 +1,29 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { SubscriptionLike as ISubscription } from "rxjs";
-import { HttpService } from '@app/services/app.http.service';
-import { MatDialogService } from '@app/services/mat.dialog.service';
-import { MessageService } from '@app/services/app.message.service';
-import { DataSharingService } from '@app/services/data.sharing.service';
+import { HttpService } from 'src/app/services/app.http.service';
+import { MatDialogService } from 'src/app/services/mat.dialog.service';
+import { MessageService } from 'src/app/services/app.message.service';
+import { DataSharingService } from 'src/app/services/data.sharing.service';
 
 import { ViewAttributeComponent } from './view/view.component';
 import { SaveAttributeComponent } from './save/save.attribute.component'; 
 
 import { AttributesSearchParams, AttributeViewModel } from '../models/attributes.model';
-import { AttributeApi } from '@app/helper/config/app.webapi';
-import { ApiResponse } from '@app/models/common.model';
+import { AttributeApi } from 'src/app/helper/config/app.webapi';
+import { ApiResponse } from 'src/app/models/common.model';
 
-import { Messages } from '@app/helper/config/app.messages';
+import { Messages } from 'src/app/helper/config/app.messages';
 import { MatPaginator } from '@angular/material/paginator';
 
-import { AppPaginationComponent } from '@app/shared-pagination-module/app-pagination/app.pagination.component';
+import { AppPaginationComponent } from 'src/app/shared-pagination-module/app-pagination/app.pagination.component';
 
-import { DeleteConfirmationComponent } from "@app/application-dialog-module/delete-dialog/delete.confirmation.component";
-import { AuthService } from '@app/helper/app.auth.service';
+import { DeleteConfirmationComponent } from "src/app/application-dialog-module/delete-dialog/delete.confirmation.component";
+import { AuthService } from 'src/app/helper/app.auth.service';
 
-import { Configurations } from '@app/helper/config/app.config';
-import { ENU_Permission_Module, ENU_Permission_Product } from '@app/helper/config/app.module.page.enums';
-import { EnumSaleSourceType, ENU_CoreUrlType, ProductModulePagesEnum } from '@app/helper/config/app.enums';
-import { environment } from "environments/environment.prod";
+import { Configurations } from 'src/app/helper/config/app.config';
+import { ENU_Permission_Module, ENU_Permission_Product } from 'src/app/helper/config/app.module.page.enums';
+import { EnumSaleSourceType, ENU_CoreUrlType, ProductModulePagesEnum } from 'src/app/helper/config/app.enums';
+import { environment } from "src/environments/environment.prod";
 
 
 @Component({

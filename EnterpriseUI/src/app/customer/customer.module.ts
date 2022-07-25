@@ -5,18 +5,18 @@ import { CustomerRoutingModule } from './customer-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavigationComponent } from './navigation/customer.navigation.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { ApplicationDialogSharedModule } from '@app/application-dialog-module/application-dialog-module';
-import { SharedPaginationModule } from '@app/shared-pagination-module/shared-pagination-module';
+import { ApplicationDialogSharedModule } from 'src/app/application-dialog-module/application-dialog-module';
+import { SharedPaginationModule } from 'src/app/shared-pagination-module/shared-pagination-module';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ViewCustomerDetail } from './view/view.customer.detail.component';
 import { SearchCustomerComponent } from './search/search.customer.component';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatDialogService } from '@app/services/mat.dialog.service';
+import { MatDialogService } from 'src/app/services/mat.dialog.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { SharedModule } from '@app/shared-components/shared-module';
-import { ApplicationPipesModule } from '@app/application-pipes/application.pipes.module';
+import { SharedModule } from 'src/app/shared-components/shared-module';
+import { ApplicationPipesModule } from 'src/app/application-pipes/application.pipes.module';
 
 
 

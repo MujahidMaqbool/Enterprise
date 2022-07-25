@@ -1,28 +1,24 @@
 import { Component, OnInit, ViewChild, EventEmitter, Output, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
-import { WizardforProductCategory } from '@app/helper/config/app.enums';
+import { WizardforProductCategory } from 'src/app/helper/config/app.enums';
 import { NgForm } from '@angular/forms';
-import { ProductCategory, SearchCategory } from '@app/product/models/categories.model';
-import { CustomerApi, ProductCategoryApi } from '@app/helper/config/app.webapi';
-import { HttpService } from '@app/services/app.http.service';
-import { ImageEditorPopupComponent } from '@app/application-dialog-module/image-editor/image.editor.popup.component';
-import { MatDialogService } from '@app/services/mat.dialog.service';
-import { AppUtilities } from '@app/helper/aap.utilities';
-import { environment } from 'environments/environment';
-import { DeleteConfirmationComponent } from '@app/application-dialog-module/delete-dialog/delete.confirmation.component';
-import { Messages } from '@app/helper/config/app.messages';
-import { MessageService } from '@app/services/app.message.service';
-import { ENU_Permission_Product } from '@app/helper/config/app.module.page.enums';
-import { BranchSelectionComponent } from '@app/shared-components/branch-selection/branch.selection.component';
-import { MAT_STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { ProductCategory, SearchCategory } from 'src/app/product/models/categories.model';
+import { CustomerApi, ProductCategoryApi } from 'src/app/helper/config/app.webapi';
+import { HttpService } from 'src/app/services/app.http.service';
+import { ImageEditorPopupComponent } from 'src/app/application-dialog-module/image-editor/image.editor.popup.component';
+import { MatDialogService } from 'src/app/services/mat.dialog.service';
+import { AppUtilities } from 'src/app/helper/aap.utilities';
+import { environment } from 'src/environments/environment';
+import { DeleteConfirmationComponent } from 'src/app/application-dialog-module/delete-dialog/delete.confirmation.component';
+import { Messages } from 'src/app/helper/config/app.messages';
+import { MessageService } from 'src/app/services/app.message.service';
+import { ENU_Permission_Product } from 'src/app/helper/config/app.module.page.enums';
+import { BranchSelectionComponent } from 'src/app/shared-components/branch-selection/branch.selection.component';
 
 @Component({
   selector: 'app-save',
   templateUrl: './save.category.component.html',
-  providers: [{
-    provide: MAT_STEPPER_GLOBAL_OPTIONS, useValue: { displayDefaultIndicatorType: false }
-}]
 })
 export class SaveCategoryComponent implements OnInit {
 

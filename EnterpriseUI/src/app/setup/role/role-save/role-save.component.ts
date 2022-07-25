@@ -5,21 +5,21 @@ import { Router } from "@angular/router";
 
 /********************** Services & Models *********************/
 /* Models */
-import { ModuleList, SaveRoles, RoleModuleList, RoleModulePageList } from "@app/setup/models/roles.model";
-import { ApiResponse } from "@app/models/common.model";
+import { ModuleList, SaveRoles, RoleModuleList, RoleModulePageList } from "src/app/setup/models/roles.model";
+import { ApiResponse } from "src/app/models/common.model";
 
 /* Services */
-import { HttpService } from "@app/services/app.http.service";
-import { MessageService } from "@app/services/app.message.service";
-import { DataSharingService } from "@app/services/data.sharing.service";
+import { HttpService } from "src/app/services/app.http.service";
+import { MessageService } from "src/app/services/app.message.service";
+import { DataSharingService } from "src/app/services/data.sharing.service";
 
 /********************** component & Common *********************/
-import { Configurations } from "@app/helper/config/app.config";
-import { RoleApi } from "@app/helper/config/app.webapi";
-import { Messages } from "@app/helper/config/app.messages";
+import { Configurations } from "src/app/helper/config/app.config";
+import { RoleApi } from "src/app/helper/config/app.webapi";
+import { Messages } from "src/app/helper/config/app.messages";
 import { NgForm } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-import { ENU_Permission_Setup, ENU_Permission_Module, ENU_Permission_Branch, ENU_Permission_Staff, ENU_Permission_Customer, ENU_Permission_Product } from "@app/helper/config/app.module.page.enums";
+import { ENU_Permission_Setup, ENU_Permission_Module, ENU_Permission_Branch, ENU_Permission_Staff, ENU_Permission_Customer, ENU_Permission_Product } from "src/app/helper/config/app.module.page.enums";
 
 @Component({
   selector: "app-role-save",

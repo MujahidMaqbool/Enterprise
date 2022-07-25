@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 // import { NavigationSetupComponent } from './navigation';
-import { PagePermissionGuard } from '@app/helper/app.permission.guard';
-import { ENU_Permission_Module, ENU_Permission_Setup, ENU_Permission_Product } from '@app/helper/config/app.module.page.enums';
+import { PagePermissionGuard } from 'src/app/helper/app.permission.guard';
+import { ENU_Permission_Module, ENU_Permission_Setup, ENU_Permission_Product } from 'src/app/helper/config/app.module.page.enums';
 import { NavigationProductComponent } from './navigation/product.navigation.component';
 import { SearchCategoriesComponent } from './categories/search.categories.component';
 import { SearchSuppliersComponent } from './suppliers/search/search.suppliers.component';

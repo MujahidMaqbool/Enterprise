@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Messages } from '@app/helper/config/app.messages';
-import { Branches } from '@app/product/models/supplier.models';
+import { Messages } from 'src/app/helper/config/app.messages';
+import { Branches } from 'src/app/product/models/supplier.models';
 
 
 

@@ -4,17 +4,17 @@ import { ProductVariant, SearchProductVariant, ProductAttribute, AttributeValue 
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatOption } from '@angular/material/core';
 import { FormArray } from '@angular/forms';
-import { HttpService } from '@app/services/app.http.service';
-import { ProductCategoryApi, ProductApi } from '@app/helper/config/app.webapi';
-import { AppPaginationComponent } from '@app/shared-pagination-module/app-pagination/app.pagination.component';
+import { HttpService } from 'src/app/services/app.http.service';
+import { ProductCategoryApi, ProductApi } from 'src/app/helper/config/app.webapi';
+import { AppPaginationComponent } from 'src/app/shared-pagination-module/app-pagination/app.pagination.component';
 import { RestoreVariantComponent } from './restore-variant/restore.variant.component';
-import { MatDialogService } from '@app/services/mat.dialog.service';
+import { MatDialogService } from 'src/app/services/mat.dialog.service';
 import { ArrayType } from '@angular/compiler';
-import { MessageService } from '@app/services/app.message.service';
-import { Messages } from '@app/helper/config/app.messages';
-import { DeleteConfirmationComponent } from '@app/application-dialog-module/delete-dialog/delete.confirmation.component';
-import { ApiResponse } from '@app/models/common.model';
-import { ProductClassification } from '@app/helper/config/app.enums';
+import { MessageService } from 'src/app/services/app.message.service';
+import { Messages } from 'src/app/helper/config/app.messages';
+import { DeleteConfirmationComponent } from 'src/app/application-dialog-module/delete-dialog/delete.confirmation.component';
+import { ApiResponse } from 'src/app/models/common.model';
+import { ProductClassification } from 'src/app/helper/config/app.enums';
 
 @Component({
   selector: 'app-product-variant',

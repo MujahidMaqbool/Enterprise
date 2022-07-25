@@ -2,30 +2,30 @@
 /********************** Angular Refrences *********************/
 import { Component, OnInit, ViewChild } from "@angular/core";
 /********************* Material:Refference ********************/
-import { MatDialogService } from "@app/services/mat.dialog.service";
+import { MatDialogService } from "src/app/services/mat.dialog.service";
 import { SubscriptionLike as ISubscription } from "rxjs";
 
 /********************** Services & Models *********************/
 /* Services */
-import { HttpService } from "@services/app.http.service";
-import { MessageService } from "@services/app.message.service";
+import { HttpService } from "src/app/services/app.http.service";
+import { MessageService } from "src/app/services/app.message.service";
 /********************** Component *********************/
 /* Models */
 /**********************  Common *********************/
 import { SaveCategoryComponent } from "./save/save.category.component";
-import { ProductCategoryApi } from "@app/helper/config/app.webapi";
+import { ProductCategoryApi } from "src/app/helper/config/app.webapi";
 import { SearchCategory } from "../models/categories.model";
-import { DeleteConfirmationComponent } from "@app/application-dialog-module/delete-dialog/delete.confirmation.component";
-import { Messages } from "@app/helper/config/app.messages";
-import { AppPaginationComponent } from "@app/shared-pagination-module/app-pagination/app.pagination.component";
-import { Configurations } from "@app/helper/config/app.config";
+import { DeleteConfirmationComponent } from "src/app/application-dialog-module/delete-dialog/delete.confirmation.component";
+import { Messages } from "src/app/helper/config/app.messages";
+import { AppPaginationComponent } from "src/app/shared-pagination-module/app-pagination/app.pagination.component";
+import { Configurations } from "src/app/helper/config/app.config";
 import { MatPaginator } from "@angular/material/paginator";
-import { AuthService } from "@app/helper/app.auth.service";
-import { ENU_Permission_Module, ENU_Permission_Product } from "@app/helper/config/app.module.page.enums";
+import { AuthService } from "src/app/helper/app.auth.service";
+import { ENU_Permission_Module, ENU_Permission_Product } from "src/app/helper/config/app.module.page.enums";
 import { ViewCategoryComponent } from "./view/view.category.component";
-import { EnumSaleSourceType , ENU_CoreUrlType , ProductModulePagesEnum} from "@app/helper/config/app.enums";
-import { environment } from "environments/environment.prod";
-import { DataSharingService } from "@app/services/data.sharing.service";
+import { EnumSaleSourceType , ENU_CoreUrlType , ProductModulePagesEnum} from "src/app/helper/config/app.enums";
+import { environment } from "src/environments/environment.prod";
+import { DataSharingService } from "src/app/services/data.sharing.service";
 // import { ViewComponent } from "./view/view.category.component";
 // import { SaveCategoryComponent } from "./save/save.component";
 

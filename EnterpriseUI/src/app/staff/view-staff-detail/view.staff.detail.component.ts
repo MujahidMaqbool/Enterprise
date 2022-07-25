@@ -6,13 +6,13 @@ import { SubscriptionLike } from 'rxjs';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 /*************************** Services & Models *************************/
-import { StaffView } from '@staff/models/staff.models';
+import { StaffView } from 'src/app/staff/models/staff.models';
 
-import { DataSharingService } from '@app/services/data.sharing.service';
+import { DataSharingService } from 'src/app/services/data.sharing.service';
 /*************************** Configurations *************************/
-import { ENU_Package, ENU_DateFormatName } from '@app/helper/config/app.enums';
-import { Configurations } from '@app/helper/config/app.config';
-import { AppUtilities } from '@app/helper/aap.utilities';
+import { ENU_Package, ENU_DateFormatName } from 'src/app/helper/config/app.enums';
+import { Configurations } from 'src/app/helper/config/app.config';
+import { AppUtilities } from 'src/app/helper/aap.utilities';
 
 
 @Component({

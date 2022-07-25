@@ -8,9 +8,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 /*Models*/
 
 /********************** START: Common *********************/
-import { Messages } from '@helper/config/app.messages';
+import { Messages } from 'src/app/helper/config/app.messages';
 import { SubscriptionLike as ISubscription, SubscriptionLike } from 'rxjs';
-import { CustomerType } from '@app/helper/config/app.enums';
+import { CustomerType } from 'src/app/helper/config/app.enums';
 
 @Component({
     selector: 'view-customer-detail',

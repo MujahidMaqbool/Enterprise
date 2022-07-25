@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { variables } from "./config/app.variable";
-import { HttpService } from "@app/services/app.http.service";
+import { HttpService } from "src/app/services/app.http.service";
 import { ActivatedRoute } from "@angular/router";
-import { ModulePermission } from "@app/models/common.model";
+import { ModulePermission } from "src/app/models/common.model";
 import { StaffApi } from "./config/app.webapi";
 
 @Injectable({ providedIn: 'root' })

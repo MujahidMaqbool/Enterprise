@@ -1,11 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Messages } from '@app/helper/config/app.messages';
-import { BranchApi } from '@app/helper/config/app.webapi';
-import { HttpService } from '@app/services/app.http.service';
-import { MessageService } from '@app/services/app.message.service';
-import { WeekDays } from "@app/helper/config/app.enums";
-import { Configurations } from '@app/helper/config/app.config';
+import { Messages } from 'src/app/helper/config/app.messages';
+import { BranchApi } from 'src/app/helper/config/app.webapi';
+import { HttpService } from 'src/app/services/app.http.service';
+import { MessageService } from 'src/app/services/app.message.service';
+import { WeekDays } from "src/app/helper/config/app.enums";
+import { Configurations } from 'src/app/helper/config/app.config';
 import { Branch } from '../models/branch.models';
 
 @Component({

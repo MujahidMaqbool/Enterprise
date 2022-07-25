@@ -1,9 +1,9 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { AuthenticationGuard } from "@app/helper/app.route.guard";
+import { AuthenticationGuard } from "src/app/helper/app.route.guard";
 import { HomeComponent } from "./home.component";
-import { PagePermissionGuard, ModulePermissionGuard } from "@app/helper/app.permission.guard";
-import { ENU_Permission_Module, ENU_Permission_Setup } from "@app/helper/config/app.module.page.enums";
+import { PagePermissionGuard, ModulePermissionGuard } from "src/app/helper/app.permission.guard";
+import { ENU_Permission_Module, ENU_Permission_Setup } from "src/app/helper/config/app.module.page.enums";
 
 const routes: Routes = [
 
@@ -19,31 +19,31 @@ const routes: Routes = [
       },
       {
         path: "branches",
-        loadChildren: "@branch/branch.module#BranchModule",
+        loadChildren: () => import('src/app/branch/branch.module').then(m => m.BranchModule),
         // canActivate: [ModulePermissionGuard],
         // data: { module: ENU_Permission_Module.Branches }
       },
       {
         path: "staff",
-        loadChildren: "@staff/staff.module#StaffModule",
+        loadChildren: () => import('src/app/staff/staff.module').then(m => m.StaffModule),
         canActivate: [ModulePermissionGuard],
         data: { module: ENU_Permission_Module.Staff }
       },
       {
         path: "customer",
-        loadChildren: "@customer/customer.module#CustomerModule",
+        loadChildren: () => import('src/app/customer/customer.module').then(m => m.CustomerModule),
         canActivate: [ModulePermissionGuard],
         data: { module: ENU_Permission_Module.Customer }
       },
       {
         path: "setup",
-        loadChildren: "@setup/setup.module#SetupModule",
+        loadChildren: () => import('src/app/setup/setup.module').then(m => m.SetupModule),
         canActivate: [ModulePermissionGuard],
         data: { module: ENU_Permission_Module.Setup }
       },
       {
         path: "product",
-        loadChildren: "@product/product.module#ProductModule",
+        loadChildren: () => import('src/app/product/product.module').then(m => m.ProductModule),
         canActivate: [ModulePermissionGuard],
         data: { module: ENU_Permission_Module.Product }
       },

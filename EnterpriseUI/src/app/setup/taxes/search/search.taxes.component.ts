@@ -1,23 +1,23 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Messages } from '@app/helper/config/app.messages';
+import { Messages } from 'src/app/helper/config/app.messages';
 import { MatPaginator } from '@angular/material/paginator';
-import { AppPaginationComponent } from '@app/shared-pagination-module/app-pagination/app.pagination.component';
-import { MatDialogService } from '@app/services/mat.dialog.service';
+import { AppPaginationComponent } from 'src/app/shared-pagination-module/app-pagination/app.pagination.component';
+import { MatDialogService } from 'src/app/services/mat.dialog.service';
 import { SaveTaxComponent } from '../save/save.tax.component';
-import { ApiResponse } from '@app/models/common.model';
-import { TaxApi } from '@app/helper/config/app.webapi';
-import { HttpService } from '@app/services/app.http.service';
-import { MessageService } from '@app/services/app.message.service';
-import { SearchTax } from '@app/product/models/tax.model';
+import { ApiResponse } from 'src/app/models/common.model';
+import { TaxApi } from 'src/app/helper/config/app.webapi';
+import { HttpService } from 'src/app/services/app.http.service';
+import { MessageService } from 'src/app/services/app.message.service';
+import { SearchTax } from 'src/app/product/models/tax.model';
 import { ViewTaxComponent } from '../view/view.tax.component';
-import { Configurations } from '@app/helper/config/app.config';
-import { DeleteConfirmationComponent } from '@app/application-dialog-module/delete-dialog/delete.confirmation.component';
-import { AuthService } from '@app/helper/app.auth.service';
-import { ENU_Permission_Module, ENU_Permission_Setup } from '@app/helper/config/app.module.page.enums';
-import { DataSharingService } from '@app/services/data.sharing.service';
+import { Configurations } from 'src/app/helper/config/app.config';
+import { DeleteConfirmationComponent } from 'src/app/application-dialog-module/delete-dialog/delete.confirmation.component';
+import { AuthService } from 'src/app/helper/app.auth.service';
+import { ENU_Permission_Module, ENU_Permission_Setup } from 'src/app/helper/config/app.module.page.enums';
+import { DataSharingService } from 'src/app/services/data.sharing.service';
 import { SubscriptionLike as ISubscription } from "rxjs";
-import { environment } from 'environments/environment';
-import { ENU_CoreUrlType } from '@app/helper/config/app.enums';
+import { environment } from 'src/environments/environment';
+import { ENU_CoreUrlType } from 'src/app/helper/config/app.enums';
 @Component({
   selector: 'app-search-tax',
   templateUrl: './search.taxes.component.html'

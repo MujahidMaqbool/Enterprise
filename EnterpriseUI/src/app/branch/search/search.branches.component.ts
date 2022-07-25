@@ -8,23 +8,23 @@ import { SubscriptionLike as ISubscription } from "rxjs";
 import { MatPaginator } from '@angular/material/paginator';
 
 /**********************  Configurations *********************/
-import { BranchApi } from '@app/helper/config/app.webapi';
-import { ENU_Permission_Module, ENU_Permission_Branch } from '@app/helper/config/app.module.page.enums';
-import { ENU_CoreUrlType } from '@app/helper/config/app.enums';
+import { BranchApi } from 'src/app/helper/config/app.webapi';
+import { ENU_Permission_Module, ENU_Permission_Branch } from 'src/app/helper/config/app.module.page.enums';
+import { ENU_CoreUrlType } from 'src/app/helper/config/app.enums';
 
 /********************** Services & Models *********************/
-import { AuthService } from '@app/helper/app.auth.service';
-import { Messages } from '@app/helper/config/app.messages';
-import { HttpService } from '@app/services/app.http.service';
-import { MessageService } from '@app/services/app.message.service';
-import { DataSharingService } from '@app/services/data.sharing.service';
-import { MatDialogService } from '@app/services/mat.dialog.service';
+import { AuthService } from 'src/app/helper/app.auth.service';
+import { Messages } from 'src/app/helper/config/app.messages';
+import { HttpService } from 'src/app/services/app.http.service';
+import { MessageService } from 'src/app/services/app.message.service';
+import { DataSharingService } from 'src/app/services/data.sharing.service';
+import { MatDialogService } from 'src/app/services/mat.dialog.service';
 import { BranchList, BranchSearchModel } from '../models/branch.models';
 
 /**********************  Components  *************************/
-import { AppPaginationComponent } from '@app/shared-pagination-module/app-pagination/app.pagination.component';
+import { AppPaginationComponent } from 'src/app/shared-pagination-module/app-pagination/app.pagination.component';
 import { ViewBranchesComponent } from '../view/view.branches.component';
-import { environment } from 'environments/environment.prod';
+import { environment } from 'src/environments/environment.prod';
 // #endregion
 
 

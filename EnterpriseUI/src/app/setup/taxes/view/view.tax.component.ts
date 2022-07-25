@@ -7,8 +7,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 /*************************** Services & Models ***********************/
 
 /********************** START: Common *********************/
-import { Messages } from '@helper/config/app.messages';
-import { EnumSaleSourceType } from '@app/helper/config/app.enums';
+import { Messages } from 'src/app/helper/config/app.messages';
+import { EnumSaleSourceType } from 'src/app/helper/config/app.enums';
 
 @Component({
     selector: 'view-tax-detail',
