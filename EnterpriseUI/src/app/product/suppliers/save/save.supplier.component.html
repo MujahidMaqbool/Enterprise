@@ -71,7 +71,7 @@
           <div class="col-md-12">
               <h5 class="field-label">Description <span class="info-text">(Remaining Characters: {{ 1500 -
                 supplierObj?.Description?.length }})</span></h5>
-              <textarea rows="4" maxlength="1500" [(ngModel)]="supplierObj.Description" class="form-control" #description="ngModel"
+              <textarea rows="6" maxlength="1500" [(ngModel)]="supplierObj.Description" class="form-control textarea-resize-none" #description="ngModel"
               name="description" id="description" tabindex="4"></textarea>
           </div>
         </div>

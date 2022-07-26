@@ -5,9 +5,9 @@
                 <h2>Edit Pricing Details</h2>
             </div>
 
-            <div class="row">
+            <div class="row" *ngIf="isShowPriceError">
                 <div class="col-md-12 mt-3">
-                    <div class="alert alert-danger mb-0" *ngIf="isShowPriceError">
+                    <div class="alert alert-danger mb-0">
                         {{messages.Validation.Info_Required}}
                     </div>
                 </div>

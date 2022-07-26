@@ -212,7 +212,7 @@ mat-calendar.mat-calendar {
 .custom-tooltip, .mat-tooltip {
   background-color: darken($white-color, 70%);
   font-size: $content-size-medium;
-  @include position-element(relative, 8px, 0px, null, null);
+  @include position-element(relative, 14px, 0px, null, null);
   padding-top: 6px;
   padding-bottom: 6px;
 }

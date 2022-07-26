@@ -51,8 +51,8 @@
                                             <p>Upload Image</p>
                                         </div>
                                         <div *ngIf="isImageExist && (imagePath && imagePath != '')"
-                                            class="relative_cls">
-                                            <img class="img-fluid" src="{{imagePath}}" alt="no image" />
+                                            class="relative_cls img-rounded-border cat-img-box">
+                                            <img class="img-fluid img-full-fit" src="{{imagePath}}" alt="no image" />
                                             <div class="changeimg_btn square_img_action">
                                                 <button type="button" (click)="showImageCropperDialog()"><i
                                                         class="fal fa-pen"></i></button>

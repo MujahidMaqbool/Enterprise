@@ -83,6 +83,10 @@ a, button, .panel-heading, select, .date-picker[readonly], .cursor-pointer,
 .input-mb {
   margin-bottom: 6px;
 }
+.verticle-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
 
 .flag {
   background-image: url('#{$image-path}/country-flags.jpg') !important;
@@ -299,13 +303,23 @@ button:disabled {
 }
 .relative_cls{
   position: relative;
-  img{
-    margin-top: 36px;
-  }
+}
+.img-rounded-border {
+  border-radius: $border-radious-primary;
+  border: 1px solid $border-color-primary;
+}
+.cat-img-box {
+  height: 254px;
+}
+.img-full-fit {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: $border-radious-primary;
 }
 .square_img_action {
-  bottom: 10%!important;
-  right: 2%!important;
+  bottom: 15px !important;
+  right: 0 !important;
   position: absolute;
   button{
     background: 0 0;

@@ -39,7 +39,7 @@
 }
 
 .qucik_link_dp {
-  @include position-element(absolute, 4em, null, null, 10.9em);
+  @include position-element(absolute, 3.8em, null, null, 10.9em);
   z-index: 555;
   background: $white-color;
   width: 288px;
@@ -88,7 +88,7 @@
           @include content($content-size-three, null, $blue-color-primary);
           @include rounded-circle(32px, 32px, 50%);
           text-align: center;
-          padding-top: 6px;
+          line-height: 32px;
           margin: 0 8px 0 15px;
         }
       }
@@ -168,6 +168,7 @@
     content: "\f056";
     @extend %secondary-regular-blue;
     float: right;
+    padding-top: 2px;
   }
 }
 
