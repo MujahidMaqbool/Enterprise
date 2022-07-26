@@ -174,8 +174,10 @@
                                         </div>
                                     </div>
 
-                                    <div class="collapse show" id="collapseExample{{parentIndex}}" *ngFor="let productVariant of product.VariantList; let childIndex = index">
-                                        <div class="row align-items-center grid-content" *ngIf="productobj.classficationID === productClassification.Variant && productVariant.ProductVariantName != ''">
+                                    <div class="collapse show" id="collapseExample{{parentIndex}}"
+                                        *ngFor="let productVariant of product.VariantList; let childIndex = index">
+                                        <div class="row align-items-center grid-content"
+                                            *ngIf="productobj.classficationID === productClassification.Variant && productVariant.ProductVariantName != ''">
                                             <div class="col">
                                                 <div *ngIf="productobj.areaName == productAreaEnum.EditPricing"
                                                     class="cursor-pointer cst-collapse collapsed" data-toggle="collapse"
@@ -237,7 +239,8 @@
                                                 </h5>
                                             </div>
                                         </div>
-                                        <div class="row align-items-center grid-content" [ngClass]="productobj.classficationID === productClassification.Variant ? 'collapse' : 'show'"
+                                        <div class="row align-items-center grid-content"
+                                            [ngClass]="productobj.classficationID === productClassification.Variant ? 'collapse' : 'show'"
                                             id="childCollapseExample{{childIndex}}"
                                             *ngFor="let productVariantBranch of productVariant.ProductVariantBranchVM; let subChildIndex = index">
                                             <div class="col">
@@ -276,7 +279,8 @@
                                                 <h5>{{productVariantBranch.ReorderQuantity}}</h5>
                                             </div>
                                             <div class="col">
-                                                <h5>{{productVariantBranch.SupplierPrice | currency: currencySymbol}}</h5>
+                                                <h5>{{productVariantBranch.SupplierPrice | currency: currencySymbol}}
+                                                </h5>
                                             </div>
                                             <div class="col">
                                                 <h5>{{productVariantBranch.Price | currency: currencySymbol}}</h5>
@@ -287,16 +291,19 @@
                                                     <div class="col">
                                                         <h5>{{tax.TaxName}}
                                                             <span role="button" class="plus_mem blue-color"
-                                                                (click)="onToggleClick(parentIndex, childIndex, subChildIndex, parentIndex + childIndex + subChildIndex)"
+                                                                (click)="onToggleClick(parentIndex, childIndex, subChildIndex, parentIndex + childIndex + subChildIndex,productVariantBranch.collapse)"
                                                                 *ngIf="productVariantBranch?.ItemTaxVM.length > 1 && productVariantBranch?.collapse == true">
-                                                                (+
-                                                                {{productVariantBranch?.ItemTaxVM.length - 1}}
-                                                                {{productVariantBranch?.ItemTaxVM.length == 2 ?
-                                                                'other':'others'}})
+                                                                <span *ngIf="productVariantBranch.collapse"> (+
+                                                                    {{productVariantBranch?.ItemTaxVM.length - 1}}
+                                                                    {{productVariantBranch?.ItemTaxVM.length == 2 ?
+                                                                'other':'others'}})</span>
+                                                                
                                                             </span>
                                                         </h5>
                                                     </div>
                                                 </div>
+                                                <span role="button" class="plus_mem blue-color" *ngIf="!productVariantBranch?.collapse"
+                                                (click)="onToggleClick(parentIndex, childIndex, subChildIndex, parentIndex + childIndex + subChildIndex,productVariantBranch.collapse)">{{'Close'}}</span>
                                             </div>
                                             <div class="col">
                                                 <h5>{{productVariantBranch.RetailPrice | currency: currencySymbol}}</h5>
@@ -351,7 +358,7 @@
             <div class="row popup-footer" *ngIf="productobj.areaName == productAreaEnum.EditPricing">
                 <div class="col-md-12">
                     <div class="float-right">
-                         <button type="button" class="wellyx-button light-button"
+                        <button type="button" class="wellyx-button light-button"
                             (click)="onCloseDialog()">Close</button>
                     </div>
                 </div>

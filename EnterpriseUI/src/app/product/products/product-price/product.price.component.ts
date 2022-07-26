@@ -123,9 +123,19 @@ export class ProductPriceComponent implements OnInit {
   }
 
   /* Method to toggle the tax length and view */
-  onToggleClick(parentIndex, childIndex, subChildIndex, i: number) {
-    this.productVariantPricingEditList[parentIndex].VariantList[childIndex].ProductVariantBranchVM[subChildIndex].collapse = !this.productVariantPricingEditList[parentIndex].VariantList[childIndex].ProductVariantBranchVM[subChildIndex].collapse;
-    this.productVariantPricingEditList[parentIndex].VariantList[childIndex].ProductVariantBranchVM[subChildIndex].CollapseItemTaxVM = this.productVariantPricingEditList[parentIndex].VariantList[childIndex].ProductVariantBranchVM[subChildIndex].ItemTaxVM;
+  onToggleClick(parentIndex, childIndex, subChildIndex, i: number, collapse : boolean) {
+    console.log(collapse);
+    if(collapse){
+      this.productVariantPricingEditList[parentIndex].VariantList[childIndex].ProductVariantBranchVM[subChildIndex].collapse = !this.productVariantPricingEditList[parentIndex].VariantList[childIndex].ProductVariantBranchVM[subChildIndex].collapse;
+      this.productVariantPricingEditList[parentIndex].VariantList[childIndex].ProductVariantBranchVM[subChildIndex].CollapseItemTaxVM = this.productVariantPricingEditList[parentIndex].VariantList[childIndex].ProductVariantBranchVM[subChildIndex].ItemTaxVM;
+    }else{
+      this.productVariantPricingEditList[parentIndex].VariantList[childIndex].ProductVariantBranchVM[subChildIndex].CollapseItemTaxVM = [];
+      if(this.productVariantPricingEditList[parentIndex].VariantList[childIndex].ProductVariantBranchVM[subChildIndex].ItemTaxVM && this.productVariantPricingEditList[parentIndex].VariantList[childIndex].ProductVariantBranchVM[subChildIndex].ItemTaxVM.length > 0){
+        this.productVariantPricingEditList[parentIndex].VariantList[childIndex].ProductVariantBranchVM[subChildIndex].CollapseItemTaxVM.push(this.productVariantPricingEditList[parentIndex].VariantList[childIndex].ProductVariantBranchVM[subChildIndex].ItemTaxVM[0]);
+      }
+      this.productVariantPricingEditList[parentIndex].VariantList[childIndex].ProductVariantBranchVM[subChildIndex].collapse = true;
+    }
+    
   }
 
   /* Method to receive the pagination from the Paginator */
