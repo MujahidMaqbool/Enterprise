@@ -58,8 +58,10 @@ export class SavePackagingComponent implements OnInit {
   }
 
   onSavePackaging(){
+    if(this.productPackagingForm.valid) {
     this.savePackagingModel.emit(this.savePackagingDetail);
     this.onClose(true);
+    }
   }
 
 }
