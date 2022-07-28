@@ -297,13 +297,15 @@
                                                                     {{productVariantBranch?.ItemTaxVM.length - 1}}
                                                                     {{productVariantBranch?.ItemTaxVM.length == 2 ?
                                                                 'other':'others'}})</span>
-                                                                
+
                                                             </span>
                                                         </h5>
                                                     </div>
                                                 </div>
-                                                <span role="button" class="plus_mem blue-color" *ngIf="!productVariantBranch?.collapse"
-                                                (click)="onToggleClick(parentIndex, childIndex, subChildIndex, parentIndex + childIndex + subChildIndex,productVariantBranch.collapse)">{{'Close'}}</span>
+                                                <h5><span role="button" class="plus_mem blue-color"
+                                                        *ngIf="!productVariantBranch?.collapse"
+                                                        (click)="onToggleClick(parentIndex, childIndex, subChildIndex, parentIndex + childIndex + subChildIndex,productVariantBranch.collapse)">({{'Show Less'}})</span>
+                                                </h5>
                                             </div>
                                             <div class="col">
                                                 <h5>{{productVariantBranch.RetailPrice | currency: currencySymbol}}</h5>
