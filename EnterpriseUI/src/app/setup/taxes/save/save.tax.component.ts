@@ -113,7 +113,7 @@ export class SaveTaxComponent implements OnInit {
           this._messageService.showSuccessMessage(this.messages.Success.Save_Success.replace("{0}", "Tax"));
           this.onClosePopup();
         } else {
-          if (respose.MessageCode === -145) {
+          if (respose.MessageCode < 0) {
             this.isDisabledSaveButton = false;
             this._messageService.showErrorMessage(respose.MessageText);
           } else {
