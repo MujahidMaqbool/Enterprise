@@ -185,8 +185,22 @@ export class ProductPriceComponent implements OnInit {
   }
   // open bulk update dialog
   openBulkUpdateDialog(bulkUpdateType: any, productVariant: any, parentIndex: number, childIndex: number, subChild: number, pricingDetail: any) {
+
+    var taxList = (bulkUpdateType == 1 || bulkUpdateType == 2) ? this.taxList.filter(i => i.BranchID === 0) : this.taxList.filter(i => i.BranchID === pricingDetail.BranchID || i.BranchID === 0);
+
+    const uniqueIds = new Set();
+
+    const uniqueTaxList = taxList.filter(element => {
+      const isDuplicate = uniqueIds.has(element.TaxID);
+      uniqueIds.add(element.TaxID);
+      if (!isDuplicate) {
+        return true;
+      }
+      return false;
+    });
+
     let data = {
-      taxList: (bulkUpdateType == 1 || bulkUpdateType == 2) ? this.taxList.filter(i => i.BranchID === 0) : this.taxList.filter(i => i.BranchID === pricingDetail.BranchID || i.BranchID === 0),
+      taxList: uniqueTaxList,
       supplierList: this.supplierList,
       areaName: this.productAreaEnum.EditPricing,
       pricingDetail: pricingDetail,
